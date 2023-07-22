@@ -54,6 +54,7 @@ const ComparisonCardsPlans = ({
 export const ComparisonPlans = () => {
 	return (
 		<section className='row mb-5'>
+		<h2 className='text-center display-5 fw-bold mb-5'>Planes que ofrecemos</h2>
 			<div className='col-4'>
 				<ComparisonCardsPlans
 					title={'Plan Primeros Pasos'}
