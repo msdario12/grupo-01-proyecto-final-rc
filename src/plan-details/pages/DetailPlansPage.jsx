@@ -3,6 +3,8 @@ import { useParams } from 'react-router';
 import { vetPlans } from '../../../vetPlansDB';
 import { ComparisonCardsPlans } from '../../home/elements/ComparisonCardsPlans';
 import { ListItems } from '../../home/elements/ListItems';
+import { Card } from 'react-bootstrap';
+import { FormGroupDetailPlans } from '../components/FormGroupDetailPlans';
 
 export const DetailPlansPage = () => {
 	const params = useParams();
@@ -14,7 +16,7 @@ export const DetailPlansPage = () => {
 	return (
 		<main className='container-lg'>
 			<section className='row min-vh-100'>
-				<div className='col-4'>
+				<div className='col-6'>
 					<h2>Detalles del {selectedPlan.title}</h2>
 					{selectedPlan.items ? (
 						<ComparisonCardsPlans
@@ -39,7 +41,11 @@ export const DetailPlansPage = () => {
 						'Cargando planes...'
 					)}
 				</div>
-				<div className='col-8'>s</div>
+				<div className='col-6'>
+					<Card>
+						<FormGroupDetailPlans />
+					</Card>
+				</div>
 			</section>
 		</main>
 	);

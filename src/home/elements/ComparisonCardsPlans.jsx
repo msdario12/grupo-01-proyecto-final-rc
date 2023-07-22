@@ -12,7 +12,9 @@ export const ComparisonCardsPlans = ({
 }) => {
 	return (
 		<Card>
-			<Card.Body style={{ height: 500 }} className='d-flex flex-column '>
+			<Card.Body
+				style={{ height: detail ? 'auto' : 500 }}
+				className='d-flex flex-column '>
 				<div
 					style={{ height: 110 }}
 					className='d-flex flex-column justify-content-between'>
@@ -28,7 +30,9 @@ export const ComparisonCardsPlans = ({
 						/mes
 					</span>
 				</h2>
-				<ul className='ms-0 ps-0 flex-grow-1 d-flex flex-column justify-content-between'>{children}</ul>
+				<ul className='ms-0 ps-0 flex-grow-1 d-flex flex-column justify-content-between'>
+					{children}
+				</ul>
 				{!detail && (
 					<div className='mx-auto'>
 						<Link
