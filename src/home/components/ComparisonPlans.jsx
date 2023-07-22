@@ -1,16 +1,6 @@
-import {
-	faCheck,
-	faCheckCircle,
-	faInfoCircle,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-	Button,
-	ButtonToolbar,
-	Card,
-	OverlayTrigger,
-	Tooltip,
-} from 'react-bootstrap';
+import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
 
 const ListItems = ({ children, title }) => {
 	const tooltip = <Tooltip id='tooltip'>{children}</Tooltip>;
@@ -25,23 +15,34 @@ const ListItems = ({ children, title }) => {
 	);
 };
 
-const ComparisonCardsPlans = ({ children, title, description, price }) => {
+const ComparisonCardsPlans = ({
+	children,
+	title,
+	description,
+	price,
+	button = 'secondary',
+}) => {
 	return (
 		<Card>
-			<Card.Body>
-				<Card.Title className='display-6 fw-bold'>{title}</Card.Title>
-				<Card.Text>
-					<p className='fs-6 lh-1'>{description}</p>
-				</Card.Text>
+			<Card.Body style={{ height: 500 }} className='d-flex flex-column '>
+				<div
+					style={{ height: 110 }}
+					className='d-flex flex-column justify-content-between'>
+					<Card.Title className='display-6 fw-bold'>{title}</Card.Title>
+					<Card.Text>
+						<p className='fs-6 lh-1'>{description}</p>
+					</Card.Text>
+				</div>
+				<hr></hr>
 				<h2 className='display-6 fw-bold position-relative mb-3'>
 					{'$' + price}
 					<span className='position-absolute  ms-2 fs-5 text-muted fw-normal'>
 						/mes
 					</span>
 				</h2>
-				<ul className='ms-0 ps-0'>{children}</ul>
+				<ul className='ms-0 ps-0 flex-grow-1'>{children}</ul>
 				<div className='mx-auto'>
-					<Button className='w-100' variant='secondary'>
+					<Button className='w-100' variant={button}>
 						Adquirir Plan
 					</Button>
 				</div>
