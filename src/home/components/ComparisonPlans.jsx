@@ -53,7 +53,7 @@ const ComparisonCardsPlans = ({
 
 export const ComparisonPlans = () => {
 	return (
-		<section className='row'>
+		<section className='row mb-5'>
 			<div className='col-4'>
 				<ComparisonCardsPlans
 					title={'Plan Primeros Pasos'}
@@ -81,11 +81,12 @@ export const ComparisonPlans = () => {
 					</ListItems>
 				</ComparisonCardsPlans>
 			</div>
-			<div className='col-4'>
+			<div className='col-4' style={{ transform: 'scale(1.05, 1.05)' }}>
 				<ComparisonCardsPlans
 					title={'Plan Madurando'}
 					description={'Edades: Mascotas de 5 a 10 años.'}
-					price='2100'>
+					price='3700'
+					button='primary'>
 					<ListItems title={'Exámenes médicos completos'}>
 						Revisiones regulares para detectar posibles problemas de salud en
 						etapas tempranas.
@@ -112,7 +113,7 @@ export const ComparisonPlans = () => {
 				<ComparisonCardsPlans
 					title={'Plan Adultos'}
 					description={'Edades: Mascotas de más de 10 años.'}
-					price='2100'>
+					price='4500'>
 					<ListItems title={'Geriatría veterinaria'}>
 						Atención especializada en el manejo de afecciones propias del
 						envejecimiento.

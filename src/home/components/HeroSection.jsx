@@ -1,6 +1,6 @@
 export const HeroSection = () => {
 	return (
-		<section className='row'>
+		<section className='row mb-5'>
 			<div className='col-7 d-flex gap-3 flex-column justify-content-center align-items-start'>
 				<h1 className='display-1 fw-bold lh-1'>
 					Bienvenidos a <span className='text-info'>RollingVet</span>
