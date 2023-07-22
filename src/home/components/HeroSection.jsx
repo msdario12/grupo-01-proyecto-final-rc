@@ -5,7 +5,10 @@ export const HeroSection = () => {
 				<h1 className='display-1 fw-bold lh-1'>
 					Bienvenidos a <span className='text-info'>RollingVet</span>
 				</h1>
-				<h5>Esta es la mejor veterinaria del norte</h5>
+				<h5>
+					Tu mejor amigo merece el mejor cuidado. Bienvenido a nuestra
+					veterinaria, donde el amor por los animales es nuestra pasión.
+				</h5>
 				<div className='d-flex gap-3'>
 					{/* Redirigir hacia una pagina de contacto con el administrador */}
 					<button className='btn btn-primary'>Reservar Turno</button>
