@@ -14,6 +14,7 @@ export const SideMenu = () => {
 	const [selectItem, setSetselectItem] = useState('home');
 	return (
 		<div className='d-flex flex-column flex-shrink-0 p-3 text-white bg-dark w-25'>
+			{/* El primero deberia redirigir al home de inicio o el general */}
 			<a
 				className='d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'
 				href='#'>
@@ -32,21 +33,24 @@ export const SideMenu = () => {
 						Inicio
 					</a>
 				</li>
-				<li className='nav-item' onClick={() => setSetselectItem('pacients')}>
+				<li className='nav-item' onClick={() => setSetselectItem('patients')}>
 					<a
 						href='#'
 						className={`nav-link d-flex gap-2 align-items-center ${setActiveItem(
 							selectItem,
-							'pacients'
+							'patients'
 						)}`}>
 						<FontAwesomeIcon icon={faDog} />
 						Pacientes
 					</a>
 				</li>
-				<li className='nav-item'>
+				<li className='nav-item' onClick={() => setSetselectItem('turns')}>
 					<a
 						href='#'
-						className='nav-link text-white d-flex gap-2 align-items-center'>
+						className={`nav-link d-flex gap-2 align-items-center ${setActiveItem(
+							selectItem,
+							'turns'
+						)}`}>
 						<FontAwesomeIcon icon={faCalendarDay} />
 						Turnos
 					</a>
