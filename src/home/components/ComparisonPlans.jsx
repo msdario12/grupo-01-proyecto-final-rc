@@ -1,24 +1,10 @@
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 // Este objeto sera reemplazado por la base de datos, luego se borra
 import { vetPlans } from '../../../vetPlansDB';
 import { Link } from 'react-router-dom';
+import { ListItems } from '../elements/ListItems';
 
-const ListItems = ({ children, title }) => {
-	const tooltip = <Tooltip id='tooltip'>{children}</Tooltip>;
-	return (
-		<li className='list-group-item mb-2'>
-			<FontAwesomeIcon icon={faCheckCircle} size='lg' />
-
-			<OverlayTrigger overlay={tooltip}>
-				<span className='ms-2 me-3'>{title}</span>
-			</OverlayTrigger>
-		</li>
-	);
-};
-
-const ComparisonCardsPlans = ({
+export const ComparisonCardsPlans = ({
 	children,
 	title,
 	description,
@@ -76,10 +62,6 @@ export const ComparisonPlans = () => {
 								{item.content}
 							</ListItems>
 						))}
-						<ListItems title={'Vacunas y refuerzos'}>
-							Cobertura completa de las vacunas necesarias para proteger a tu
-							mascota en sus primeros años de vida.
-						</ListItems>
 					</ComparisonCardsPlans>
 				</div>
 			))}

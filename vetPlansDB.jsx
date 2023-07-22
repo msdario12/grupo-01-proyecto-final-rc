@@ -73,6 +73,11 @@ export const vetPlans = [
 		description: 'Edades: Mascotas de más de 10 años.',
 		items: [
 			{
+				description: 'Geriatría veterinaria',
+				content:
+					'Atención especializada en el manejo de afecciones propias del envejecimiento.',
+			},
+			{
 				description: 'Medicamentos para el dolor y la movilidad',
 				content:
 					'Tratamientos para mejorar la calidad de vida en mascotas de edad avanzada.',
