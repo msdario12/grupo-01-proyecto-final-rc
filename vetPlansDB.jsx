@@ -1,6 +1,7 @@
 export const vetPlans = [
 	{
 		title: 'Plan Primeros Pasos',
+		name: 'initial',
 		price: 2100,
 		description: 'Edades: Mascotas de 0 a 5 años.',
 		items: [
@@ -33,7 +34,8 @@ export const vetPlans = [
 	},
 	{
 		title: 'Plan Madurando',
-		button: 'primary',
+		name: 'medium',
+		button: 'btn-primary',
 		price: 3500,
 		description: 'Edades: Mascotas de 5 a 10 años.',
 		items: [
@@ -66,6 +68,7 @@ export const vetPlans = [
 	},
 	{
 		title: 'Plan Adultos',
+		name: 'advanced',
 		price: 4300,
 		description: 'Edades: Mascotas de más de 10 años.',
 		items: [

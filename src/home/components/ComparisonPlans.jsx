@@ -1,7 +1,9 @@
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+// Este objeto sera reemplazado por la base de datos, luego se borra
 import { vetPlans } from '../../../vetPlansDB';
+import { Link } from 'react-router-dom';
 
 const ListItems = ({ children, title }) => {
 	const tooltip = <Tooltip id='tooltip'>{children}</Tooltip>;
@@ -21,6 +23,7 @@ const ComparisonCardsPlans = ({
 	title,
 	description,
 	price,
+	name,
 	button = 'secondary',
 }) => {
 	return (
@@ -43,9 +46,11 @@ const ComparisonCardsPlans = ({
 				</h2>
 				<ul className='ms-0 ps-0 flex-grow-1'>{children}</ul>
 				<div className='mx-auto'>
-					<Button className='w-100' variant={button}>
+					<Link
+						to={`/detail-plans/${name}`}
+						className={'text-decoration-none text-white btn ' + button}>
 						Adquirir Plan
-					</Button>
+					</Link>
 				</div>
 			</Card.Body>
 		</Card>
@@ -61,7 +66,8 @@ export const ComparisonPlans = () => {
 			{vetPlans.map((plan) => (
 				<div key={plan.title} className='col-4'>
 					<ComparisonCardsPlans
-						button={plan.button ? plan.button : 'secondary'}
+						name={plan.name}
+						button={plan.button ? plan.button : 'btn-secondary'}
 						title={plan.title}
 						description={plan.description}
 						price={plan.price}>
