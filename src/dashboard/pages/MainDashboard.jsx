@@ -3,11 +3,15 @@ import { SideMenu } from '../components/SideMenu';
 
 export const MainDashboard = () => {
 	return (
-		<div>
-			<h2>Esto es MainDashboard</h2>
-			<h3>Subtitulo</h3>
-			<SideMenu />
-			<Outlet />
-		</div>
+		<main className='container-fluid ps-0 '>
+			<div className='row'>
+				<div className='col-4 min-vh-100'>
+					<SideMenu />
+				</div>
+				<div className='col-8'>
+					<Outlet />
+				</div>
+			</div>
+		</main>
 	);
 };

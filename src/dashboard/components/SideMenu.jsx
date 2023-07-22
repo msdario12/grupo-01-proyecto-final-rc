@@ -14,7 +14,7 @@ const setActiveItem = (state, name) => {
 export const SideMenu = () => {
 	const [selectItem, setSetselectItem] = useState('home');
 	return (
-		<div className='d-flex flex-column flex-shrink-0 p-3 text-white bg-dark w-25'>
+		<div className='d-flex flex-column flex-shrink-0 p-3 text-white bg-dark h-100'>
 			{/* El primero deberia redirigir al home de inicio o el general */}
 			<Link
 				className='d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'
