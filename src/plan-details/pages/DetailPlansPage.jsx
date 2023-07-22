@@ -3,7 +3,7 @@ import { useParams } from 'react-router';
 import { vetPlans } from '../../../vetPlansDB';
 import { ComparisonCardsPlans } from '../../home/elements/ComparisonCardsPlans';
 import { ListItems } from '../../home/elements/ListItems';
-import { Card } from 'react-bootstrap';
+
 import { FormGroupDetailPlans } from '../components/FormGroupDetailPlans';
 
 export const DetailPlansPage = () => {
@@ -42,9 +42,7 @@ export const DetailPlansPage = () => {
 					)}
 				</div>
 				<div className='col-6'>
-					<Card>
-						<FormGroupDetailPlans />
-					</Card>
+					<FormGroupDetailPlans />
 				</div>
 			</section>
 		</main>
