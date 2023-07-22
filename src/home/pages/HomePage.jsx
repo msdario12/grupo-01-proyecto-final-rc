@@ -1,7 +1,10 @@
+import { HeroSection } from '../components/HeroSection';
+
 export const HomePage = () => {
 	return (
-		<div>
+		<main className='container-lg'>
 			<h2>Esto es el HomePage</h2>
-		</div>
+			<HeroSection />
+		</main>
 	);
 };
