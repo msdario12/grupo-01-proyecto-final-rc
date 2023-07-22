@@ -7,6 +7,7 @@ export const ComparisonCardsPlans = ({
 	description,
 	price,
 	name,
+	detail = false,
 	button = 'secondary',
 }) => {
 	return (
@@ -27,14 +28,16 @@ export const ComparisonCardsPlans = ({
 						/mes
 					</span>
 				</h2>
-				<ul className='ms-0 ps-0 flex-grow-1'>{children}</ul>
-				<div className='mx-auto'>
-					<Link
-						to={`/detail-plans/${name}`}
-						className={'text-decoration-none text-white btn ' + button}>
-						Adquirir Plan
-					</Link>
-				</div>
+				<ul className='ms-0 ps-0 flex-grow-1 d-flex flex-column justify-content-between'>{children}</ul>
+				{!detail && (
+					<div className='mx-auto'>
+						<Link
+							to={`/detail-plans/${name}`}
+							className={'text-decoration-none text-white btn ' + button}>
+							Adquirir Plan
+						</Link>
+					</div>
+				)}
 			</Card.Body>
 		</Card>
 	);

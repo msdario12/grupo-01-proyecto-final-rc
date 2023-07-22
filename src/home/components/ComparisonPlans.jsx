@@ -3,6 +3,12 @@ import { vetPlans } from '../../../vetPlansDB';
 import { ListItems } from '../elements/ListItems';
 import { ComparisonCardsPlans } from '../elements/ComparisonCardsPlans';
 
+import React from 'react';
+
+export const DetailListItems = () => {
+	return <div>DetailListItems</div>;
+};
+
 export const ComparisonPlans = () => {
 	return (
 		<section className='row mb-5'>
