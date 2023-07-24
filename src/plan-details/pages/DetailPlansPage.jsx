@@ -12,13 +12,16 @@ export const DetailPlansPage = () => {
 	useEffect(() => {
 		const foundedPlan = vetPlans.find((plan) => plan.name === params.name);
 		setSetselectedPlan(foundedPlan);
-	}, []);
+	}, [params.name]);
+	if (!selectedPlan.items) {
+		return <p>Cargando datos de los planes...</p>;
+	}
 	return (
 		<main className='container-lg'>
 			<section className='row min-vh-100'>
 				<div className='col-6'>
 					<h2>Detalles del {selectedPlan.title}</h2>
-					{selectedPlan.items ? (
+					{
 						<ComparisonCardsPlans
 							detail={true}
 							name={selectedPlan.name}
@@ -37,12 +40,10 @@ export const DetailPlansPage = () => {
 								</ListItems>
 							))}
 						</ComparisonCardsPlans>
-					) : (
-						'Cargando planes...'
-					)}
+					}
 				</div>
 				<div className='col-6'>
-					<FormGroupDetailPlans />
+					<FormGroupDetailPlans selectedPlan={selectedPlan} />
 				</div>
 			</section>
 		</main>

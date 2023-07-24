@@ -1,6 +1,8 @@
-import { Button, Form, Card } from 'react-bootstrap';
+import { Button, Form, Card, Row, Col } from 'react-bootstrap';
+import { vetPlans } from '../../../vetPlansDB';
 
-export const FormGroupDetailPlans = () => {
+export const FormGroupDetailPlans = ({ selectedPlan }) => {
+	console.log(selectedPlan);
 	return (
 		<div>
 			<Card>
@@ -9,14 +11,26 @@ export const FormGroupDetailPlans = () => {
 						Envíenos su consulta
 					</Card.Title>
 					<Form>
-						<Form.Group className='mb-3' controlId='userName'>
-							<Form.Label>Nombre *</Form.Label>
-							<Form.Control type='text' placeholder='Juan' />
-						</Form.Group>
-						<Form.Group className='mb-3' controlId='lastName'>
-							<Form.Label>Apellido *</Form.Label>
-							<Form.Control type='text' placeholder='Perez' />
-						</Form.Group>
+						<Row>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='userName'>
+								<Form.Label>Nombre *</Form.Label>
+								<Form.Control type='text' placeholder='Juan' />
+							</Form.Group>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='lastName'>
+								<Form.Label>Apellido *</Form.Label>
+								<Form.Control type='text' placeholder='Perez' />
+							</Form.Group>
+						</Row>
 						<Form.Group className='mb-3' controlId='email'>
 							<Form.Label>Correo Electrónico *</Form.Label>
 							<Form.Control type='email' placeholder='juan@example.com' />
@@ -30,29 +44,50 @@ export const FormGroupDetailPlans = () => {
 							<Form.Label>Edad de tu mascota *</Form.Label>
 							<Form.Control type='number' placeholder='5' />
 						</Form.Group>
-						<Form.Group className='mb-3' controlId='petSpecie'>
-							<Form.Label>Especie de tu mascota</Form.Label>
-							<Form.Select className='mb-3' controlId='planSelect'>
-								<option>Selecciona uno</option>
-								<option value='car'>Gato</option>
-								<option value='dog'>Perro</option>
-								<option value='turtle'>Tortuga</option>
-								<option value='rabbit'>Conejo</option>
-								<option value='bird'>Ave</option>
-							</Form.Select>
-						</Form.Group>
-						<Form.Group className='mb-3' controlId='petRace'>
-							<Form.Label>Raza de tu mascota</Form.Label>
-							<Form.Control type='text' placeholder='Chihuahua' />
-						</Form.Group>
+						<Row>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='petSpecie'>
+								<Form.Label>Especie de tu mascota</Form.Label>
+								<Form.Select className='mb-3' controlId='planSelect'>
+									<option>Selecciona uno</option>
+									<option value='car'>Gato</option>
+									<option value='dog'>Perro</option>
+									<option value='turtle'>Tortuga</option>
+									<option value='rabbit'>Conejo</option>
+									<option value='bird'>Ave</option>
+									<option value='other'>Otro</option>
+								</Form.Select>
+							</Form.Group>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='petRace'>
+								<Form.Label>Raza de tu mascota</Form.Label>
+								<Form.Control type='text' placeholder='Chihuahua' />
+							</Form.Group>
+						</Row>
 						<Form.Group>
 							<Form.Label>
 								Selecciona el plan sobre el que quieres consultar
 							</Form.Label>
 							<Form.Select className='mb-3' controlId='planSelect'>
-								<option value='1'>One</option>
-								<option value='2'>Two</option>
-								<option value='3'>Three</option>
+								{vetPlans.map((plan) =>
+									plan.name === selectedPlan.name ? (
+										<option key={plan.title} selected={true} value={plan.name}>
+											{plan.title}
+										</option>
+									) : (
+										<option key={plan.title} value={plan.name}>
+											{plan.title}
+										</option>
+									)
+								)}
 							</Form.Select>
 						</Form.Group>
 
@@ -67,7 +102,7 @@ export const FormGroupDetailPlans = () => {
 						</Form.Group>
 
 						<Button variant='primary' type='submit'>
-							Submit
+							Enviar
 						</Button>
 					</Form>
 				</Card.Body>
