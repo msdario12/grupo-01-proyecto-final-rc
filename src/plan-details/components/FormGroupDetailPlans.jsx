@@ -3,7 +3,6 @@ import { vetPlans } from '../../../vetPlansDB';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { InputWithFeedback } from '../elements/InputWithFeedback';
-import { InputGroupWithFeedback } from '../elements/InputGroupWithFeedback';
 
 // Opciones del select de especie de animales
 const animalsSpecies = [
@@ -40,6 +39,7 @@ const consultFormSchema = Yup.object({
 			(value) => typeof value === 'number' && !/[eE+-]/.test(value.toString())
 		)
 		.required('Campo obligatorio'),
+	ageUnits: Yup.string().required('Campo obligatorio'),
 	petSpecie: Yup.string()
 		.optional()
 		.oneOf(animalsSpecies.map((animal) => animal.value)),
@@ -47,7 +47,6 @@ const consultFormSchema = Yup.object({
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
 		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
-		.oneOf(animalsSpecies.map((animal) => animal.name))
 		.optional(),
 	planSelect: Yup.string()
 		.optional()
@@ -66,6 +65,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 			lastName: '',
 			email: '',
 			petAge: '',
+			ageUnits: '',
 			petSpecie: '',
 			petRace: '',
 			planSelect: selectedPlan.name,
@@ -85,7 +85,12 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 					</Card.Title>
 					<Form onSubmit={formik.handleSubmit}>
 						<Row>
-							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='userName'>
 								<Form.Label>Nombre *</Form.Label>
 								<InputWithFeedback
 									type='text'
@@ -96,7 +101,12 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 								/>
 							</Form.Group>
 
-							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='lastName'>
 								<Form.Label>Apellido *</Form.Label>
 								<InputWithFeedback
 									type='text'
@@ -107,7 +117,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 								/>
 							</Form.Group>
 						</Row>
-						<Form.Group className='mb-3'>
+						<Form.Group className='mb-3' controlId='email'>
 							<Form.Label>Correo Electrónico *</Form.Label>
 							<InputWithFeedback
 								type='email'
@@ -124,7 +134,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 						</Form.Group>
 
 						<Row>
-							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+							<Form.Group as={Col} sm={6} className='mb-3' controlId='petAge'>
 								<Form.Label>Edad de tu mascota *</Form.Label>
 								<InputWithFeedback
 									type='number'
@@ -135,11 +145,11 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 									text={'Años'}
 								/>
 							</Form.Group>
-							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+							<Form.Group as={Col} sm={6} className='mb-3' controlId='ageUnits'>
 								<Form.Label>¿Años o meses? *</Form.Label>
 								<Form.Select
 									name='ageUnits'
-									{...formik.getFieldProps('petSpecie')}
+									{...formik.getFieldProps('ageUnits')}
 									className='mb-3'>
 									<option value='years'>Año/s</option>
 									<option value='months'>Mes/es</option>
@@ -147,7 +157,12 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							</Form.Group>
 						</Row>
 						<Row>
-							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='petSpecie'>
 								<Form.Label>Especie de tu mascota</Form.Label>
 								<Form.Select
 									name='petSpecie'
@@ -161,18 +176,24 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 									))}
 								</Form.Select>
 							</Form.Group>
-							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+							<Form.Group
+								as={Col}
+								sm={12}
+								md={6}
+								className='mb-3'
+								controlId='petRace'>
 								<Form.Label>Raza de tu mascota</Form.Label>
-								<Form.Control
-									maxLength={40}
-									name='petRace'
-									{...formik.getFieldProps('petRace')}
+
+								<InputWithFeedback
 									type='text'
 									placeholder='Chihuahua'
+									formik={formik}
+									name={'petRace'}
+									props={{ maxLength: 40 }}
 								/>
 							</Form.Group>
 						</Row>
-						<Form.Group>
+						<Form.Group className='mb-3' controlId='planSelect'>
 							<Form.Label>
 								Selecciona el plan sobre el que quieres consultar
 							</Form.Label>
@@ -188,16 +209,19 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							</Form.Select>
 						</Form.Group>
 
-						<Form.Group className='mb-3'>
+						<Form.Group className='mb-3' controlId='consult'>
 							<Form.Label>Escribe tu consulta *</Form.Label>
-							<Form.Control
-								maxLength={255}
-								name='consult'
-								{...formik.getFieldProps('consult')}
-								as='textarea'
+
+							<InputWithFeedback
 								type='text'
-								style={{ height: 80 }}
 								placeholder='Quisiera adquirir el Plan Primeros Pasos...'
+								formik={formik}
+								name={'consult'}
+								props={{
+									maxLength: 255,
+									style: { height: 80 },
+									as: 'textarea',
+								}}
 							/>
 						</Form.Group>
 
