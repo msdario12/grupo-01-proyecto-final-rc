@@ -5,8 +5,7 @@ export const InputWithFeedback = ({
 	name,
 	type,
 	placeholder,
-	validFeedback = 'Ok',
-    props
+	props,
 }) => {
 	return (
 		<>
@@ -21,9 +20,6 @@ export const InputWithFeedback = ({
 			/>
 			<Form.Control.Feedback type='invalid'>
 				{formik.errors[name]}
-			</Form.Control.Feedback>
-			<Form.Control.Feedback type='valid'>
-				{validFeedback}
 			</Form.Control.Feedback>
 		</>
 	);
