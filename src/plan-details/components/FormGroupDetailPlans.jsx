@@ -84,6 +84,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Nombre *</Form.Label>
 								<Form.Control
+									maxLength={40}
 									name='userName'
 									{...formik.getFieldProps('userName')}
 									type='text'
@@ -93,6 +94,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Apellido *</Form.Label>
 								<Form.Control
+									maxLength={40}
 									name='lastName'
 									{...formik.getFieldProps('lastName')}
 									type='text'
@@ -103,6 +105,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 						<Form.Group className='mb-3'>
 							<Form.Label>Correo Electrónico *</Form.Label>
 							<Form.Control
+								maxLength={80}
 								name='email'
 								{...formik.getFieldProps('email')}
 								type='email'
@@ -117,6 +120,8 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 						<Form.Group className='mb-3'>
 							<Form.Label>Edad de tu mascota *</Form.Label>
 							<Form.Control
+								min={0}
+								max={99}
 								name='petAge'
 								{...formik.getFieldProps('petAge')}
 								type='number'
@@ -141,6 +146,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Raza de tu mascota</Form.Label>
 								<Form.Control
+									maxLength={40}
 									name='petRace'
 									{...formik.getFieldProps('petRace')}
 									type='text'
@@ -173,6 +179,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 						<Form.Group className='mb-3'>
 							<Form.Label>Escribe tu consulta *</Form.Label>
 							<Form.Control
+								maxLength={255}
 								name='consult'
 								{...formik.getFieldProps('consult')}
 								as='textarea'
