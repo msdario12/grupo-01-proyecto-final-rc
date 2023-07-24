@@ -27,7 +27,9 @@ const consultFormSchema = Yup.object({
 		.max(40, 'Máximo de 40 caracteres')
 		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
-	email: Yup.string().email().required('Campo obligatorio'),
+	email: Yup.string()
+		.email('Introduzca una dirección de email valida')
+		.required('Campo obligatorio'),
 	petAge: Yup.number()
 		.min(0, 'Solo valores positivos')
 		.max(99, 'Máximo de 99 años')
@@ -65,7 +67,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 			petAge: '',
 			petSpecie: '',
 			petRace: '',
-			planSelect: '',
+			planSelect: selectedPlan.name,
 			consult: '',
 		},
 		validationSchema: consultFormSchema,
@@ -89,29 +91,31 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 									placeholder='Juan'
 									formik={formik}
 									name={'userName'}
+									props={{ maxLength: 40 }}
 								/>
 							</Form.Group>
 
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Apellido *</Form.Label>
-								<Form.Control
-									maxLength={40}
-									name='lastName'
-									{...formik.getFieldProps('lastName')}
+								<InputWithFeedback
 									type='text'
 									placeholder='Perez'
+									formik={formik}
+									name={'lastName'}
+									props={{ maxLength: 40 }}
 								/>
 							</Form.Group>
 						</Row>
 						<Form.Group className='mb-3'>
 							<Form.Label>Correo Electrónico *</Form.Label>
-							<Form.Control
-								maxLength={80}
-								name='email'
-								{...formik.getFieldProps('email')}
+							<InputWithFeedback
 								type='email'
-								placeholder='juan@example.com'
+								placeholder='juanperez@example.com'
+								formik={formik}
+								name={'email'}
+								props={{ maxLength: 80 }}
 							/>
+
 							<Form.Text className='text-muted'>
 								Asegúrese de ingresar un correo valido ya que nos comunicaremos
 								con usted por ese medio.
@@ -127,6 +131,13 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 								{...formik.getFieldProps('petAge')}
 								type='number'
 								placeholder='5'
+							/>
+							<InputWithFeedback
+								type='number'
+								placeholder='5'
+								formik={formik}
+								name={'petAge'}
+								props={{ max: 99, min: 0 }}
 							/>
 						</Form.Group>
 						<Row>
@@ -163,17 +174,11 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 								{...formik.getFieldProps('planSelect')}
 								className='mb-3'
 								name='planSelect'>
-								{vetPlans.map((plan) =>
-									plan.name === selectedPlan.name ? (
-										<option key={plan.title} selected={true} value={plan.name}>
-											{plan.title}
-										</option>
-									) : (
-										<option key={plan.title} value={plan.name}>
-											{plan.title}
-										</option>
-									)
-								)}
+								{vetPlans.map((plan) => (
+									<option key={plan.title} value={plan.name}>
+										{plan.title}
+									</option>
+								))}
 							</Form.Select>
 						</Form.Group>
 

@@ -6,13 +6,14 @@ export const InputWithFeedback = ({
 	type,
 	placeholder,
 	validFeedback = 'Ok',
+    props
 }) => {
 	return (
 		<>
 			<Form.Control
+				{...props}
 				isValid={!formik.errors[name] && formik.touched[name]}
 				isInvalid={formik.errors[name]}
-				maxLength={40}
 				name={name}
 				{...formik.getFieldProps(name)}
 				type={type}
