@@ -101,9 +101,15 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							/>
 						</Form.Group>
 
-						<Button variant='primary' type='submit'>
-							Enviar
-						</Button>
+						<div className='d-flex justify-content-center'>
+							<Button
+								variant='primary'
+								size='md'
+								type='submit'
+								className='w-50'>
+								Enviar
+							</Button>
+						</div>
 					</Form>
 				</Card.Body>
 			</Card>
