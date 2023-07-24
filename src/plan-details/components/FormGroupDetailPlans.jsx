@@ -1,8 +1,23 @@
 import { Button, Form, Card, Row, Col } from 'react-bootstrap';
 import { vetPlans } from '../../../vetPlansDB';
+import { useFormik } from 'formik';
 
 export const FormGroupDetailPlans = ({ selectedPlan }) => {
-	console.log(selectedPlan);
+	const formik = useFormik({
+		initialValues: {
+			userName: '',
+			lastName: '',
+			email: '',
+			petAge: '',
+			petSpecie: '',
+			petRace: '',
+			planSelect: '',
+			consult: '',
+		},
+		onSubmit: (values) => {
+			console.log(values);
+		},
+	});
 	return (
 		<div>
 			<Card>
@@ -10,49 +25,57 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 					<Card.Title className='display-6 fw-bold'>
 						Envíenos su consulta
 					</Card.Title>
-					<Form>
+					<Form onSubmit={formik.handleSubmit}>
 						<Row>
-							<Form.Group
-								as={Col}
-								sm={12}
-								md={6}
-								className='mb-3'
-								controlId='userName'>
+							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Nombre *</Form.Label>
-								<Form.Control type='text' placeholder='Juan' />
+								<Form.Control
+									name='userName'
+									{...formik.getFieldProps('userName')}
+									type='text'
+									placeholder='Juan'
+								/>
 							</Form.Group>
-							<Form.Group
-								as={Col}
-								sm={12}
-								md={6}
-								className='mb-3'
-								controlId='lastName'>
+							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Apellido *</Form.Label>
-								<Form.Control type='text' placeholder='Perez' />
+								<Form.Control
+									name='lastName'
+									{...formik.getFieldProps('lastName')}
+									type='text'
+									placeholder='Perez'
+								/>
 							</Form.Group>
 						</Row>
-						<Form.Group className='mb-3' controlId='email'>
+						<Form.Group className='mb-3'>
 							<Form.Label>Correo Electrónico *</Form.Label>
-							<Form.Control type='email' placeholder='juan@example.com' />
+							<Form.Control
+								name='email'
+								{...formik.getFieldProps('email')}
+								type='email'
+								placeholder='juan@example.com'
+							/>
 							<Form.Text className='text-muted'>
 								Asegúrese de ingresar un correo valido ya que nos comunicaremos
 								con usted por ese medio.
 							</Form.Text>
 						</Form.Group>
 
-						<Form.Group className='mb-3' controlId='petAge'>
+						<Form.Group className='mb-3'>
 							<Form.Label>Edad de tu mascota *</Form.Label>
-							<Form.Control type='number' placeholder='5' />
+							<Form.Control
+								name='petAge'
+								{...formik.getFieldProps('petAge')}
+								type='number'
+								placeholder='5'
+							/>
 						</Form.Group>
 						<Row>
-							<Form.Group
-								as={Col}
-								sm={12}
-								md={6}
-								className='mb-3'
-								controlId='petSpecie'>
+							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Especie de tu mascota</Form.Label>
-								<Form.Select className='mb-3' controlId='planSelect'>
+								<Form.Select
+									name='petSpecie'
+									{...formik.getFieldProps('petSpecie')}
+									className='mb-3'>
 									<option>Selecciona uno</option>
 									<option value='car'>Gato</option>
 									<option value='dog'>Perro</option>
@@ -62,21 +85,24 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 									<option value='other'>Otro</option>
 								</Form.Select>
 							</Form.Group>
-							<Form.Group
-								as={Col}
-								sm={12}
-								md={6}
-								className='mb-3'
-								controlId='petRace'>
+							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Raza de tu mascota</Form.Label>
-								<Form.Control type='text' placeholder='Chihuahua' />
+								<Form.Control
+									name='petRace'
+									{...formik.getFieldProps('petRace')}
+									type='text'
+									placeholder='Chihuahua'
+								/>
 							</Form.Group>
 						</Row>
 						<Form.Group>
 							<Form.Label>
 								Selecciona el plan sobre el que quieres consultar
 							</Form.Label>
-							<Form.Select className='mb-3' controlId='planSelect'>
+							<Form.Select
+								{...formik.getFieldProps('planSelect')}
+								className='mb-3'
+								name='planSelect'>
 								{vetPlans.map((plan) =>
 									plan.name === selectedPlan.name ? (
 										<option key={plan.title} selected={true} value={plan.name}>
@@ -91,9 +117,11 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							</Form.Select>
 						</Form.Group>
 
-						<Form.Group className='mb-3' controlId='petRace'>
+						<Form.Group className='mb-3'>
 							<Form.Label>Escribe tu consulta *</Form.Label>
 							<Form.Control
+								name='consult'
+								{...formik.getFieldProps('consult')}
 								as='textarea'
 								type='text'
 								style={{ height: 80 }}
