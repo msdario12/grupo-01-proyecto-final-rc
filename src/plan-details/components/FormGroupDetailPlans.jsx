@@ -48,7 +48,8 @@ const consultFormSchema = Yup.object({
 	planSelect: Yup.string()
 		.optional()
 		.oneOf(vetPlans.map((plan) => plan.name)),
-	consult: Yup.min(3, 'Mínimo de 3 caracteres')
+	consult: Yup.string()
+		.min(3, 'Mínimo de 3 caracteres')
 		.max(255, 'Máximo de 255 caracteres')
 		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
@@ -66,6 +67,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 			planSelect: '',
 			consult: '',
 		},
+		validationSchema: consultFormSchema,
 		onSubmit: (values) => {
 			console.log(values);
 		},
