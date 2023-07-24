@@ -2,6 +2,7 @@ import { Button, Form, Card, Row, Col } from 'react-bootstrap';
 import { vetPlans } from '../../../vetPlansDB';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import { InputWithFeedback } from '../elements/InputWithFeedback';
 
 // Opciones del select de especie de animales
 const animalsSpecies = [
@@ -83,14 +84,14 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 						<Row>
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Nombre *</Form.Label>
-								<Form.Control
-									maxLength={40}
-									name='userName'
-									{...formik.getFieldProps('userName')}
+								<InputWithFeedback
 									type='text'
 									placeholder='Juan'
+									formik={formik}
+									name={'userName'}
 								/>
 							</Form.Group>
+
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Apellido *</Form.Label>
 								<Form.Control
