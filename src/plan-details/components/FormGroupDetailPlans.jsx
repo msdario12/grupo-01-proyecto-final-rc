@@ -1,6 +1,58 @@
 import { Button, Form, Card, Row, Col } from 'react-bootstrap';
 import { vetPlans } from '../../../vetPlansDB';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
+// Opciones del select de especie de animales
+const animalsSpecies = [
+	{ value: 'cat', name: 'Gato' },
+	{ value: 'dog', name: 'Perro' },
+	{ value: 'turtle', name: 'Tortuga' },
+	{ value: 'rabbit', name: 'Conejo' },
+	{ value: 'bird', name: 'Ave' },
+	{ value: 'other', name: 'Otro' },
+];
+
+// Esquema de validacion de Yup
+
+const consultFormSchema = Yup.object({
+	userName: Yup.string()
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(40, 'Máximo de 40 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.required('Campo obligatorio'),
+	lastName: Yup.string()
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(40, 'Máximo de 40 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.required('Campo obligatorio'),
+	email: Yup.string().email().required('Campo obligatorio'),
+	petAge: Yup.number()
+		.min(0, 'Solo valores positivos')
+		.max(99, 'Máximo de 99 años')
+		.test(
+			'noEOrSign', // type of the validator (should be unique)
+			'Sólo números.', // error message
+			(value) => typeof value === 'number' && !/[eE+-]/.test(value.toString())
+		)
+		.required('Campo obligatorio'),
+	petSpecie: Yup.string()
+		.optional()
+		.oneOf(animalsSpecies.map((animal) => animal.value)),
+	petRace: Yup.string()
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(40, 'Máximo de 40 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.oneOf(animalsSpecies.map((animal) => animal.name))
+		.optional(),
+	planSelect: Yup.string()
+		.optional()
+		.oneOf(vetPlans.map((plan) => plan.name)),
+	consult: Yup.min(3, 'Mínimo de 3 caracteres')
+		.max(255, 'Máximo de 255 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.required('Campo obligatorio'),
+});
 
 export const FormGroupDetailPlans = ({ selectedPlan }) => {
 	const formik = useFormik({
@@ -77,12 +129,11 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 									{...formik.getFieldProps('petSpecie')}
 									className='mb-3'>
 									<option>Selecciona uno</option>
-									<option value='car'>Gato</option>
-									<option value='dog'>Perro</option>
-									<option value='turtle'>Tortuga</option>
-									<option value='rabbit'>Conejo</option>
-									<option value='bird'>Ave</option>
-									<option value='other'>Otro</option>
+									{animalsSpecies.map((animal) => (
+										<option key={animal.value} value={animal.value}>
+											{animal.name}
+										</option>
+									))}
 								</Form.Select>
 							</Form.Group>
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
