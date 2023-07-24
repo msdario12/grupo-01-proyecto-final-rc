@@ -3,6 +3,7 @@ import { vetPlans } from '../../../vetPlansDB';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { InputWithFeedback } from '../elements/InputWithFeedback';
+import { InputGroupWithFeedback } from '../elements/InputGroupWithFeedback';
 
 // Opciones del select de especie de animales
 const animalsSpecies = [
@@ -122,24 +123,29 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							</Form.Text>
 						</Form.Group>
 
-						<Form.Group className='mb-3'>
-							<Form.Label>Edad de tu mascota *</Form.Label>
-							<Form.Control
-								min={0}
-								max={99}
-								name='petAge'
-								{...formik.getFieldProps('petAge')}
-								type='number'
-								placeholder='5'
-							/>
-							<InputWithFeedback
-								type='number'
-								placeholder='5'
-								formik={formik}
-								name={'petAge'}
-								props={{ max: 99, min: 0 }}
-							/>
-						</Form.Group>
+						<Row>
+							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+								<Form.Label>Edad de tu mascota *</Form.Label>
+								<InputWithFeedback
+									type='number'
+									placeholder='5'
+									formik={formik}
+									name={'petAge'}
+									props={{ max: 99, min: 0 }}
+									text={'Años'}
+								/>
+							</Form.Group>
+							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
+								<Form.Label>¿Años o meses? *</Form.Label>
+								<Form.Select
+									name='ageUnits'
+									{...formik.getFieldProps('petSpecie')}
+									className='mb-3'>
+									<option value='years'>Año/s</option>
+									<option value='months'>Mes/es</option>
+								</Form.Select>
+							</Form.Group>
+						</Row>
 						<Row>
 							<Form.Group as={Col} sm={12} md={6} className='mb-3'>
 								<Form.Label>Especie de tu mascota</Form.Label>
