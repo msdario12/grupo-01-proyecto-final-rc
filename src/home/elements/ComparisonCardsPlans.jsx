@@ -11,10 +11,10 @@ export const ComparisonCardsPlans = ({
 	button = 'secondary',
 }) => {
 	return (
-		<Card>
+		<Card className={detail ? 'h-100' : ''}>
 			<Card.Body
 				style={{ height: detail ? 'auto' : 500 }}
-				className='d-flex flex-column '>
+				className='d-flex flex-column'>
 				<div
 					style={{ height: 110 }}
 					className='d-flex flex-column justify-content-between'>

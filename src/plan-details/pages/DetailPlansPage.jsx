@@ -17,10 +17,9 @@ export const DetailPlansPage = () => {
 		return <p>Cargando datos de los planes...</p>;
 	}
 	return (
-		<main className='container-lg'>
-			<section className='row min-vh-100'>
+		<main className='container-lg min-vh-100 d-flex'>
+			<section className='row align-content-center'>
 				<div className='col-6'>
-					<h2>Detalles del {selectedPlan.title}</h2>
 					{
 						<ComparisonCardsPlans
 							detail={true}
