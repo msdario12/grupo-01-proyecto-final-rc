@@ -10,7 +10,7 @@ export const MainNavBar = () => {
 	return (
 		<Navbar
 			expand='lg'
-			sticky='top'
+			sticky={location.pathname === '/dashboard' ? false : 'top'}
 			className='bg-body-tertiary'
 			data-bs-theme='dark'>
 			<Container>
