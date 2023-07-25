@@ -4,10 +4,12 @@ import { MainDashboard } from '../dashboard/pages/MainDashboard';
 import { Error404Page } from '../error-404/pages/Error404Page';
 import { PatientsDashboard } from '../dashboard/pages/PatientsDashboard';
 import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
+import { MainNavBar } from '../ui/components/MainNavBar';
 
 export const AppRouter = () => {
 	return (
 		<div>
+			<MainNavBar />
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<HomePage />} />
