@@ -23,38 +23,38 @@ export const SideMenu = () => {
 			</Link>
 
 			<hr></hr>
-			<ul className='nav nav-pills flex-column mb-auto'>
+			<ul className='nav nav-pills flex-column mb-auto '>
 				<li className='nav-item' onClick={() => setSetselectItem('home')}>
 					<Link
 						to={'/dashboard'}
-						className={`nav-link d-flex gap-2 align-items-center ${setActiveItem(
+						className={`nav-link d-flex gap-2 justify-content-center justify-content-md-start align-items-center ${setActiveItem(
 							selectItem,
 							'home'
 						)}`}>
 						<FontAwesomeIcon icon={faHouse} />
-						Inicio
+						<span className='d-none d-md-block'>Inicio</span>
 					</Link>
 				</li>
 				<li className='nav-item' onClick={() => setSetselectItem('patients')}>
 					<Link
 						to={'patients'}
-						className={`nav-link d-flex gap-2 align-items-center ${setActiveItem(
+						className={`nav-link d-flex gap-2 justify-content-center justify-content-md-start align-items-center ${setActiveItem(
 							selectItem,
 							'patients'
 						)}`}>
 						<FontAwesomeIcon icon={faDog} />
-						Pacientes
+						<span className='d-none d-md-block'>Pacientes</span>
 					</Link>
 				</li>
 				<li className='nav-item' onClick={() => setSetselectItem('turns')}>
 					<Link
 						to={'turns'}
-						className={`nav-link d-flex gap-2 align-items-center ${setActiveItem(
+						className={`nav-link d-flex gap-2 justify-content-center justify-content-md-start align-items-center ${setActiveItem(
 							selectItem,
 							'turns'
 						)}`}>
 						<FontAwesomeIcon icon={faCalendarDay} />
-						Turnos
+						<span className='d-none d-md-block'>Turnos</span>
 					</Link>
 				</li>
 			</ul>
