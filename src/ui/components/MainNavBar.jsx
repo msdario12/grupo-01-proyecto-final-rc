@@ -10,14 +10,19 @@ export const MainNavBar = ({ isInDashboard, setIsSideBarOpen }) => {
 			sticky={isInDashboard ? false : 'top'}
 			className='bg-dark'
 			data-bs-theme='dark'>
-			<Container>
+			<Container fluid='lg'>
 				{isInDashboard ? (
 					<Navbar.Brand>
-						<Button onClick={() => setIsSideBarOpen(prev => !prev)}>Abrir</Button>
+						<Button onClick={() => setIsSideBarOpen((prev) => !prev)}>
+							Abrir
+						</Button>
 					</Navbar.Brand>
 				) : (
 					<Navbar.Brand href='#home'>
-						<span className='text-info fw-bold'>RollingVet</span>
+						<span className='text-info fw-bold d-none d-sm-block'>
+							RollingVet
+						</span>
+						<span className='text-info fw-bold d-sm-none'>RV</span>
 					</Navbar.Brand>
 				)}
 
