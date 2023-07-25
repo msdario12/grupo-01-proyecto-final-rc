@@ -1,22 +1,25 @@
 import { useState } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
-import { useLocation } from 'react-router';
+import { Button, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
 
-export const MainNavBar = () => {
-	const location = useLocation();
-	const [isUserLogged, setIsUserLogged] = useState(false);
+import { Form } from 'react-router-dom';
 
-	console.log(location);
+export const MainNavBar = ({ isInDashboard }) => {
+	const [isUserLogged, setIsUserLogged] = useState(true);
+
 	return (
 		<Navbar
 			expand='lg'
-			sticky={location.pathname === '/dashboard' ? false : 'top'}
+			sticky={isInDashboard ? false : 'top'}
 			className='bg-dark'
 			data-bs-theme='dark'>
 			<Container>
-				<Navbar.Brand href='#home'>
-					<span className='text-info fw-bold'>RollingVet</span>
-				</Navbar.Brand>
+				{isInDashboard ? (
+					<Navbar.Brand></Navbar.Brand>
+				) : (
+					<Navbar.Brand href='#home'>
+						<span className='text-info fw-bold'>RollingVet</span>
+					</Navbar.Brand>
+				)}
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
