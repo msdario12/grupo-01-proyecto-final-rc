@@ -9,8 +9,8 @@ import { MainNavBar } from '../ui/components/MainNavBar';
 export const AppRouter = () => {
 	return (
 		<div>
-			<MainNavBar />
 			<BrowserRouter>
+				<MainNavBar />
 				<Routes>
 					<Route path='/' element={<HomePage />} />
 					<Route path='/dashboard' element={<MainDashboard />}>
