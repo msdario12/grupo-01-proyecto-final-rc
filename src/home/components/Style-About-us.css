@@ -22,3 +22,12 @@
     width: 30rem;
     margin-right: 2rem;
 }
+
+.content-card-aboutus h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.content-card-aboutus p {
+    font-size: 1.2rem;
+}
