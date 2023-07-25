@@ -17,9 +17,10 @@ export const SideMenu = () => {
 		<div className='d-flex flex-column flex-shrink-0 p-3 text-white bg-dark h-100'>
 			{/* El primero deberia redirigir al home de inicio o el general */}
 			<Link
-				className='d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'
+				className='d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'
 				to='/dashboard'>
-				<span className='fs-4'>RollingVet</span>
+				<span className='fs-4 d-none d-md-block '>RollingVet</span>
+				<span className='fs-4 d-md-none '>RV</span>
 			</Link>
 
 			<hr></hr>

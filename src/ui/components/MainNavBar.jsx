@@ -1,7 +1,13 @@
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
-export const MainNavBar = ({ isInDashboard, setIsSideBarOpen }) => {
+export const MainNavBar = ({
+	isInDashboard,
+	setIsSideBarOpen,
+	isSideBarOpen,
+}) => {
 	const [isUserLogged, setIsUserLogged] = useState(true);
 
 	return (
@@ -13,8 +19,14 @@ export const MainNavBar = ({ isInDashboard, setIsSideBarOpen }) => {
 			<Container fluid='lg'>
 				{isInDashboard ? (
 					<Navbar.Brand>
-						<Button onClick={() => setIsSideBarOpen((prev) => !prev)}>
-							Abrir
+						<Button
+							variant='outline-light'
+							onClick={() => setIsSideBarOpen((prev) => !prev)}>
+							{isSideBarOpen ? (
+								<FontAwesomeIcon icon={faAngleLeft} />
+							) : (
+								<FontAwesomeIcon icon={faAngleRight} />
+							)}
 						</Button>
 					</Navbar.Brand>
 				) : (

@@ -21,6 +21,7 @@ export const MainDashboard = () => {
 					<MainNavBar
 						isInDashboard={true}
 						setIsSideBarOpen={setIsSideBarOpen}
+						isSideBarOpen={isSideBarOpen}
 					/>
 					<Outlet />
 				</div>
