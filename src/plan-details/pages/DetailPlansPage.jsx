@@ -13,37 +13,41 @@ export const DetailPlansPage = () => {
 		const foundedPlan = vetPlans.find((plan) => plan.name === params.name);
 		setSetselectedPlan(foundedPlan);
 	}, [params.name]);
-	if (!selectedPlan.items) {
-		return <p>Cargando datos de los planes...</p>;
-	}
+
 	return (
 		<main className='container-lg min-vh-100 d-flex'>
 			<section className='row align-content-center'>
-				<div className='col-6'>
-					{
-						<ComparisonCardsPlans
-							detail={true}
-							name={selectedPlan.name}
-							button={
-								selectedPlan.button ? selectedPlan.button : 'btn-secondary'
-							}
-							title={selectedPlan.title}
-							description={selectedPlan.description}
-							price={selectedPlan.price}>
-							{selectedPlan.items.map((item) => (
-								<ListItems
+				{selectedPlan.items ? (
+					<>
+						<div className='col-6'>
+							{
+								<ComparisonCardsPlans
 									detail={true}
-									key={item.description}
-									title={item.description}>
-									{item.content}
-								</ListItems>
-							))}
-						</ComparisonCardsPlans>
-					}
-				</div>
-				<div className='col-6'>
-					<FormGroupDetailPlans selectedPlan={selectedPlan} />
-				</div>
+									name={selectedPlan.name}
+									button={
+										selectedPlan.button ? selectedPlan.button : 'btn-secondary'
+									}
+									title={selectedPlan.title}
+									description={selectedPlan.description}
+									price={selectedPlan.price}>
+									{selectedPlan.items.map((item) => (
+										<ListItems
+											detail={true}
+											key={item.description}
+											title={item.description}>
+											{item.content}
+										</ListItems>
+									))}
+								</ComparisonCardsPlans>
+							}
+						</div>
+						<div className='col-6'>
+							<FormGroupDetailPlans selectedPlan={selectedPlan} />
+						</div>
+					</>
+				) : (
+					'Cargando datos...'
+				)}
 			</section>
 		</main>
 	);
