@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 
-export const MainNavBar = ({ isInDashboard }) => {
+export const MainNavBar = ({ isInDashboard, setIsSideBarOpen }) => {
 	const [isUserLogged, setIsUserLogged] = useState(true);
 
 	return (
@@ -12,12 +12,15 @@ export const MainNavBar = ({ isInDashboard }) => {
 			data-bs-theme='dark'>
 			<Container>
 				{isInDashboard ? (
-					<Navbar.Brand></Navbar.Brand>
+					<Navbar.Brand>
+						<Button onClick={() => setIsSideBarOpen(prev => !prev)}>Abrir</Button>
+					</Navbar.Brand>
 				) : (
 					<Navbar.Brand href='#home'>
 						<span className='text-info fw-bold'>RollingVet</span>
 					</Navbar.Brand>
 				)}
+
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
