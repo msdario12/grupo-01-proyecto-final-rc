@@ -11,7 +11,7 @@ export const MainNavBar = () => {
 		<Navbar
 			expand='lg'
 			sticky={location.pathname === '/dashboard' ? false : 'top'}
-			className='bg-body-tertiary'
+			className='bg-dark'
 			data-bs-theme='dark'>
 			<Container>
 				<Navbar.Brand href='#home'>
