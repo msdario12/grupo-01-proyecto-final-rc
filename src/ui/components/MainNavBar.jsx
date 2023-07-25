@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { Button, Col, Container, Nav, Navbar, Row } from 'react-bootstrap';
-
-import { Form } from 'react-router-dom';
+import { Container, Nav, Navbar } from 'react-bootstrap';
 
 export const MainNavBar = ({ isInDashboard }) => {
 	const [isUserLogged, setIsUserLogged] = useState(true);
