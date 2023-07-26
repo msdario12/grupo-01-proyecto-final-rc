@@ -5,6 +5,7 @@ import { Error404Page } from '../error-404/pages/Error404Page';
 import { PatientsDashboard } from '../dashboard/pages/PatientsDashboard';
 import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
+import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 
 export const AppRouter = () => {
 	return (
@@ -12,7 +13,8 @@ export const AppRouter = () => {
 			<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<HomePage />} />
-					<Route path='/dashboard' element={<MainDashboard />}>
+					<Route path='/dashboard' element={<DashboardLayout />}>
+						<Route index element={<MainDashboard />} />
 						<Route path='patients' element={<PatientsDashboard />} />
 						<Route path='turns' element={<TurnsDashboard />} />
 					</Route>
