@@ -14,7 +14,7 @@ export const MainNavBar = ({
 	return (
 		<Navbar
 			expand='lg'
-			sticky={isInDashboard ? false : 'top'}
+			fixed={isInDashboard ? false : 'top'}
 			className='bg-dark'
 			data-bs-theme='dark'>
 			<Container fluid={isInDashboard ? 'fluid' : 'lg'}>
