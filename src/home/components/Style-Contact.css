@@ -1,0 +1,21 @@
+.container-contact-prim {
+    margin: 0 !important;
+}
+
+.contact-container {
+    padding: 1rem;
+}
+
+.title-contact {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+.contet-contact {
+    font-size: 1.2rem;
+}
+
+.contact-form-container h2 {
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
