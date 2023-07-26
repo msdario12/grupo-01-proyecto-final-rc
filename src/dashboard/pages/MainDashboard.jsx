@@ -6,7 +6,7 @@ import { useState } from 'react';
 export const MainDashboard = () => {
 	const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 	return (
-		<main className='container-fluid ps-0'>
+		<main className={`container-fluid ${isSideBarOpen && 'ps-0'}`}>
 			<div className='row'>
 				<div
 					className={`min-vh-100 pe-0 ${

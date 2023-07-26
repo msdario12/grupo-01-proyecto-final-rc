@@ -16,7 +16,7 @@ export const MainNavBar = ({
 			sticky={isInDashboard ? false : 'top'}
 			className='bg-dark'
 			data-bs-theme='dark'>
-			<Container fluid='lg'>
+			<Container fluid={isInDashboard ? 'fluid' : 'lg'}>
 				{isInDashboard ? (
 					<Navbar.Brand>
 						<Button
