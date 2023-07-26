@@ -1,7 +1,14 @@
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
-export const MainNavBar = ({ isInDashboard }) => {
+export const MainNavBar = ({
+	isInDashboard,
+	setIsSideBarOpen,
+	isSideBarOpen,
+}) => {
 	const [isUserLogged, setIsUserLogged] = useState(true);
 
 	return (
@@ -10,18 +17,44 @@ export const MainNavBar = ({ isInDashboard }) => {
 			sticky={isInDashboard ? false : 'top'}
 			className='bg-dark'
 			data-bs-theme='dark'>
-			<Container>
+			<Container fluid={isInDashboard ? 'fluid' : 'lg'}>
 				{isInDashboard ? (
-					<Navbar.Brand></Navbar.Brand>
+					<Navbar.Brand>
+						<Button
+							variant='outline-light'
+							onClick={() => setIsSideBarOpen((prev) => !prev)}>
+							{isSideBarOpen ? (
+								<FontAwesomeIcon icon={faAngleLeft} />
+							) : (
+								<FontAwesomeIcon icon={faAngleRight} />
+							)}
+						</Button>
+					</Navbar.Brand>
 				) : (
-					<Navbar.Brand href='#home'>
-						<span className='text-info fw-bold'>RollingVet</span>
+					<Navbar.Brand as={NavLink} to={'/'}>
+						<span className='text-info fw-bold d-none d-sm-block'>
+							RollingVet
+						</span>
+						<span className='text-info fw-bold d-sm-none'>RV</span>
 					</Navbar.Brand>
 				)}
+
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
-						<Nav.Link href='#link'>Planes</Nav.Link>
+						{/* falta agregar que se compruebe que el usuario esta logueado */}
+						{isInDashboard ? (
+							<Nav.Link as={NavLink} to={'/'}>
+								Home
+							</Nav.Link>
+						) : (
+							isUserLogged && (
+								<Nav.Link as={NavLink} to={'/dashboard'}>
+									Panel administrador
+								</Nav.Link>
+							)
+						)}
+						<Nav.Link href='#linkd'>Planes</Nav.Link>
 						<Nav.Link href='#link44'>Productos</Nav.Link>
 						<Nav.Link href='#link2'>Contáctenos</Nav.Link>
 						<Nav.Link href='#link3'>Sobre Nosotros</Nav.Link>
@@ -29,9 +62,22 @@ export const MainNavBar = ({ isInDashboard }) => {
 					<Nav>
 						<Navbar.Text>
 							{isUserLogged ? (
-								<>
-									Signed in as: <a href='#login'>Mark Otto</a>
-								</>
+								<div className='d-flex align-items-center gap-1'>
+									<span>Signed in as:</span>
+									<NavDropdown
+										drop='down'
+										align={'end'}
+										title='Mark Otto'
+										menuVariant='dark'>
+										<NavDropdown.Item href='#action/3.1'>
+											Mi cuenta
+										</NavDropdown.Item>
+										<NavDropdown.Divider />
+										<NavDropdown.Item href='#action/3.4'>
+											Logout
+										</NavDropdown.Item>
+									</NavDropdown>
+								</div>
 							) : (
 								<Nav.Link href='#link445'>Acceder</Nav.Link>
 							)}
