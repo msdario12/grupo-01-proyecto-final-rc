@@ -32,6 +32,33 @@ export const WelcomeInfo = () => {
 						</Card.Body>
 					</Card>
 				</div>
+				<div className='col-auto '>
+					<Card className='border-0 bg-light rounded-0 shadow-sm'>
+						<Card.Body>
+							<p className='text-muted fs-6 mb-1 fw-bold'>Próximos turnos</p>
+						
+							<div className="d-flex gap-3">
+								<div className='d-flex gap-2 align-items-center'>
+									<h2 className=''>14:30</h2>
+									<div className='d-flex flex-column justify-content-center align-items-end'>
+										<span className='text-muted'>Juan Perez</span>
+										<span className='text-muted'>"Luna" (Gato)</span>
+									</div>
+								</div>
+								<div className='d-flex gap-2 align-items-center'>
+									<h2 className=''>15:30</h2>
+									<div className='d-flex flex-column justify-content-center align-items-end'>
+										<span className='text-muted'>Pedro Sanchez</span>
+										<span className='text-muted'>"Estrella" (Gato)</span>
+									</div>
+								</div>
+							</div>
+						
+
+							
+						</Card.Body>
+					</Card>
+				</div>
 				<div className='col-md-6 '>
 					<Card className='text-center'>
 						<Card.Body>
