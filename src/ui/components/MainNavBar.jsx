@@ -14,7 +14,7 @@ export const MainNavBar = ({
 	return (
 		<Navbar
 			expand='lg'
-			fixed={isInDashboard ? false : 'top'}
+			sticky={isInDashboard ? false : 'top'}
 			className='bg-dark'
 			data-bs-theme='dark'>
 			<Container fluid={isInDashboard ? 'fluid' : 'lg'}>
@@ -31,7 +31,7 @@ export const MainNavBar = ({
 						</Button>
 					</Navbar.Brand>
 				) : (
-					<Navbar.Brand href='#home'>
+					<Navbar.Brand as={NavLink} to={'/'}>
 						<span className='text-info fw-bold d-none d-sm-block'>
 							RollingVet
 						</span>
@@ -42,6 +42,7 @@ export const MainNavBar = ({
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
+						{/* falta agregar que se compruebe que el usuario esta logueado */}
 						{isInDashboard ? (
 							<Nav.Link as={NavLink} to={'/'}>
 								Home
