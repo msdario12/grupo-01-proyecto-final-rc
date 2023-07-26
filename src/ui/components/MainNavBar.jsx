@@ -1,7 +1,7 @@
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 
 export const MainNavBar = ({
@@ -48,9 +48,11 @@ export const MainNavBar = ({
 								Home
 							</Nav.Link>
 						) : (
-							<Nav.Link as={NavLink} to={'/dashboard'}>
-								Panel administrador
-							</Nav.Link>
+							isUserLogged && (
+								<Nav.Link as={NavLink} to={'/dashboard'}>
+									Panel administrador
+								</Nav.Link>
+							)
 						)}
 						<Nav.Link href='#linkd'>Planes</Nav.Link>
 						<Nav.Link href='#link44'>Productos</Nav.Link>
@@ -60,9 +62,22 @@ export const MainNavBar = ({
 					<Nav>
 						<Navbar.Text>
 							{isUserLogged ? (
-								<>
-									Signed in as: <a href='#login'>Mark Otto</a>
-								</>
+								<div className='d-flex align-items-center gap-1'>
+									<span>Signed in as:</span>
+									<NavDropdown
+										drop='down'
+										align={'end'}
+										title='Mark Otto'
+										menuVariant='dark'>
+										<NavDropdown.Item href='#action/3.1'>
+											Mi cuenta
+										</NavDropdown.Item>
+										<NavDropdown.Divider />
+										<NavDropdown.Item href='#action/3.4'>
+											Logout
+										</NavDropdown.Item>
+									</NavDropdown>
+								</div>
 							) : (
 								<Nav.Link href='#link445'>Acceder</Nav.Link>
 							)}
