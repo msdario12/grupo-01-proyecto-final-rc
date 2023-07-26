@@ -6,6 +6,7 @@ import { PatientsDashboard } from '../dashboard/pages/PatientsDashboard';
 import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
+import { NavbarLayout } from '../ui/pages/NavbarLayout';
 
 export const AppRouter = () => {
 	return (
