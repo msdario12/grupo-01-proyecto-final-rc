@@ -2,6 +2,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { NavLink } from 'react-router-dom';
 
 export const MainNavBar = ({
 	isInDashboard,
@@ -41,7 +42,16 @@ export const MainNavBar = ({
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
-						<Nav.Link href='#link'>Planes</Nav.Link>
+						{isInDashboard ? (
+							<Nav.Link as={NavLink} to={'/'}>
+								Home
+							</Nav.Link>
+						) : (
+							<Nav.Link as={NavLink} to={'/dashboard'}>
+								Panel administrador
+							</Nav.Link>
+						)}
+						<Nav.Link href='#linkd'>Planes</Nav.Link>
 						<Nav.Link href='#link44'>Productos</Nav.Link>
 						<Nav.Link href='#link2'>Contáctenos</Nav.Link>
 						<Nav.Link href='#link3'>Sobre Nosotros</Nav.Link>
