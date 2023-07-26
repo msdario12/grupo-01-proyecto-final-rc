@@ -19,8 +19,10 @@ export const SideMenu = () => {
 			<Link
 				className='d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none'
 				to='/dashboard'>
-				<span className='fs-4 d-none d-md-block '>RollingVet</span>
-				<span className='fs-4 d-md-none '>RV</span>
+				<span className='fs-4 text-info fw-bold d-none d-md-block '>
+					RollingVet
+				</span>
+				<span className='fs-4 text-info fw-bold d-md-none '>RV</span>
 			</Link>
 
 			<hr></hr>
