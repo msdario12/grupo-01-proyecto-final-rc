@@ -5,10 +5,10 @@ export const DashboardLayout = () => {
 	return (
 		<main className='container-fluid ps-0 '>
 			<div className='row'>
-				<div className='col-4 min-vh-100'>
+				<div className='col-3 min-vh-100'>
 					<SideMenu />
 				</div>
-				<div className='col-8'>
+				<div className='col-9'>
 					<Outlet />
 				</div>
 			</div>
