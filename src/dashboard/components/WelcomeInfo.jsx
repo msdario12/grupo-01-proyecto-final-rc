@@ -8,11 +8,14 @@ export const WelcomeInfo = () => {
 			</h2>
 			<div className='row gy-3 gx-3'>
 				<div className='col-auto '>
-					<Card className='border-0 bg-light rounded-0 shadow-sm'>
-						<Card.Body>
+					<Card
+						style={{ height: 150 }}
+						className='border-0 bg-light rounded-0 shadow-sm '>
+						<Card.Body className='d-flex flex-column'>
 							<p className='text-muted fs-6 mb-1 fw-bold'>
 								Turnos de hoy - 26/07/23
 							</p>
+							<hr className='my-1'></hr>
 							<div className='d-flex gap-2 align-items-center'>
 								<h2 className=''>232</h2>
 								<span className='text-muted'>Turnos programados</span>
@@ -33,11 +36,13 @@ export const WelcomeInfo = () => {
 					</Card>
 				</div>
 				<div className='col-auto '>
-					<Card className='border-0 bg-light rounded-0 shadow-sm'>
-						<Card.Body>
+					<Card
+						style={{ height: 150 }}
+						className='border-0 bg-light rounded-0 shadow-sm'>
+						<Card.Body className='d-flex flex-column'>
 							<p className='text-muted fs-6 mb-1 fw-bold'>Próximos turnos</p>
-						
-							<div className="d-flex gap-3">
+							<hr className='my-1'></hr>
+							<div className='d-flex gap-3 my-auto'>
 								<div className='d-flex gap-2 align-items-center'>
 									<h2 className=''>14:30</h2>
 									<div className='d-flex flex-column justify-content-center align-items-end'>
@@ -53,9 +58,35 @@ export const WelcomeInfo = () => {
 									</div>
 								</div>
 							</div>
-						
+						</Card.Body>
+					</Card>
+				</div>
+				<div className='col-auto '>
+					<Card
+						style={{ height: 150 }}
+						className='border-0 bg-light rounded-0 shadow-sm'>
+						<Card.Body className='d-flex flex-column justify-content-between'>
+							<p className=' text-muted fs-6 mb-1 fw-bold'>
+								Estadísticas de Atención y Resumen de Mascotas
+							</p>
+							<hr className='my-1'></hr>
+							<div className='d-flex gap-2 align-items-center'>
+								<span className='text-muted'>
+									Mascotas atendidas esta semana:{' '}
+								</span>
+								<h5 className=''>232</h5>
+							</div>
+							<div className='d-flex gap-2 align-items-center'>
+								<span className='text-muted'>Servicio más común: </span>
+								<h5 className=''>Vacunación</h5>
+							</div>
 
-							
+							<div className='d-flex gap-2 align-items-center'>
+								<span className='text-muted'>
+									Total de mascotas registradas:{' '}
+								</span>
+								<h5 className=''>425</h5>
+							</div>
 						</Card.Body>
 					</Card>
 				</div>
