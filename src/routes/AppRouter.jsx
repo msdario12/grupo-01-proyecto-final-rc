@@ -19,7 +19,8 @@ export const AppRouter = () => {
 						<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
 						<Route path='*' element={<Error404Page />} />
 					</Route>
-					<Route path='/dashboard' element={<MainDashboard />}>
+					<Route path='/dashboard' element={<DashboardLayout />}>
+						<Route index element={<MainDashboard />} />
 						<Route path='patients' element={<PatientsDashboard />} />
 						<Route path='turns' element={<TurnsDashboard />} />
 					</Route>
