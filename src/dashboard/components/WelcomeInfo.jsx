@@ -4,7 +4,7 @@ export const WelcomeInfo = () => {
 	return (
 		<div className='container'>
 			<h2 className='display-5 fw-bold lh-1 col-12 mb-4'>
-				Bienvenido de vuelta Otto!
+				Bienvenido de vuelta Otto! - Hoy es miércoles!
 			</h2>
 			<div className='row gy-3 gx-3'>
 				<div className='col-md-4 '>
