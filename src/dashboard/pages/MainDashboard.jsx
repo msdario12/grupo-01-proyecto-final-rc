@@ -1,4 +1,3 @@
-
 import { Outlet } from 'react-router-dom';
 import { SideMenu } from '../components/SideMenu';
 import { MainNavBar } from '../../ui/components/MainNavBar';
@@ -28,6 +27,5 @@ export const MainDashboard = () => {
 				</div>
 			</div>
 		</main>
-
 	);
 };

@@ -8,14 +8,12 @@ import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
 
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
-import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 
 export const AppRouter = () => {
 	return (
 		<div>
 			<BrowserRouter>
 				<Routes>
-
 					<Route element={<NavbarLayout />}>
 						<Route index element={<HomePage />} />
 						<Route path='*' element={<Error404Page />} />
@@ -23,7 +21,6 @@ export const AppRouter = () => {
 						<Route path='*' element={<Error404Page />} />
 					</Route>
 					<Route path='/dashboard' element={<MainDashboard />}>
-
 						<Route path='patients' element={<PatientsDashboard />} />
 						<Route path='turns' element={<TurnsDashboard />} />
 					</Route>
