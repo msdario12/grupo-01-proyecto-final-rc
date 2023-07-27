@@ -7,10 +7,10 @@ export const useWeatherData = () => {
 	const [weatherData, setWeatherData] = useState({});
 	useEffect(() => {
 		const now = new Date().getTime();
-		const localFetch = localStorage.getItem('lastFetch');
+		const localFetch = localStorage.getItem('lastFetchWeather');
 		if (!localFetch) {
 			console.log('no hay data');
-			localStorage.setItem('lastFetch', now);
+			localStorage.setItem('lastFetchWeather', now);
 		}
 		if (now - localFetch < timeToWaitInSeconds * 1000) {
 			console.log('no fetch');
@@ -20,7 +20,7 @@ export const useWeatherData = () => {
 			}
 			return;
 		}
-		localStorage.setItem('lastFetch', now);
+		localStorage.setItem('lastFetchWeather', now);
 		console.log('nuevo fetch');
 
 		backendAPI
@@ -35,7 +35,7 @@ export const useWeatherData = () => {
 			})
 			.catch((e) => {
 				console.log(e);
-				localStorage.setItem('lastFetch', now);
+				localStorage.setItem('lastFetchWeather', now);
 			});
 	}, []);
 	return [weatherData];
