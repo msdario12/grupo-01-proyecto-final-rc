@@ -23,3 +23,9 @@
 .text-area-edit {
     resize: none;
 }
+
+.validation-errors {
+    font-size: 0.7rem;
+    font-weight: bold;
+    color: red;
+}

@@ -9,7 +9,15 @@ const initialForm = {
   email: "",
   description: "",
 };
-const validationsForm = (form) => {};
+const validationsForm = (form) => {
+  let errors = {};
+
+  if (!form.name.trim()) {
+    errors.name = "* El campo 'Nombre y apellido' es requerido";
+  }
+
+  return errors;
+};
 
 export const ContactForm = () => {
   const { form, errors, response, handleBlur, handleSubmit, handleChange } =
@@ -34,11 +42,11 @@ export const ContactForm = () => {
                 onBlur={handleBlur}
                 value={form.name}
               />
+
+              {errors.name && (<p className="validation-errors">{errors.name}</p>)}
+
             </Form.Group>
-            <Form.Group
-              className="mb-3 col-12 col-md-6"
-              controlId="phone"
-            >
+            <Form.Group className="mb-3 col-12 col-md-6" controlId="phone">
               <Form.Label>Telefono</Form.Label>
               <Form.Control
                 type="number"
@@ -49,6 +57,9 @@ export const ContactForm = () => {
                 onBlur={handleBlur}
                 value={form.phone}
               />
+
+              {errors.phone && (<p className="validation-errors">{errors.name}</p>)}
+
             </Form.Group>
           </div>
           <Form.Group className="mb-3" controlId="email">
@@ -62,6 +73,9 @@ export const ContactForm = () => {
               onBlur={handleBlur}
               value={form.email}
             />
+
+            {errors.email && <p className="validation-errors">{errors.name}</p> }
+
           </Form.Group>
           <Form.Group className="mb-3" controlId="description">
             <Form.Label>Descripcion de la consulta</Form.Label>
@@ -77,6 +91,9 @@ export const ContactForm = () => {
               onBlur={handleBlur}
               value={form.description}
             />
+
+            {errors.description && <p className="validation-errors">{errors.name}</p>}
+
           </Form.Group>
           <Button variant="primary" type="submit">
             Enviar consulta
