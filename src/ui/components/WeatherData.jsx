@@ -1,9 +1,8 @@
-
 import { useWeatherData } from '../../hooks/useWeatherData';
 
 export const WeatherData = () => {
-	const [weatherData] = useWeatherData();
-	console.log(weatherData);
+	const [weatherData] = useWeatherData({});
+
 	if (!weatherData.current) {
 		return 'Cargando datos...';
 	}
