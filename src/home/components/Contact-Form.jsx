@@ -3,7 +3,12 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm } from "../../hooks/useForm";
 
-const initialForm = {};
+const initialForm = {
+  name: "",
+  phone: "",
+  email: "",
+  description: "",
+};
 const validationsForm = (form) => {};
 
 export const ContactForm = () => {
@@ -16,10 +21,7 @@ export const ContactForm = () => {
         <h2>Obten tu consulta online</h2>
         <Form className="mb-5" onSubmit={handleSubmit}>
           <div className="row">
-            <Form.Group
-              className="mb-3 col-12 col-md-6"
-              controlId="exampleForm.ControlInput1"
-            >
+            <Form.Group className="mb-3 col-12 col-md-6" controlId="name">
               <Form.Label>Nombre y Apellido</Form.Label>
               <Form.Control
                 type="text"
@@ -30,39 +32,50 @@ export const ContactForm = () => {
                 name="name"
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={form.value}
+                value={form.name}
               />
             </Form.Group>
             <Form.Group
               className="mb-3 col-12 col-md-6"
-              controlId="exampleForm.ControlInput1"
+              controlId="phone"
             >
               <Form.Label>Telefono</Form.Label>
               <Form.Control
-                type="text"
-                min="10"
-                max="10"
+                type="number"
                 required
                 placeholder="3811234567"
+                name="phone"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={form.phone}
               />
             </Form.Group>
           </div>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className="mb-3" controlId="email">
             <Form.Label>Correo electronico</Form.Label>
             <Form.Control
               type="email"
               required
               placeholder="josepaz@gmail.com"
+              name="email"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={form.email}
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Example textarea</Form.Label>
+          <Form.Group className="mb-3" controlId="description">
+            <Form.Label>Descripcion de la consulta</Form.Label>
             <Form.Control
+              className="text-area-edit"
               as="textarea"
               required
               max="500"
               placeholder="Redacta tu consulta con el nombre, especie de tu mascota y la edad."
               rows={3}
+              name="description"
+              onChange={handleChange}
+              onBlur={handleBlur}
+              value={form.description}
             />
           </Form.Group>
           <Button variant="primary" type="submit">
