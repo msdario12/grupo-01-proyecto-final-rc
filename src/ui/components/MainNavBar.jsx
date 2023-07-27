@@ -40,10 +40,6 @@ export const MainNavBar = ({
 					</Navbar.Brand>
 				)}
 
-				<Navbar.Text>
-					<WeatherData />
-				</Navbar.Text>
-
 				<Navbar.Toggle aria-controls='basic-navbar-nav' />
 				<Navbar.Collapse id='basic-navbar-nav'>
 					<Nav className='me-auto'>
@@ -64,11 +60,13 @@ export const MainNavBar = ({
 						<Nav.Link href='#link2'>Contáctenos</Nav.Link>
 						<Nav.Link href='#link3'>Sobre Nosotros</Nav.Link>
 					</Nav>
-
+					<Navbar.Text className='me-3'>
+						<WeatherData />
+					</Navbar.Text>
 					<Nav>
 						<Navbar.Text>
 							{isUserLogged ? (
-								<div className='d-flex align-items-center gap-1'>
+								<div className='d-flex flex-lg-column align-items-center gap-1'>
 									<span>Signed in as:</span>
 									<NavDropdown
 										drop='down'
