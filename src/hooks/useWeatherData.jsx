@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { backendAPI } from '../api/backendAPI';
 
-const timeToWaitInSeconds = 30;
+const timeToWaitInSeconds = 300;
 
 export const useWeatherData = () => {
 	const [weatherData, setWeatherData] = useState({});
