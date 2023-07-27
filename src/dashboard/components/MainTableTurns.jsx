@@ -76,14 +76,15 @@ export const CustomTh = ({ title, name, setTurnsList }) => {
 	};
 
 	const comparingFunction = (a, b, name) => {
-		const nameA = a[name].toUpperCase(); // ignore upper and lowercase
-		const nameB = b[name].toUpperCase(); // ignore upper and lowercase
+		console.log(sortMode);
+		const nameA = String(a[name]).toUpperCase(); // ignore upper and lowercase
+		const nameB = String(b[name]).toUpperCase(); // ignore upper and lowercase
 
 		if (nameA < nameB) {
-			return sortMode === 'original' ? -1 : 1;
+			return sortMode === 'ascend' ? -1 : 1;
 		}
 		if (nameA > nameB) {
-			return sortMode === 'original' ? 1 : -1;
+			return sortMode === 'ascend' ? 1 : -1;
 		}
 		// names must be equal
 		return 0;
@@ -91,16 +92,12 @@ export const CustomTh = ({ title, name, setTurnsList }) => {
 	const sortByName = (name) => {
 		switchSortMode();
 
-		if (sortMode === 'ascend') {
-			setTurnsList((prev) =>
-				[...prev].sort((a, b) => comparingFunction(a, b, 'id'))
-			);
-			return;
-		}
 		console.log('Ordenando por ', name);
 
 		setTurnsList((prev) =>
-			[...prev].sort((a, b) => comparingFunction(a, b, name))
+			[...prev].sort((a, b) =>
+				comparingFunction(a, b, sortMode === 'original' ? name : 'id')
+			)
 		);
 	};
 	return (
