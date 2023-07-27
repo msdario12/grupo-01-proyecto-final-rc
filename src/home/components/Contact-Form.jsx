@@ -12,8 +12,41 @@ const initialForm = {
 const validationsForm = (form) => {
   let errors = {};
 
+  let regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/;
+  let regexEmail = /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/;
+  let regexDescription = /^.{1,500}$/;
+
   if (!form.name.trim()) {
+
     errors.name = "* El campo 'Nombre y apellido' es requerido";
+
+  } else if (!regexName.test(form.name.trim())){
+
+    errors.name = "* El campo 'Nombre y apellido' solo acepta letras";
+
+  }
+
+
+  if (!form.phone.trim()) {
+
+    errors.phone = "* El campo 'Telefono' es requerido";
+
+  }
+
+  if (!form.email.trim()) {
+    errors.email = "* El campo 'Correo electronico' es requerido";
+  } else if (!regexEmail.test(form.email.trim())){
+
+    errors.email = "* El campo 'Correo electronico' es incorrecto";
+
+  }
+
+  if (!form.description.trim()) {
+    errors.description = "* El campo 'Descripcion' es requerido";
+  } else if (!regexDescription.test(form.description.trim())){
+
+    errors.description = "* El campo 'Descripcion' no debe exeder los 500 caracteres";
+
   }
 
   return errors;
@@ -58,7 +91,7 @@ export const ContactForm = () => {
                 value={form.phone}
               />
 
-              {errors.phone && (<p className="validation-errors">{errors.name}</p>)}
+              {errors.phone && (<p className="validation-errors">{errors.phone}</p>)}
 
             </Form.Group>
           </div>
@@ -74,7 +107,7 @@ export const ContactForm = () => {
               value={form.email}
             />
 
-            {errors.email && <p className="validation-errors">{errors.name}</p> }
+            {errors.email && <p className="validation-errors">{errors.email}</p> }
 
           </Form.Group>
           <Form.Group className="mb-3" controlId="description">
@@ -90,9 +123,10 @@ export const ContactForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
               value={form.description}
+              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
             />
 
-            {errors.description && <p className="validation-errors">{errors.name}</p>}
+            {errors.description && <p className="validation-errors">{errors.description}</p>}
 
           </Form.Group>
           <Button variant="primary" type="submit">
