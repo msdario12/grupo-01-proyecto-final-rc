@@ -1,30 +1,27 @@
-import { useState } from "react"
-
+import { useState } from "react";
 
 export const useForm = (initialForm, validateForm) => {
+  const [form, setForm] = useState(initialForm);
 
-    const [form, setForm] = useState(initialForm);
+  const [errors, setErrors] = useState({ second });
 
-    const [errors, setErrors] = useState({second});
+  const [loading, setLoading] = useState(false);
 
-    const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState(null);
 
-    const [response, setResponse] = useState(null)
+  const handleChange = (e) => {};
 
+  const handleBlur = (e) => {};
 
-    const handleChange = (e) => {}
+  const handleSubmit = (e) => {};
 
-    const handleBlur = (e) => {}
-
-    const handleSubmit = (e) => {}
-
-    return {
-        form,
-        errors,
-        loading,
-        response,
-        handleChange,
-        handleBlur,
-        handleSubmit,
-    }
-}
+  return {
+    form,
+    errors,
+    loading,
+    response,
+    handleChange,
+    handleBlur,
+    handleSubmit,
+  };
+};
