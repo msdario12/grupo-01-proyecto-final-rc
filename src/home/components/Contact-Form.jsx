@@ -57,7 +57,7 @@ export const ContactForm = () => {
     useForm(initialForm, validationsForm);
 
   return (
-    <>
+    <> 
       <div className="contact-form-container mt-5 p-2">
         <h2>Obten tu consulta online</h2>
         <Form className="mb-5" onSubmit={handleSubmit}>
