@@ -1,8 +1,8 @@
-import { Card, Col, Container, Row } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 
 export const WelcomeInfo = () => {
 	return (
-		<div className='container'>
+		<div>
 			<h2 className='display-5 fw-bold lh-1 col-12 mb-4'>
 				Bienvenido de vuelta Otto! - Hoy es miércoles!
 			</h2>
