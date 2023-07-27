@@ -1,17 +1,8 @@
-import { useEffect, useState } from 'react';
-import { backendAPI } from '../../api/backendAPI';
+
+import { useWeatherData } from '../../hooks/useWeatherData';
 
 export const WeatherData = () => {
-	const [weatherData, setWeatherData] = useState({});
-	useEffect(() => {
-		backendAPI
-			.get('/api/weather', {
-				params: {
-					location: 'San miguel de Tucuman',
-				},
-			})
-			.then((res) => setWeatherData(res.data.data));
-	}, []);
+	const [weatherData] = useWeatherData();
 	console.log(weatherData);
 	if (!weatherData.current) {
 		return 'Cargando datos...';
