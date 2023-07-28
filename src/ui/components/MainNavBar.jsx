@@ -58,12 +58,16 @@ export const MainNavBar = ({
 								</Nav.Link>
 							)
 						)}
+
 						<Nav.Link href='#linkd'>Planes</Nav.Link>
 						<Nav.Link href='#link44'>Productos</Nav.Link>
-						<Nav.Link href='#link2'>Contáctenos</Nav.Link>
-						<Nav.Link href='#link3'>Sobre Nosotros</Nav.Link>
+						<Nav.Link as={NavLink} to={'/contact'}>
+							Contáctenos
+						</Nav.Link>
+						<Nav.Link as={NavLink} to={'/about-us'}>
+							Sobre Nosotros
+						</Nav.Link>
 					</Nav>
-
 					<Nav>
 						<Navbar.Text>
 							{isUserLogged ? (

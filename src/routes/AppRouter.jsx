@@ -11,7 +11,6 @@ import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
 
-
 export const AppRouter = () => {
 	return (
 		<div>
@@ -19,7 +18,7 @@ export const AppRouter = () => {
 				<Routes>
 					<Route element={<NavbarLayout />}>
 						<Route index element={<HomePage />} />
-						<Route path='*' element={<Error404Page />} />
+						<Route path='contact' element={<ContactPage />} />
 						<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
 						<Route path='*' element={<Error404Page />} />
 					</Route>
@@ -28,12 +27,6 @@ export const AppRouter = () => {
 						<Route path='patients' element={<PatientsDashboard />} />
 						<Route path='turns' element={<TurnsDashboard />} />
 					</Route>
-
-					<Route path='contact' element={<ContactPage />} />
-
-					<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
-
-					<Route path='*' element={<Error404Page />} />
 				</Routes>
 			</BrowserRouter>
 		</div>
