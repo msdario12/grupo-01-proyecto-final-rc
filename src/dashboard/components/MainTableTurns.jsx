@@ -87,7 +87,7 @@ export const MainTableTurns = () => {
 		return format(date, 'p', { locale: es });
 	};
 	return (
-		<Table hover>
+		<Table hover responsive>
 			<thead>
 				<tr className='text-uppercase table-light align-middle'>
 					<th className='text-muted small'>#</th>
