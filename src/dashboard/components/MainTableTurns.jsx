@@ -132,9 +132,21 @@ export const MainTableTurns = () => {
 						title={'Cliente'}
 						name={'customer'}
 					/>
-					<th className='text-muted small'>Mascota</th>
-					<th className='text-muted small'>Veterinario</th>
-					<th className='text-muted small'>Detalle</th>
+					<CustomTh
+						setTurnsList={setTurnsList}
+						title={'Mascota'}
+						name={'pet'}
+					/>
+					<CustomTh
+						setTurnsList={setTurnsList}
+						title={'Veterinario'}
+						name={'veterinarian'}
+					/>
+					<CustomTh
+						setTurnsList={setTurnsList}
+						title={'Detalle'}
+						name={'detail'}
+					/>
 				</tr>
 			</thead>
 			<tbody className='align-middle fw-semibold'>
