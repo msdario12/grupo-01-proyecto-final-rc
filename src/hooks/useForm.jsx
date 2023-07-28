@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
 
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
 
   const [errors, setErrors] = useState({});
+
+  const [isFormComplete, setIsFormComplete] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +21,11 @@ export const useForm = (initialForm, validateForm) => {
     handleChange(e);
     setErrors(validateForm(form));
   };
+
+  useEffect(() => {
+    const isComplete = Object.values(form).every((value) => value !== "");
+    setIsFormComplete(isComplete);
+  }, [form]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -40,6 +47,7 @@ export const useForm = (initialForm, validateForm) => {
   return {
     form,
     errors,
+    isFormComplete,
     handleChange,
     handleBlur,
     handleSubmit,

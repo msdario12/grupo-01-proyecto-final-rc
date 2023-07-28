@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm } from "../../hooks/useForm";
@@ -50,13 +49,13 @@ const validationsForm = (form) => {
     errors.description = "* El campo 'Descripcion' no debe exeder los 500 caracteres";
 
   }
-  
+
   return errors;
 };
 
 export const ContactForm = () => {
 
-  const { form, errors, handleBlur, handleSubmit, handleChange } =
+  const { form, errors, isFormComplete, handleBlur, handleSubmit, handleChange } =
     useForm(initialForm, validationsForm);
 
   return (
@@ -132,7 +131,7 @@ export const ContactForm = () => {
             {errors.description && <p className="validation-errors">{errors.description}</p>}
 
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="primary" type="submit" disabled={!isFormComplete}>
             Enviar consulta
           </Button>
         </Form>
