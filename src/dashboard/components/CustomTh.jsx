@@ -4,16 +4,28 @@ import {
 	faSortDesc,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const sortIcons = {
 	original: faSortAsc,
-	descend: faSortDesc,
-	ascend: faSort,
+	descend: faSort,
+	ascend: faSortDesc,
 };
 
-export const CustomTh = ({ title, name, setTurnsList }) => {
+export const CustomTh = ({
+	title,
+	name,
+	setTurnsList,
+	sortedColumn,
+	setSortedColumn,
+}) => {
 	const [sortMode, setSortMode] = useState('ascend');
+
+	useEffect(() => {
+		if (sortedColumn !== name) {
+			setSortMode('ascend');
+		}
+	}, [sortedColumn, name]);
 
 	const switchSortMode = () => {
 		if (sortMode === 'original') {
@@ -47,21 +59,27 @@ export const CustomTh = ({ title, name, setTurnsList }) => {
 		// names must be equal
 		return 0;
 	};
-	const sortByName = (name) => {
+	const handleClickSortColumn = (name) => {
+		setSortedColumn(name);
 		console.log(sortMode);
 		switchSortMode();
 		setTurnsList((prev) =>
 			[...prev].sort((a, b) => comparingFunction(a, b, name))
 		);
 	};
+
 	return (
-		<th className='text-muted small'>
+		<th
+			style={{ cursor: 'pointer' }}
+			className={`small ${
+				sortedColumn === name ? 'bg-primary text-light' : 'text-muted'
+			}`}
+			onClick={() => handleClickSortColumn(name)}>
 			<div className='d-flex align-items-center justify-content-between'>
 				<span className='me-2'>{title}</span>
 				<FontAwesomeIcon
 					style={{ cursor: 'pointer' }}
 					icon={sortIcons[sortMode]}
-					onClick={() => sortByName(name)}
 				/>
 			</div>
 		</th>

@@ -73,6 +73,7 @@ const columnList = [
 
 export const MainTableTurns = () => {
 	const [turnsList, setTurnsList] = useState([]);
+	const [sortedColumn, setSortedColumn] = useState('');
 	useEffect(() => {
 		setTurnsList(turnsListObject);
 	}, []);
@@ -92,6 +93,8 @@ export const MainTableTurns = () => {
 					<th className='text-muted small'>#</th>
 					{columnList.map((header) => (
 						<CustomTh
+							setSortedColumn={setSortedColumn}
+							sortedColumn={sortedColumn}
 							key={header.title}
 							setTurnsList={setTurnsList}
 							title={header.title}
