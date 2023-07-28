@@ -81,7 +81,7 @@ export const MainTableTurns = () => {
 		return 'Cargando datos...';
 	}
 	const formatDate = (date) => {
-		return format(date, 'PPPp', { locale: es });
+		return format(date, 'P', { locale: es });
 	};
 	const formatTime = (date) => {
 		return format(date, 'p', { locale: es });
