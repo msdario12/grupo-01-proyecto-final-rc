@@ -3,9 +3,7 @@ import { Card } from 'react-bootstrap';
 export const WelcomeInfo = () => {
 	return (
 		<div>
-			<h2 className='display-5 fw-bold lh-1 col-12 mb-4'>
-				Bienvenido de vuelta Otto! - Hoy es miércoles!
-			</h2>
+			
 			<div className='row gy-3 gx-3'>
 				<div className='col-md-4 '>
 					<Card className='h-100 border-0 bg-light rounded-0 shadow-sm '>
