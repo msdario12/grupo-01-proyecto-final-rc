@@ -1,6 +1,7 @@
 import { faSort } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { clippingParents } from '@popperjs/core';
+import format from 'date-fns/format';
+import { es } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 import { Badge, Table } from 'react-bootstrap';
 
@@ -9,9 +10,10 @@ const turnsListObject = [
 		id: 1,
 		date: '07/07/23',
 		time: '15:55',
-		customer: 'Lucia Miranda',
+		dateObj: new Date('02/07/23 15:55:00'),
+		customer: 'Analia Miranda',
 		pet: 'Roque',
-		veterinarian: 'Juarez',
+		veterinarian: 'Alvarez',
 		detail: 'Desparasitación y limpieza bucal',
 		animalType: 'Perro',
 	},
@@ -19,9 +21,10 @@ const turnsListObject = [
 		id: 2,
 		date: '06/07/23',
 		time: '12:30',
-		customer: 'Carlos Ramirez',
+		dateObj: new Date('07/04/23 02:55:00'),
+		customer: 'Pedro Ramirez',
 		pet: 'Max',
-		veterinarian: 'González',
+		veterinarian: 'Ziddane',
 		detail: 'Vacunación anual',
 		animalType: 'Perro',
 	},
@@ -29,6 +32,7 @@ const turnsListObject = [
 		id: 3,
 		date: '10/07/23',
 		time: '09:15',
+		dateObj: new Date('03/01/23 16:55:00'),
 		customer: 'Ana Martínez',
 		pet: 'Luna',
 		veterinarian: 'Sánchez',
@@ -39,7 +43,8 @@ const turnsListObject = [
 		id: 4,
 		date: '03/07/23',
 		time: '17:20',
-		customer: 'Pedro Gómez',
+		dateObj: new Date('02/05/23 19:55:00'),
+		customer: 'Lucas Gómez',
 		pet: 'Simba',
 		veterinarian: 'Pérez',
 		detail: 'Corte de uñas',
@@ -49,7 +54,8 @@ const turnsListObject = [
 		id: 5,
 		date: '14/07/23',
 		time: '14:00',
-		customer: 'Laura Fernández',
+		dateObj: new Date('12/04/23 22:55:00'),
+		customer: 'Guido Fernández',
 		pet: 'Bella',
 		veterinarian: 'Rodríguez',
 		detail: 'Esterilización',
@@ -58,7 +64,7 @@ const turnsListObject = [
 ];
 
 export const CustomTh = ({ title, name, setTurnsList }) => {
-	const [sortMode, setSortMode] = useState('original');
+	const [sortMode, setSortMode] = useState('ascend');
 
 	const switchSortMode = () => {
 		if (sortMode === 'original') {
@@ -76,37 +82,38 @@ export const CustomTh = ({ title, name, setTurnsList }) => {
 	};
 
 	const comparingFunction = (a, b, name) => {
-		console.log(sortMode);
-		const nameA = String(a[name]).toUpperCase(); // ignore upper and lowercase
-		const nameB = String(b[name]).toUpperCase(); // ignore upper and lowercase
+		console.log(typeof a[name], sortMode);
+		if (sortMode === 'original') {
+			return a['id'] - b['id'];
+		}
+		const nameA = typeof a[name] === 'string' ? a[name].toUpperCase() : a[name]; // ignore upper and lowercase
+		const nameB = typeof b[name] === 'string' ? b[name].toUpperCase() : b[name]; // ignore upper and lowercase
 
 		if (nameA < nameB) {
-			return sortMode === 'ascend' ? -1 : 1;
+			return sortMode === 'descend' ? 1 : -1;
 		}
 		if (nameA > nameB) {
-			return sortMode === 'ascend' ? 1 : -1;
+			return sortMode === 'descend' ? -1 : 1;
 		}
 		// names must be equal
 		return 0;
 	};
 	const sortByName = (name) => {
+		console.log(sortMode);
 		switchSortMode();
-
-		console.log('Ordenando por ', name);
-
 		setTurnsList((prev) =>
-			[...prev].sort((a, b) =>
-				comparingFunction(a, b, sortMode === 'original' ? name : 'id')
-			)
+			[...prev].sort((a, b) => comparingFunction(a, b, name))
 		);
 	};
 	return (
 		<th className='text-muted small'>
-			<div className='d-flex'>
+			<div className='d-flex align-items-center justify-content-between'>
 				<span className='me-2'>{title}</span>
-				<a href='#' className='text-decoration-none text-dark'>
-					<FontAwesomeIcon icon={faSort} onClick={() => sortByName(name)} />
-				</a>
+				<FontAwesomeIcon
+					style={{ cursor: 'pointer' }}
+					icon={faSort}
+					onClick={() => sortByName(name)}
+				/>
 			</div>
 		</th>
 	);
@@ -120,12 +127,22 @@ export const MainTableTurns = () => {
 	if (!turnsList) {
 		return 'Cargando datos...';
 	}
+	const formatDate = (date) => {
+		return format(date, 'PPPp', { locale: es });
+	};
+	const formatTime = (date) => {
+		return format(date, 'p', { locale: es });
+	};
 	return (
 		<Table hover>
 			<thead>
 				<tr className='text-uppercase table-light align-middle'>
 					<th className='text-muted small'>#</th>
-					<CustomTh setTurnsList={setTurnsList} title={'Fecha'} name={'date'} />
+					<CustomTh
+						setTurnsList={setTurnsList}
+						title={'Fecha'}
+						name={'dateObj'}
+					/>
 					<CustomTh setTurnsList={setTurnsList} title={'Hora'} name={'time'} />
 					<CustomTh
 						setTurnsList={setTurnsList}
@@ -153,8 +170,8 @@ export const MainTableTurns = () => {
 				{turnsList.map((turn) => (
 					<tr key={turn.id}>
 						<td>{turn.id}</td>
-						<td>{turn.date}</td>
-						<td>{turn.time}</td>
+						<td>{formatDate(turn.dateObj)}</td>
+						<td>{formatTime(turn.dateObj)}</td>
 						<td>{turn.customer}</td>
 						<td>
 							<div className='d-flex flex-column align-items-start'>
