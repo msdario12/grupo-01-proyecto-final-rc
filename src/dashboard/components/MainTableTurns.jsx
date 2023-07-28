@@ -62,6 +62,15 @@ const turnsListObject = [
 	},
 ];
 
+const columnList = [
+	{ title: 'Fecha', name: 'dateObj' },
+	{ title: 'Hora', name: 'dateObj' },
+	{ title: 'Cliente', name: 'customer' },
+	{ title: 'Mascota', name: 'pet' },
+	{ title: 'Veterinario', name: 'veterinarian' },
+	{ title: 'Detalle', name: 'detail' },
+];
+
 export const MainTableTurns = () => {
 	const [turnsList, setTurnsList] = useState([]);
 	useEffect(() => {
@@ -81,36 +90,14 @@ export const MainTableTurns = () => {
 			<thead>
 				<tr className='text-uppercase table-light align-middle'>
 					<th className='text-muted small'>#</th>
-					<CustomTh
-						setTurnsList={setTurnsList}
-						title={'Fecha'}
-						name={'dateObj'}
-					/>
-					<CustomTh
-						setTurnsList={setTurnsList}
-						title={'Hora'}
-						name={'dateObj'}
-					/>
-					<CustomTh
-						setTurnsList={setTurnsList}
-						title={'Cliente'}
-						name={'customer'}
-					/>
-					<CustomTh
-						setTurnsList={setTurnsList}
-						title={'Mascota'}
-						name={'pet'}
-					/>
-					<CustomTh
-						setTurnsList={setTurnsList}
-						title={'Veterinario'}
-						name={'veterinarian'}
-					/>
-					<CustomTh
-						setTurnsList={setTurnsList}
-						title={'Detalle'}
-						name={'detail'}
-					/>
+					{columnList.map((header) => (
+						<CustomTh
+							key={header.title}
+							setTurnsList={setTurnsList}
+							title={header.title}
+							name={header.name}
+						/>
+					))}
 				</tr>
 			</thead>
 			<tbody className='align-middle fw-semibold'>

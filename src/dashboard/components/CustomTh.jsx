@@ -1,6 +1,16 @@
-import { faSort } from '@fortawesome/free-solid-svg-icons';
+import {
+	faSort,
+	faSortAsc,
+	faSortDesc,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
+
+const sortIcons = {
+	original: faSortAsc,
+	descend: faSortDesc,
+	ascend: faSort,
+};
 
 export const CustomTh = ({ title, name, setTurnsList }) => {
 	const [sortMode, setSortMode] = useState('ascend');
@@ -50,7 +60,7 @@ export const CustomTh = ({ title, name, setTurnsList }) => {
 				<span className='me-2'>{title}</span>
 				<FontAwesomeIcon
 					style={{ cursor: 'pointer' }}
-					icon={faSort}
+					icon={sortIcons[sortMode]}
 					onClick={() => sortByName(name)}
 				/>
 			</div>
