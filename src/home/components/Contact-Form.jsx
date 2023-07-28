@@ -50,13 +50,13 @@ const validationsForm = (form) => {
     errors.description = "* El campo 'Descripcion' no debe exeder los 500 caracteres";
 
   }
-
+  
   return errors;
 };
 
 export const ContactForm = () => {
 
-  const { form, errors, response, handleBlur, handleSubmit, handleChange } =
+  const { form, errors, handleBlur, handleSubmit, handleChange } =
     useForm(initialForm, validationsForm);
 
   return (

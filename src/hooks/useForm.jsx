@@ -6,10 +6,6 @@ export const useForm = (initialForm, validateForm) => {
 
   const [errors, setErrors] = useState({});
 
-  const [loading, setLoading] = useState(false);
-
-  const [response, setResponse] = useState(null);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -35,14 +31,15 @@ export const useForm = (initialForm, validateForm) => {
         icon: 'success',
         confirmButtonColor: '#0d6efd',
       });
-    }
+    };
+
+    setForm(initialForm);
+
   };
 
   return {
     form,
     errors,
-    loading,
-    response,
     handleChange,
     handleBlur,
     handleSubmit,
