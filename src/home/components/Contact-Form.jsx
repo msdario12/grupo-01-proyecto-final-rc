@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { useForm } from "../../hooks/useForm";
@@ -9,6 +9,8 @@ const initialForm = {
   email: "",
   description: "",
 };
+
+
 const validationsForm = (form) => {
   let errors = {};
 
@@ -53,6 +55,7 @@ const validationsForm = (form) => {
 };
 
 export const ContactForm = () => {
+
   const { form, errors, response, handleBlur, handleSubmit, handleChange } =
     useForm(initialForm, validationsForm);
 
