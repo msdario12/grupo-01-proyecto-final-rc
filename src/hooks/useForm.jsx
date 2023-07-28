@@ -8,6 +8,8 @@ export const useForm = (initialForm, validateForm) => {
 
   const [isFormComplete, setIsFormComplete] = useState(false);
 
+  const [hasErrors, setHasErrors] = useState(true);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -26,6 +28,11 @@ export const useForm = (initialForm, validateForm) => {
     const isComplete = Object.values(form).every((value) => value !== "");
     setIsFormComplete(isComplete);
   }, [form]);
+  
+  useEffect(() => {
+    const errorsExist = Object.keys(errors).length > 0;
+    setHasErrors(errorsExist);
+  }, [errors]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -48,6 +55,7 @@ export const useForm = (initialForm, validateForm) => {
     form,
     errors,
     isFormComplete,
+    hasErrors,
     handleChange,
     handleBlur,
     handleSubmit,
