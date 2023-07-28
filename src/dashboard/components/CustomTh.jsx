@@ -7,9 +7,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 
 const sortIcons = {
-	original: faSortAsc,
-	descend: faSort,
-	ascend: faSortDesc,
+	original: faSortDesc,
+	ascend: faSort,
+	descend: faSortAsc,
 };
 
 export const CustomTh = ({
@@ -18,6 +18,7 @@ export const CustomTh = ({
 	setTurnsList,
 	sortedColumn,
 	setSortedColumn,
+	hasIcon = true,
 }) => {
 	const [sortMode, setSortMode] = useState('ascend');
 
@@ -29,14 +30,14 @@ export const CustomTh = ({
 
 	const switchSortMode = () => {
 		if (sortMode === 'original') {
-			setSortMode('descend');
-			return;
-		}
-		if (sortMode === 'descend') {
 			setSortMode('ascend');
 			return;
 		}
 		if (sortMode === 'ascend') {
+			setSortMode('descend');
+			return;
+		}
+		if (sortMode === 'descend') {
 			setSortMode('original');
 			return;
 		}
@@ -74,13 +75,17 @@ export const CustomTh = ({
 			className={`small ${
 				sortedColumn === name ? 'bg-primary text-light' : 'text-muted'
 			}`}
-			onClick={() => handleClickSortColumn(name)}>
+			onClick={() => hasIcon && handleClickSortColumn(name)}>
 			<div className='d-flex align-items-center justify-content-between'>
 				<span className='me-2'>{title}</span>
-				<FontAwesomeIcon
-					style={{ cursor: 'pointer' }}
-					icon={sortIcons[sortMode]}
-				/>
+				{hasIcon ? (
+					<FontAwesomeIcon
+						style={{ cursor: 'pointer' }}
+						icon={sortIcons[sortMode]}
+					/>
+				) : (
+					''
+				)}
 			</div>
 		</th>
 	);

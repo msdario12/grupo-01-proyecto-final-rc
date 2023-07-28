@@ -64,7 +64,7 @@ const turnsListObject = [
 
 const columnList = [
 	{ title: 'Fecha', name: 'dateObj' },
-	{ title: 'Hora', name: 'dateObj' },
+	{ title: 'Hora', name: 'dateObj', hasIcon: false },
 	{ title: 'Cliente', name: 'customer' },
 	{ title: 'Mascota', name: 'pet' },
 	{ title: 'Veterinario', name: 'veterinarian' },
@@ -99,6 +99,7 @@ export const MainTableTurns = () => {
 							setTurnsList={setTurnsList}
 							title={header.title}
 							name={header.name}
+							hasIcon={header.hasIcon}
 						/>
 					))}
 				</tr>
