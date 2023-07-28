@@ -71,7 +71,7 @@ export const CustomTh = ({
 
 	return (
 		<th
-			style={{ cursor: 'pointer' }}
+			style={{ cursor: hasIcon ? 'pointer' : 'auto' }}
 			className={`small ${
 				sortedColumn === name ? 'bg-primary text-light' : 'text-muted'
 			}`}
