@@ -4,6 +4,7 @@ import { MainDashboard } from '../dashboard/pages/MainDashboard';
 import { Error404Page } from '../error-404/pages/Error404Page';
 import { PatientsDashboard } from '../dashboard/pages/PatientsDashboard';
 import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
+import { AboutUs } from '../home/pages/About-us';
 
 import { ContactPage } from '../contact/pages/ContactPage';
 
@@ -21,12 +22,14 @@ export const AppRouter = () => {
 						<Route path='contact' element={<ContactPage />} />
 						<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
 						<Route path='*' element={<Error404Page />} />
+             <Route path='about-us' element={<AboutUs />} />
 					</Route>
 					<Route path='/dashboard' element={<DashboardLayout />}>
 						<Route index element={<MainDashboard />} />
 						<Route path='patients' element={<PatientsDashboard />} />
 						<Route path='turns' element={<TurnsDashboard />} />
 					</Route>
+
 				</Routes>
 			</BrowserRouter>
 		</div>
