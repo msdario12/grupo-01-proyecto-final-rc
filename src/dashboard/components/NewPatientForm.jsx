@@ -2,10 +2,7 @@ import {
 	Button,
 	Card,
 	Col,
-	Dropdown,
-	DropdownButton,
 	Form,
-	FormControl,
 	InputGroup,
 	ListGroup,
 	Row,
@@ -13,40 +10,123 @@ import {
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import { useFormik } from 'formik';
 import { animalsSpecies } from '../../plan-details/components/FormGroupDetailPlans';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { backendAPI } from '../../api/backendAPI';
+import * as Yup from 'yup';
+
+const patientSchema = Yup.object({
+	firstName: Yup.string()
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(40, 'Máximo de 40 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.required('Campo obligatorio'),
+	lastName: Yup.string()
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(40, 'Máximo de 40 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.required('Campo obligatorio'),
+	email: Yup.string()
+		.email('Introduzca un email valido')
+		.required('Campo obligatorio'),
+	name: Yup.string()
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(40, 'Máximo de 40 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.required('Campo obligatorio'),
+	petSpecie: Yup.string()
+		.required('Campo obligatorio')
+		.oneOf(
+			animalsSpecies.map((animal) => animal.value),
+			'Selecciona una especie de la lista'
+		),
+	petRace: Yup.string()
+		.required('Campo obligatorio')
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(40, 'Máximo de 40 caracteres')
+		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto'),
+});
 
 export const NewPatientForm = () => {
+	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
+	const [suggestionList, setSuggestionList] = useState();
+
 	const formik = useFormik({
 		initialValues: {
-			userName: '',
-			lastName: '',
 			email: '',
+			firstName: '',
+			lastName: '',
 			phone: '',
+			name: '',
 			petSpecie: 'placeholder',
 			petRace: '',
 		},
+		validationSchema: patientSchema,
 
 		onSubmit: (values) => {
-			console.log(values);
 			// Logica para enviar informacion al backend
-			// const castValues = productSchema.cast(values);
-			// console.log(castValues);
-			// const { name, price, description } = castValues;
+			const castValues = patientSchema.cast(values);
+			console.log(castValues);
+			const { name, price, description } = castValues;
 
-			// const res = await addProductToDB(name, price, description);
+			backendAPI
+				.post('/api/patients', castValues)
+				.then((res) => console.log(res));
 			// getProductsFromDB();
 			// alert(JSON.stringify(values, null, 2));
 			formik.resetForm();
+			setIsUserInfoLoaded(false);
 		},
 	});
-	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 
-	const onChangeEmail = (e) => {
+	const handleChangeEmail = (e) => {
+		const value = e.target.value;
 		if (e.target.value.length >= 3) {
+			setIsDropDownOpen(true);
+			backendAPI.get('/api/users', { params: { email: value } }).then((res) => {
+				if (!res.data.data) {
+					setSuggestionList();
+					setIsUserInfoLoaded(false);
+					return;
+				}
+				setSuggestionList(res.data.data);
+			});
+		} else {
+			setIsDropDownOpen(false);
+			setIsUserInfoLoaded(false);
+		}
+	};
+
+	const handleFocusEmail = (e) => {
+		const value = e.target.value;
+		if (value.length >= 3) {
 			setIsDropDownOpen(true);
 		}
 	};
 
+	const handleClickSuggestion = (suggestion) => {
+		console.log(suggestion);
+		console.log(formik);
+		setIsUserInfoLoaded(true);
+		formik.values.email = suggestion.email;
+		formik.values.firstName = suggestion.firstName;
+		formik.setFieldTouched('firstName', true);
+
+		formik.values.lastName = suggestion.lastName;
+		formik.setFieldTouched('lastName', true);
+
+		formik.values.phone = suggestion.phone;
+		formik.setFieldTouched('phone', true);
+	};
+	const handleBlur = () => {
+		setTimeout(() => setIsDropDownOpen(false), 150);
+	};
+
+	const cleanEmailClick = () => {
+		setIsUserInfoLoaded(false);
+		formik.values.email = '';
+		formik.setFieldTouched('email', false);
+	};
 	return (
 		<Card>
 			<Card.Body>
@@ -54,24 +134,52 @@ export const NewPatientForm = () => {
 					Crear nuevo paciente
 				</Card.Title>
 				<Form onSubmit={formik.handleSubmit}>
-					<InputGroup
-						className='mb-3'
-						onChange={onChangeEmail}
-						onBlur={() => setIsDropDownOpen(false)}>
-						<Form.Control aria-label='Text input with dropdown button' />
+					<Form.Group className='mb-3' controlId='email'>
+						<Form.Label>Email *</Form.Label>
+						<InputGroup
+							className='mb-3 d-flex flex-column'
+							onChange={handleChangeEmail}
+							onFocus={handleFocusEmail}
+							onBlur={handleBlur}
+							autoComplete='off'>
+							<div className='d-flex'>
+								<InputWithFeedback
+									noFeedback={true}
+									type='text'
+									placeholder='Busque un email'
+									formik={formik}
+									name={'email'}
+									props={{ maxLength: 40, autoComplete: 'new-password' }}
+								/>
 
-						<DropdownButton
-							onChange={() => setIsDropDownOpen((prev) => !prev)}
-							drop='down-centered'
-							show={isDropDownOpen}
-							variant='outline-primary'
-							title=''
-							align='start'>
-							<Dropdown.Item>Action</Dropdown.Item>
-							<Dropdown.Item>Another action</Dropdown.Item>
-							<Dropdown.Item>Something else here</Dropdown.Item>
-						</DropdownButton>
-					</InputGroup>
+								<Button
+									type='button'
+									variant='outline-secondary'
+									onClick={cleanEmailClick}>
+									Borrar
+								</Button>
+							</div>
+							<ListGroup
+								className={`shadow-lg w-100 ${
+									isDropDownOpen ? 'position-absolute' : 'd-none'
+								}`}
+								style={{ top: 37 }}>
+								{!suggestionList ? (
+									<ListGroup.Item>No existe el email buscado</ListGroup.Item>
+								) : (
+									suggestionList.map((suggestion) => (
+										<ListGroup.Item
+											type='button'
+											key={suggestion._id}
+											action
+											onClick={() => handleClickSuggestion(suggestion)}>
+											{suggestion.email}
+										</ListGroup.Item>
+									))
+								)}
+							</ListGroup>
+						</InputGroup>
+					</Form.Group>
 
 					<Row>
 						<Form.Group
@@ -79,14 +187,14 @@ export const NewPatientForm = () => {
 							sm={12}
 							md={6}
 							className='mb-3'
-							controlId='userName'>
+							controlId='firstName'>
 							<Form.Label>Nombre *</Form.Label>
 							<InputWithFeedback
 								type='text'
-								placeholder='Juan'
+								placeholder='Ramiro'
 								formik={formik}
-								name={'userName'}
-								props={{ maxLength: 40 }}
+								name={'firstName'}
+								props={{ maxLength: 40, disabled: isUserInfoLoaded }}
 							/>
 						</Form.Group>
 
@@ -102,7 +210,7 @@ export const NewPatientForm = () => {
 								placeholder='Perez'
 								formik={formik}
 								name={'lastName'}
-								props={{ maxLength: 40 }}
+								props={{ maxLength: 40, disabled: isUserInfoLoaded }}
 							/>
 						</Form.Group>
 					</Row>
@@ -114,16 +222,11 @@ export const NewPatientForm = () => {
 							placeholder='38135222115'
 							formik={formik}
 							name={'phone'}
-							props={{ maxLength: 15 }}
+							props={{ maxLength: 15, disabled: isUserInfoLoaded }}
 						/>
-
-						<Form.Text className='text-muted'>
-							Asegúrese de ingresar un correo valido ya que nos comunicaremos
-							con usted por ese medio.
-						</Form.Text>
 					</Form.Group>
 
-					<Form.Group as={Col} sm={12} md={6} className='mb-3' controlId='name'>
+					<Form.Group className='mb-3' controlId='name'>
 						<Form.Label>Nombre de la mascota *</Form.Label>
 						<InputWithFeedback
 							type='text'
@@ -147,7 +250,7 @@ export const NewPatientForm = () => {
 								{...formik.getFieldProps('petSpecie')}
 								className='mb-3'
 								isValid={!formik.errors.petSpecie && formik.touched.petSpecie}
-								isInvalid={formik.errors.petSpecie}>
+								isInvalid={formik.errors.petSpecie && formik.touched.petSpecie}>
 								<option disabled value={'placeholder'}>
 									Selecciona uno
 								</option>

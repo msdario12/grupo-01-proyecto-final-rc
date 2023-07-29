@@ -6,6 +6,7 @@ export const InputWithFeedback = ({
 	type,
 	placeholder,
 	props,
+	noFeedback = false,
 }) => {
 	return (
 		<>
@@ -18,9 +19,11 @@ export const InputWithFeedback = ({
 				type={type}
 				placeholder={placeholder}
 			/>
-			<Form.Control.Feedback type='invalid'>
-				{formik.errors[name]}
-			</Form.Control.Feedback>
+			{!noFeedback && (
+				<Form.Control.Feedback type='invalid'>
+					{formik.errors[name]}
+				</Form.Control.Feedback>
+			)}
 		</>
 	);
 };
