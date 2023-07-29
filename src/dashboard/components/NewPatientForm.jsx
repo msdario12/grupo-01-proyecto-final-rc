@@ -1,7 +1,19 @@
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import {
+	Button,
+	Card,
+	Col,
+	Dropdown,
+	DropdownButton,
+	Form,
+	FormControl,
+	InputGroup,
+	ListGroup,
+	Row,
+} from 'react-bootstrap';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import { useFormik } from 'formik';
 import { animalsSpecies } from '../../plan-details/components/FormGroupDetailPlans';
+import { useState } from 'react';
 
 export const NewPatientForm = () => {
 	const formik = useFormik({
@@ -27,6 +39,14 @@ export const NewPatientForm = () => {
 			formik.resetForm();
 		},
 	});
+	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
+
+	const onChangeEmail = (e) => {
+		if (e.target.value.length >= 3) {
+			setIsDropDownOpen(true);
+		}
+	};
+
 	return (
 		<Card>
 			<Card.Body>
@@ -34,21 +54,25 @@ export const NewPatientForm = () => {
 					Crear nuevo paciente
 				</Card.Title>
 				<Form onSubmit={formik.handleSubmit}>
-					<Form.Group className='mb-3' controlId='email'>
-						<Form.Label>Correo Electrónico *</Form.Label>
-						<InputWithFeedback
-							type='email'
-							placeholder='juanperez@example.com'
-							formik={formik}
-							name={'email'}
-							props={{ maxLength: 80 }}
-						/>
+					<InputGroup
+						className='mb-3'
+						onChange={onChangeEmail}
+						onBlur={() => setIsDropDownOpen(false)}>
+						<Form.Control aria-label='Text input with dropdown button' />
 
-						<Form.Text className='text-muted'>
-							Asegúrese de ingresar un correo valido ya que nos comunicaremos
-							con usted por ese medio.
-						</Form.Text>
-					</Form.Group>
+						<DropdownButton
+							onChange={() => setIsDropDownOpen((prev) => !prev)}
+							drop='down-centered'
+							show={isDropDownOpen}
+							variant='outline-primary'
+							title=''
+							align='start'>
+							<Dropdown.Item>Action</Dropdown.Item>
+							<Dropdown.Item>Another action</Dropdown.Item>
+							<Dropdown.Item>Something else here</Dropdown.Item>
+						</DropdownButton>
+					</InputGroup>
+
 					<Row>
 						<Form.Group
 							as={Col}
