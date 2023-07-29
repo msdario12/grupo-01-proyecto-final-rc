@@ -33,13 +33,13 @@ const patientSchema = Yup.object({
 		.max(40, 'Máximo de 40 caracteres')
 		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
-	petSpecie: Yup.string()
+	specie: Yup.string()
 		.required('Campo obligatorio')
 		.oneOf(
 			animalsSpecies.map((animal) => animal.value),
 			'Selecciona una especie de la lista'
 		),
-	petRace: Yup.string()
+	race: Yup.string()
 		.required('Campo obligatorio')
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
@@ -58,8 +58,8 @@ export const NewPatientForm = () => {
 			lastName: '',
 			phone: '',
 			name: '',
-			petSpecie: 'placeholder',
-			petRace: '',
+			specie: 'placeholder',
+			race: '',
 		},
 		validationSchema: patientSchema,
 
@@ -243,14 +243,14 @@ export const NewPatientForm = () => {
 							sm={12}
 							md={6}
 							className='mb-3'
-							controlId='petSpecie'>
+							controlId='specie'>
 							<Form.Label>Especie de tu mascota *</Form.Label>
 							<Form.Select
-								name='petSpecie'
-								{...formik.getFieldProps('petSpecie')}
+								name='specie'
+								{...formik.getFieldProps('specie')}
 								className='mb-3'
-								isValid={!formik.errors.petSpecie && formik.touched.petSpecie}
-								isInvalid={formik.errors.petSpecie && formik.touched.petSpecie}>
+								isValid={!formik.errors.specie && formik.touched.specie}
+								isInvalid={formik.errors.specie && formik.touched.specie}>
 								<option disabled value={'placeholder'}>
 									Selecciona uno
 								</option>
@@ -261,7 +261,7 @@ export const NewPatientForm = () => {
 								))}
 							</Form.Select>
 							<Form.Control.Feedback type='invalid'>
-								{formik.errors.petSpecie}
+								{formik.errors.specie}
 							</Form.Control.Feedback>
 						</Form.Group>
 						<Form.Group
@@ -269,14 +269,14 @@ export const NewPatientForm = () => {
 							sm={12}
 							md={6}
 							className='mb-3'
-							controlId='petRace'>
+							controlId='race'>
 							<Form.Label>Raza de tu mascota</Form.Label>
 
 							<InputWithFeedback
 								type='text'
 								placeholder='O una descripción'
 								formik={formik}
-								name={'petRace'}
+								name={'race'}
 								props={{ maxLength: 40 }}
 							/>
 						</Form.Group>
