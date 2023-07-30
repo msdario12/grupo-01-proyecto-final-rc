@@ -49,6 +49,8 @@ export const useForm = (initialForm, validateForm) => {
 
     setForm(initialForm);
 
+    //Falta la logica para enviar a la base de datos
+
   };
 
   return {
