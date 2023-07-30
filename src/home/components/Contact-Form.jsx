@@ -55,7 +55,7 @@ const validationsForm = (form) => {
 
 export const ContactForm = () => {
 
-  const { form, errors, hasErrors, isFormComplete, handleBlur, handleSubmit, handleChange } =
+  const { form, errors, isFormComplete, handleBlur, handleSubmit, handleChange } =
     useForm(initialForm, validationsForm);
 
   return (
@@ -131,7 +131,7 @@ export const ContactForm = () => {
             {errors.description && <p className="validation-errors">{errors.description}</p>}
 
           </Form.Group>
-          <Button variant="primary" type="submit" disabled={!isFormComplete || hasErrors}>
+          <Button variant="primary" type="submit" disabled={!isFormComplete}>
             Enviar consulta
           </Button>
         </Form>
