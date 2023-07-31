@@ -10,7 +10,7 @@ import {
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import { useFormik } from 'formik';
 import { animalsSpecies } from '../../plan-details/components/FormGroupDetailPlans';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { backendAPI } from '../../api/backendAPI';
 import * as Yup from 'yup';
 
@@ -130,9 +130,6 @@ export const NewPatientForm = () => {
 	return (
 		<Card>
 			<Card.Body>
-				<Card.Title className='display-6 fw-bold'>
-					Crear nuevo paciente
-				</Card.Title>
 				<Form onSubmit={formik.handleSubmit}>
 					<Form.Group className='mb-3' controlId='email'>
 						<Form.Label>Email *</Form.Label>
