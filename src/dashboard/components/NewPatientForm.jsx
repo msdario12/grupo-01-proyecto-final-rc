@@ -146,6 +146,7 @@ export const NewPatientForm = () => {
 							autoComplete='off'>
 							<div className='d-flex'>
 								<InputWithFeedback
+									hasTextCapitalization={false}
 									noFeedback={true}
 									type='text'
 									placeholder='Busque un email'
