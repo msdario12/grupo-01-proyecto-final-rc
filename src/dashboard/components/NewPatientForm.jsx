@@ -17,21 +17,30 @@ import * as Yup from 'yup';
 const patientSchema = Yup.object({
 	firstName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
-		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.max(35, 'Máximo de 35 caracteres')
+		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	lastName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
-		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.max(35, 'Máximo de 35 caracteres')
+		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	email: Yup.string()
 		.email('Introduzca un email valido')
 		.required('Campo obligatorio'),
+	phone: Yup.string()
+		.matches(
+			// eslint-disable-next-line no-useless-escape
+			/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
+			'Introduce un número de teléfono válido'
+		)
+		.min(3, 'Mínimo de 3 caracteres')
+		.max(15, 'Máximo de 15 caracteres')
+		.required('Campo obligatorio'),
 	name: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
-		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.max(35, 'Máximo de 35 caracteres')
+		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	specie: Yup.string()
 		.required('Campo obligatorio')
@@ -42,8 +51,8 @@ const patientSchema = Yup.object({
 	race: Yup.string()
 		.required('Campo obligatorio')
 		.min(3, 'Mínimo de 3 caracteres')
-		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto'),
+		.max(35, 'Máximo de 35 caracteres')
+		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto'),
 });
 
 export const NewPatientForm = () => {
@@ -66,14 +75,10 @@ export const NewPatientForm = () => {
 		onSubmit: (values) => {
 			// Logica para enviar informacion al backend
 			const castValues = patientSchema.cast(values);
-			console.log(castValues);
-			const { name, price, description } = castValues;
-
 			backendAPI
 				.post('/api/patients', castValues)
 				.then((res) => console.log(res));
-			// getProductsFromDB();
-			// alert(JSON.stringify(values, null, 2));
+
 			formik.resetForm();
 			setIsUserInfoLoaded(false);
 		},
@@ -216,10 +221,14 @@ export const NewPatientForm = () => {
 						<Form.Label>Número de teléfono *</Form.Label>
 						<InputWithFeedback
 							type='tel'
+							onChange={(e) => console.log(e)}
 							placeholder='38135222115'
 							formik={formik}
 							name={'phone'}
-							props={{ maxLength: 15, disabled: isUserInfoLoaded }}
+							props={{
+								maxLength: 15,
+								disabled: isUserInfoLoaded,
+							}}
 						/>
 					</Form.Group>
 
@@ -279,14 +288,25 @@ export const NewPatientForm = () => {
 						</Form.Group>
 					</Row>
 
-					<div className='d-flex justify-content-center'>
+					<div className='d-flex justify-content-center gap-3'>
 						<Button
+							className='px-4 py-2'
 							disabled={!formik.isValid}
 							variant='primary'
 							size='md'
-							type='submit'
-							className='w-50'>
+							type='submit'>
 							Enviar
+						</Button>
+						<Button
+							className='px-4 py-2'
+							variant='danger'
+							size='md'
+							onClick={() => {
+								formik.resetForm();
+								setIsUserInfoLoaded(false);
+							}}
+							type='button'>
+							Limpiar
 						</Button>
 					</div>
 				</Form>

@@ -1,7 +1,4 @@
 import { useEffect, useState } from 'react';
-import { MainTableTurns } from './MainTableTurns';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
 import { Badge, Button, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
 import { backendAPI } from '../../api/backendAPI';
@@ -30,12 +27,7 @@ export const PatientsTable = () => {
 	if (!patientsList) {
 		return 'Cargando datos...';
 	}
-	const formatDate = (date) => {
-		return format(date, 'P', { locale: es });
-	};
-	const formatTime = (date) => {
-		return format(date, 'p', { locale: es });
-	};
+
 	return (
 		<Table hover responsive>
 			<thead>
