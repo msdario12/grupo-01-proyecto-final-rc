@@ -50,11 +50,11 @@ export const PatientsTable = () => {
 			</thead>
 			<tbody className='align-middle fw-semibold'>
 				{patientsList.map((patient) => (
-					<tr key={patient._id}>
+					<tr key={patient._id} className='text-capitalize'>
 						<td>{patient.index}</td>
 						<td>{patient.firstName}</td>
 						<td>{patient.lastName}</td>
-						<td>{patient.email}</td>
+						<td className='text-lowercase'>{patient.email}</td>
 						<td>
 							<div className='d-flex flex-column align-items-start'>
 								<span className=''>{patient.name}</span>
