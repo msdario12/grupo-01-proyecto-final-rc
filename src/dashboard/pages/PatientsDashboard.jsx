@@ -3,7 +3,7 @@ import { PatientsTable } from '../components/PatientsTable';
 
 export const PatientsDashboard = () => {
 	return (
-		<div className='py-1 py-lg-3 container d-flex flex-column gap-3 gap-lg-5'>
+		<div className='py-1 py-lg-3 container-lg d-flex flex-column gap-3 gap-lg-5'>
 			<div className='mt-1 mt-md-2 mt-lg-4'>
 				<h2 style={{ letterSpacing: 0.1 }} className='display-4 fw-bold'>
 					Añadir paciente{' '}
