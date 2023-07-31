@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import { MainTableTurns } from './MainTableTurns';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { Badge, Table } from 'react-bootstrap';
+import { Badge, Button, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
 import { backendAPI } from '../../api/backendAPI';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -13,6 +15,7 @@ const columnList = [
 	{ title: 'Mascota', name: 'name' },
 	{ title: 'Raza', name: 'race' },
 	{ title: 'Especie', name: 'specie' },
+	{ title: 'Acción', name: 'action', hasIcon: false, center: true },
 ];
 
 export const PatientsTable = () => {
@@ -40,6 +43,7 @@ export const PatientsTable = () => {
 					<th className='text-muted small'>#</th>
 					{columnList.map((header) => (
 						<CustomTh
+							isCenter={header.center}
 							idName='index'
 							setSortedColumn={setSortedColumn}
 							sortedColumn={sortedColumn}
@@ -69,6 +73,22 @@ export const PatientsTable = () => {
 							<Badge pill bg='primary'>
 								{patient.specie}
 							</Badge>
+						</td>
+						<td>
+							<div className='d-flex gap-2 justify-content-center'>
+								<Button
+									size='sm'
+									variant='outline-success'
+									style={{ width: 30 }}>
+									<FontAwesomeIcon icon={faEdit} />
+								</Button>
+								<Button
+									size='sm'
+									variant='outline-danger'
+									style={{ width: 30 }}>
+									<FontAwesomeIcon icon={faRemove} />
+								</Button>
+							</div>
 						</td>
 					</tr>
 				))}
