@@ -13,6 +13,7 @@ const sortIcons = {
 };
 
 export const CustomTh = ({
+	idName = 'id',
 	title,
 	name,
 	setTurnsList,
@@ -46,7 +47,7 @@ export const CustomTh = ({
 	const comparingFunction = (a, b, name) => {
 		console.log(typeof a[name], sortMode);
 		if (sortMode === 'original') {
-			return a['id'] - b['id'];
+			return a[idName] - b[idName];
 		}
 		const nameA = typeof a[name] === 'string' ? a[name].toUpperCase() : a[name]; // ignore upper and lowercase
 		const nameB = typeof b[name] === 'string' ? b[name].toUpperCase() : b[name]; // ignore upper and lowercase
