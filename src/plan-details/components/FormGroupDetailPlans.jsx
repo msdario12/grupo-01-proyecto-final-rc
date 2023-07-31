@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { InputWithFeedback } from '../elements/InputWithFeedback';
 
 // Opciones del select de especie de animales
-const animalsSpecies = [
+export const animalsSpecies = [
 	{ value: 'cat', name: 'Gato' },
 	{ value: 'dog', name: 'Perro' },
 	{ value: 'turtle', name: 'Tortuga' },
