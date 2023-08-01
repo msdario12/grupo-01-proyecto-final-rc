@@ -43,7 +43,7 @@ export const PetEditForm = ({ petID }) => {
 					console.error(e);
 					setIsLoading(false);
 					addToast({
-						message: 'Error al editar el usuario',
+						message: 'Error al editar la mascota ' + e,
 						variant: 'error',
 					});
 				});
