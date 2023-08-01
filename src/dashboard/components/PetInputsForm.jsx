@@ -17,7 +17,7 @@ export const PetInputsForm = ({ formik }) => {
 			</Form.Group>
 
 			<Row>
-				<Form.Group as={Col} sm={12} md={6} className='mb-3' controlId='specie'>
+				<Form.Group as={Col} sm={12} lg={6} className='mb-3' controlId='specie'>
 					<Form.Label>Especie de tu mascota *</Form.Label>
 					<Form.Select
 						name='specie'
@@ -38,7 +38,7 @@ export const PetInputsForm = ({ formik }) => {
 						{formik.errors.specie}
 					</Form.Control.Feedback>
 				</Form.Group>
-				<Form.Group as={Col} sm={12} md={6} className='mb-3' controlId='race'>
+				<Form.Group as={Col} sm={12} lg={6} className='mb-3' controlId='race'>
 					<Form.Label>Raza de tu mascota</Form.Label>
 
 					<InputWithFeedback

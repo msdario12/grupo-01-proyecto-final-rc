@@ -111,7 +111,7 @@ export const UsersInputsForm = ({
 				<Form.Group
 					as={Col}
 					sm={12}
-					md={6}
+					lg={6}
 					className='mb-3'
 					controlId='firstName'>
 					<Form.Label>Nombre *</Form.Label>
@@ -127,7 +127,7 @@ export const UsersInputsForm = ({
 				<Form.Group
 					as={Col}
 					sm={12}
-					md={6}
+					lg={6}
 					className='mb-3'
 					controlId='lastName'>
 					<Form.Label>Apellido *</Form.Label>

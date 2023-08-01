@@ -1,51 +1,16 @@
-import { Button, Card, Form } from 'react-bootstrap';
+import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { animalsSpecies } from '../../plan-details/components/FormGroupDetailPlans';
 import { useEffect, useState } from 'react';
 import { backendAPI } from '../../api/backendAPI';
 import * as Yup from 'yup';
 import { UsersInputsForm } from './UsersInputsForm';
 import { PetInputsForm } from './PetInputsForm';
+import { userSchema } from '../schema-validations/userSchema';
+import { petSchema } from '../schema-validations/petSchema';
 
 const patientSchema = Yup.object({
-	firstName: Yup.string()
-		.min(3, 'Mínimo de 3 caracteres')
-		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
-		.required('Campo obligatorio'),
-	lastName: Yup.string()
-		.min(3, 'Mínimo de 3 caracteres')
-		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
-		.required('Campo obligatorio'),
-	email: Yup.string()
-		.email('Introduzca un email valido')
-		.required('Campo obligatorio'),
-	phone: Yup.string()
-		.matches(
-			// eslint-disable-next-line no-useless-escape
-			/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/,
-			'Introduce un número de teléfono válido'
-		)
-		.min(3, 'Mínimo de 3 caracteres')
-		.max(15, 'Máximo de 15 caracteres')
-		.required('Campo obligatorio'),
-	name: Yup.string()
-		.min(3, 'Mínimo de 3 caracteres')
-		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
-		.required('Campo obligatorio'),
-	specie: Yup.string()
-		.required('Campo obligatorio')
-		.oneOf(
-			animalsSpecies.map((animal) => animal.value),
-			'Selecciona una especie de la lista'
-		),
-	race: Yup.string()
-		.required('Campo obligatorio')
-		.min(3, 'Mínimo de 3 caracteres')
-		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto'),
+	...userSchema,
+	...petSchema,
 });
 
 export const NewPatientForm = ({
@@ -114,13 +79,21 @@ export const NewPatientForm = ({
 		<Card className={editMode ? 'border-0' : ''}>
 			<Card.Body>
 				<Form onSubmit={formik.handleSubmit}>
-					<UsersInputsForm
-						formik={formik}
-						setIsUserInfoLoaded={setIsUserInfoLoaded}
-						isUserInfoLoaded={isUserInfoLoaded}
-					/>
+					<Row className='mb-lg-3 mb-1'>
+						<Col sm={12} lg={6}>
+							<h3 className='mb-lg-3 mb-1'>Datos del dueño</h3>
+							<UsersInputsForm
+								formik={formik}
+								setIsUserInfoLoaded={setIsUserInfoLoaded}
+								isUserInfoLoaded={isUserInfoLoaded}
+							/>
+						</Col>
+						<Col sm={12} lg={6}>
+							<h3 className='mb-lg-3 mb-1'>Datos de la mascota</h3>
 
-					<PetInputsForm formik={formik} />
+							<PetInputsForm formik={formik} />
+						</Col>
+					</Row>
 
 					<div className='d-flex justify-content-center gap-3'>
 						<Button
@@ -129,7 +102,7 @@ export const NewPatientForm = ({
 							variant={editMode ? 'outline-primary' : 'primary'}
 							size='md'
 							type='submit'>
-							{editMode ? 'Editar' : 'Enviar'}
+							{editMode ? 'Editar paciente' : 'Crear paciente'}
 						</Button>
 						<Button
 							className='px-4 py-2'
