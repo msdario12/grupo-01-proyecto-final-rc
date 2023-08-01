@@ -1,18 +1,11 @@
-import {
-	Button,
-	Card,
-	Col,
-	Form,
-	InputGroup,
-	ListGroup,
-	Row,
-} from 'react-bootstrap';
-import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
+import { Button, Card, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { animalsSpecies } from '../../plan-details/components/FormGroupDetailPlans';
 import { useEffect, useState } from 'react';
 import { backendAPI } from '../../api/backendAPI';
 import * as Yup from 'yup';
+import { UsersInputsForm } from './UsersInputsForm';
+import { PetInputsForm } from './PetInputsForm';
 
 const patientSchema = Yup.object({
 	firstName: Yup.string()
@@ -59,9 +52,7 @@ export const NewPatientForm = ({
 	editMode = false,
 	selectedPatientID = {},
 }) => {
-	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
-	const [suggestionList, setSuggestionList] = useState();
 	const [dataToEdit, setDataToEdit] = useState();
 
 	const initialValues = {
@@ -116,53 +107,6 @@ export const NewPatientForm = ({
 		});
 	}, [editMode, selectedPatientID]);
 
-	const handleChangeEmail = (e) => {
-		const value = e.target.value;
-		if (e.target.value.length >= 3) {
-			setIsDropDownOpen(true);
-			backendAPI.get('/api/users', { params: { email: value } }).then((res) => {
-				if (!res.data.data) {
-					setSuggestionList();
-					setIsUserInfoLoaded(false);
-					return;
-				}
-				setSuggestionList(res.data.data);
-			});
-		} else {
-			setIsDropDownOpen(false);
-			setIsUserInfoLoaded(false);
-		}
-	};
-
-	const handleFocusEmail = (e) => {
-		const value = e.target.value;
-		if (value.length >= 3) {
-			setIsDropDownOpen(true);
-		}
-	};
-
-	const handleClickSuggestion = (suggestion) => {
-		console.log(suggestion);
-		setIsUserInfoLoaded(true);
-		formik.values.email = suggestion.email;
-		formik.values.firstName = suggestion.firstName;
-		formik.setFieldTouched('firstName', true);
-
-		formik.values.lastName = suggestion.lastName;
-		formik.setFieldTouched('lastName', true);
-
-		formik.values.phone = suggestion.phone;
-		formik.setFieldTouched('phone', true);
-	};
-	const handleBlur = () => {
-		setTimeout(() => setIsDropDownOpen(false), 150);
-	};
-
-	const cleanEmailClick = () => {
-		setIsUserInfoLoaded(false);
-		formik.values.email = '';
-		formik.setFieldTouched('email', false);
-	};
 	if (editMode && !dataToEdit) {
 		return 'Cargando datos...';
 	}
@@ -170,158 +114,13 @@ export const NewPatientForm = ({
 		<Card className={editMode ? 'border-0' : ''}>
 			<Card.Body>
 				<Form onSubmit={formik.handleSubmit}>
-					<Form.Group className='mb-3' controlId='email'>
-						<Form.Label>Email *</Form.Label>
-						<InputGroup
-							className='mb-3 d-flex flex-column'
-							onChange={handleChangeEmail}
-							onFocus={handleFocusEmail}
-							onBlur={handleBlur}
-							autoComplete='off'>
-							<div className='d-flex'>
-								<InputWithFeedback
-									hasTextCapitalization={false}
-									noFeedback={true}
-									type='text'
-									placeholder='Busque un email'
-									formik={formik}
-									name={'email'}
-									props={{ maxLength: 40, autoComplete: 'new-password' }}
-								/>
+					<UsersInputsForm
+						formik={formik}
+						setIsUserInfoLoaded={setIsUserInfoLoaded}
+						isUserInfoLoaded={isUserInfoLoaded}
+					/>
 
-								<Button
-									type='button'
-									variant='outline-secondary'
-									onClick={cleanEmailClick}>
-									Borrar
-								</Button>
-							</div>
-							<ListGroup
-								className={`shadow-lg w-100 ${
-									isDropDownOpen ? 'position-absolute' : 'd-none'
-								}`}
-								style={{ top: 37 }}>
-								{!suggestionList ? (
-									<ListGroup.Item>No existe el email buscado</ListGroup.Item>
-								) : (
-									suggestionList.map((suggestion) => (
-										<ListGroup.Item
-											type='button'
-											key={suggestion._id}
-											action
-											onClick={() => handleClickSuggestion(suggestion)}>
-											{suggestion.email}
-										</ListGroup.Item>
-									))
-								)}
-							</ListGroup>
-						</InputGroup>
-					</Form.Group>
-
-					<Row>
-						<Form.Group
-							as={Col}
-							sm={12}
-							md={6}
-							className='mb-3'
-							controlId='firstName'>
-							<Form.Label>Nombre *</Form.Label>
-							<InputWithFeedback
-								type='text'
-								placeholder='Ramiro'
-								formik={formik}
-								name={'firstName'}
-								props={{ maxLength: 40, disabled: isUserInfoLoaded }}
-							/>
-						</Form.Group>
-
-						<Form.Group
-							as={Col}
-							sm={12}
-							md={6}
-							className='mb-3'
-							controlId='lastName'>
-							<Form.Label>Apellido *</Form.Label>
-							<InputWithFeedback
-								type='text'
-								placeholder='Perez'
-								formik={formik}
-								name={'lastName'}
-								props={{ maxLength: 40, disabled: isUserInfoLoaded }}
-							/>
-						</Form.Group>
-					</Row>
-
-					<Form.Group className='mb-3' controlId='phone'>
-						<Form.Label>Número de teléfono *</Form.Label>
-						<InputWithFeedback
-							type='tel'
-							onChange={(e) => console.log(e)}
-							placeholder='38135222115'
-							formik={formik}
-							name={'phone'}
-							props={{
-								maxLength: 15,
-								disabled: isUserInfoLoaded,
-							}}
-						/>
-					</Form.Group>
-
-					<Form.Group className='mb-3' controlId='name'>
-						<Form.Label>Nombre de la mascota *</Form.Label>
-						<InputWithFeedback
-							type='text'
-							placeholder='Roco'
-							formik={formik}
-							name={'name'}
-							props={{ maxLength: 40 }}
-						/>
-					</Form.Group>
-
-					<Row>
-						<Form.Group
-							as={Col}
-							sm={12}
-							md={6}
-							className='mb-3'
-							controlId='specie'>
-							<Form.Label>Especie de tu mascota *</Form.Label>
-							<Form.Select
-								name='specie'
-								{...formik.getFieldProps('specie')}
-								className='mb-3'
-								isValid={!formik.errors.specie && formik.touched.specie}
-								isInvalid={formik.errors.specie && formik.touched.specie}>
-								<option disabled value={'placeholder'}>
-									Selecciona uno
-								</option>
-								{animalsSpecies.map((animal) => (
-									<option key={animal.value} value={animal.value}>
-										{animal.name}
-									</option>
-								))}
-							</Form.Select>
-							<Form.Control.Feedback type='invalid'>
-								{formik.errors.specie}
-							</Form.Control.Feedback>
-						</Form.Group>
-						<Form.Group
-							as={Col}
-							sm={12}
-							md={6}
-							className='mb-3'
-							controlId='race'>
-							<Form.Label>Raza de tu mascota</Form.Label>
-
-							<InputWithFeedback
-								type='text'
-								placeholder='O una descripción'
-								formik={formik}
-								name={'race'}
-								props={{ maxLength: 40 }}
-							/>
-						</Form.Group>
-					</Row>
+					<PetInputsForm formik={formik} />
 
 					<div className='d-flex justify-content-center gap-3'>
 						<Button

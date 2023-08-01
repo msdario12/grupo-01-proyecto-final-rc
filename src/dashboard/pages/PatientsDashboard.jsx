@@ -10,8 +10,8 @@ export const PatientsDashboard = () => {
 				</h2>
 				<h4 className='display-6 fs-4'>Busca un email existente o crea uno</h4>
 			</div>
-			<PatientsTable />
 			<NewPatientForm />
+			<PatientsTable />
 		</div>
 	);
 };
