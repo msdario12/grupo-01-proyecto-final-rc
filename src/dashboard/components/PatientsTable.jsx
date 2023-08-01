@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Badge, Button, Table } from 'react-bootstrap';
+import { Badge, Button, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
 import { backendAPI } from '../../api/backendAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -18,7 +18,7 @@ const columnList = [
 ];
 
 export const PatientsTable = () => {
-	const [patientsList, setPatientsList] = useState([]);
+	const [patientsList, setPatientsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
 	const [selectedPatientID, setSelectedPatientID] = useState('');
 	const [modalShow, setModalShow] = useState(false);
@@ -29,7 +29,11 @@ export const PatientsTable = () => {
 		});
 	}, [modalShow]);
 	if (!patientsList) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex justify-content-center'>
+				<Spinner animation='border' />
+			</div>
+		);
 	}
 
 	return (
