@@ -3,13 +3,14 @@ import { SideMenu } from '../components/SideMenu';
 import { MainNavBar } from '../../ui/components/MainNavBar';
 import { useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
+import { CustomToast } from '../components/CustomToast';
 
 export const DashboardLayout = () => {
 	const [isSideBarOpen, setIsSideBarOpen] = useState(true);
 	const [toastStatus, setToastStatus] = useState({
 		show: false,
 		message: '',
-		variant: 'success'
+		variant: 'success',
 	});
 	return (
 		<main className={`container-fluid ${isSideBarOpen && 'ps-0'}`}>
@@ -35,6 +36,7 @@ export const DashboardLayout = () => {
 							isSideBarOpen={isSideBarOpen}
 						/>
 						<Outlet />
+						<CustomToast />
 					</div>
 				</ToastContext.Provider>
 			</div>

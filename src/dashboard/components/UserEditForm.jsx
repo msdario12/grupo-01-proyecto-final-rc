@@ -5,7 +5,6 @@ import { userSchema } from '../schema-validations/userSchema';
 import { backendAPI } from '../../api/backendAPI';
 import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
-import { CustomToast } from './CustomToast';
 import { ToastContext } from '../../context/ToastContext';
 
 const userEditSchema = Yup.object({ ...userSchema });
@@ -70,7 +69,6 @@ export const UserEditForm = ({ userID }) => {
 	}
 	return (
 		<div>
-			<CustomToast />
 			<Form onSubmit={formik.handleSubmit}>
 				<UsersInputsForm
 					formik={formik}

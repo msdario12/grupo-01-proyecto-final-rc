@@ -29,6 +29,7 @@ export const CustomToast = () => {
 		<Row>
 			<Col xs={6}>
 				<Toast
+					style={{ zIndex: 10000 }}
 					className={`position-fixed bottom-0 end-0 me-3 mb-3 ${variants[variant].bg}`}
 					onClose={() => setStatus({ show: false })}
 					show={show}
