@@ -1,12 +1,13 @@
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { backendAPI } from '../../api/backendAPI';
 import * as Yup from 'yup';
 import { UsersInputsForm } from './UsersInputsForm';
 import { PetInputsForm } from './PetInputsForm';
 import { userSchema } from '../schema-validations/userSchema';
 import { petSchema } from '../schema-validations/petSchema';
+import { ToastContext } from '../../context/ToastContext';
 
 const patientSchema = Yup.object({
 	...userSchema,
@@ -19,6 +20,7 @@ export const NewPatientForm = ({
 }) => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
+	const { addToast } = useContext(ToastContext);
 
 	const initialValues = {
 		email: '',
@@ -47,14 +49,38 @@ export const NewPatientForm = ({
 						lastName: castValues.lastName,
 						phone: castValues.phone,
 					})
-					.then((res) => console.log(res));
+					.then((res) => {
+						addToast({
+							variant: 'success',
+							message: 'Paciente creado correctamente',
+						});
+						console.log(res);
+					})
+					.catch((e) =>
+						addToast({
+							variant: 'error',
+							message: 'Error al crear el paciente',
+						})
+					);
 
 				return;
 			}
 
 			backendAPI
 				.post('/api/patients', castValues)
-				.then((res) => console.log(res));
+				.then((res) => {
+					addToast({
+						variant: 'success',
+						message: 'Paciente creado correctamente',
+					});
+					console.log(res);
+				})
+				.catch((e) =>
+					addToast({
+						variant: 'error',
+						message: 'Error al crear el paciente',
+					})
+				);
 
 			formik.resetForm();
 			setIsUserInfoLoaded(false);
@@ -66,7 +92,6 @@ export const NewPatientForm = ({
 			return;
 		}
 		backendAPI.get(`/api/patients/${selectedPatientID}`).then((res) => {
-			console.log(res.data);
 			setDataToEdit(res.data.data);
 			formik.setValues(res.data.data, true);
 		});
