@@ -3,11 +3,10 @@ import {
 	faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext } from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { useContext, useState } from 'react';
 import Toast from 'react-bootstrap/Toast';
 import { ToastContext } from '../../context/ToastContext';
+import { ToastContainer } from 'react-bootstrap';
 
 const variants = {
 	success: {
@@ -20,30 +19,35 @@ const variants = {
 	},
 };
 
-export const CustomToast = () => {
-	const { status, setStatus } = useContext(ToastContext);
+export const InternalToast = ({ toast }) => {
+	const [showToast, setShowToast] = useState(toast.status);
+	return (
+		<Toast
+			style={{ zIndex: 10000 }}
+			className={` ${variants[toast.variant].bg}`}
+			onClose={() => setShowToast(false)}
+			show={showToast}
+			delay={5000}
+			autohide={true}>
+			<Toast.Header>
+				<span className='me-2'>
+					<FontAwesomeIcon icon={variants[toast.variant].icon} size='md' />
+				</span>
+				<strong className='me-auto'>Operación Exitosa</strong>
+			</Toast.Header>
+			<Toast.Body className='text-white'>{toast.message}</Toast.Body>
+		</Toast>
+	);
+};
 
-	const { message = '', show, variant = 'success' } = status;
+export const CustomToast = () => {
+	const { toastList } = useContext(ToastContext);
 
 	return (
-		<Row>
-			<Col xs={6}>
-				<Toast
-					style={{ zIndex: 10000 }}
-					className={`position-fixed bottom-0 end-0 me-3 mb-3 ${variants[variant].bg}`}
-					onClose={() => setStatus({ show: false })}
-					show={show}
-					delay={5000}
-					autohide>
-					<Toast.Header>
-						<span className='me-2'>
-							<FontAwesomeIcon icon={variants[variant].icon} size='md' />
-						</span>
-						<strong className='me-auto'>Operación Exitosa</strong>
-					</Toast.Header>
-					<Toast.Body className='text-white'>{message}</Toast.Body>
-				</Toast>
-			</Col>
-		</Row>
+		<ToastContainer className='position-fixed bottom-0 end-0 me-3 mb-3'>
+			{toastList.map((toast) => (
+				<InternalToast key={toast.date} toast={toast} />
+			))}
+		</ToastContainer>
 	);
 };

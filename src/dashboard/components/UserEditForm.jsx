@@ -13,7 +13,7 @@ export const UserEditForm = ({ userID }) => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
 	const [isLoading, setIsLoading] = useState(false);
-	const { setStatus: setToastStatus } = useContext(ToastContext);
+	const { addToast } = useContext(ToastContext);
 
 	const initialValues = {
 		email: '',
@@ -33,19 +33,18 @@ export const UserEditForm = ({ userID }) => {
 			backendAPI
 				.put(`/api/users/${userID}`, castValues)
 				.then((res) => {
-					setToastStatus({
-						show: true,
+					addToast({
 						message: 'Usuario editado correctamente',
 						variant: 'success',
 					});
+
 					setIsLoading(false);
 					console.log(res);
 				})
 				.catch((e) => {
 					console.error(e);
 					setIsLoading(false);
-					setToastStatus({
-						show: true,
+					addToast({
 						message: 'Error al editar el usuario',
 						variant: 'error',
 					});

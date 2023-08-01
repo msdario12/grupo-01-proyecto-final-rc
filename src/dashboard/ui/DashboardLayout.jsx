@@ -12,6 +12,19 @@ export const DashboardLayout = () => {
 		message: '',
 		variant: 'success',
 	});
+	const [toastList, setToastList] = useState([]);
+	const addToast = (toast) => {
+		const now = new Date();
+
+		setToastList((prev) => [
+			...prev,
+			{
+				...toast,
+				date: now.toString(),
+				show: true,
+			},
+		]);
+	};
 	return (
 		<main className={`container-fluid ${isSideBarOpen && 'ps-0'}`}>
 			<div className='row'>
@@ -19,6 +32,9 @@ export const DashboardLayout = () => {
 					value={{
 						status: toastStatus,
 						setStatus: setToastStatus,
+						setToastList: setToastList,
+						addToast: addToast,
+						toastList: toastList,
 					}}>
 					<div
 						className={`min-vh-100 pe-0 ${
