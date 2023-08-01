@@ -17,12 +17,11 @@ export const PetInputsForm = ({ formik }) => {
 			</Form.Group>
 
 			<Row>
-				<Form.Group as={Col} sm={12} lg={6} className='mb-3' controlId='specie'>
+				<Form.Group className='mb-3' as={Col} sm={12} lg={6} controlId='specie'>
 					<Form.Label>Especie de tu mascota *</Form.Label>
 					<Form.Select
 						name='specie'
 						{...formik.getFieldProps('specie')}
-						className='mb-3'
 						isValid={!formik.errors.specie && formik.touched.specie}
 						isInvalid={formik.errors.specie && formik.touched.specie}>
 						<option disabled value={'placeholder'}>

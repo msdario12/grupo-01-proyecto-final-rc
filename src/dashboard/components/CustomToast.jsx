@@ -12,10 +12,12 @@ const variants = {
 	success: {
 		bg: 'bg-success',
 		icon: faCheck,
+		title: 'Operación exitosa',
 	},
 	error: {
 		bg: 'bg-danger',
 		icon: faTriangleExclamation,
+		title: 'Error en la operación',
 	},
 };
 
@@ -27,13 +29,13 @@ export const InternalToast = ({ toast }) => {
 			className={` ${variants[toast.variant].bg}`}
 			onClose={() => setShowToast(false)}
 			show={showToast}
-			delay={5000}
+			delay={8000}
 			autohide={true}>
 			<Toast.Header>
 				<span className='me-2'>
 					<FontAwesomeIcon icon={variants[toast.variant].icon} size='md' />
 				</span>
-				<strong className='me-auto'>Operación Exitosa</strong>
+				<strong className='me-auto'>{variants[toast.variant].title}</strong>
 			</Toast.Header>
 			<Toast.Body className='text-white'>{toast.message}</Toast.Body>
 		</Toast>

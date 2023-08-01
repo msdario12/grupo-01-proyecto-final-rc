@@ -2,6 +2,7 @@ import { Modal } from 'react-bootstrap';
 import { UserEditForm } from '../components/UserEditForm';
 import { backendAPI } from '../../api/backendAPI';
 import { useEffect, useState } from 'react';
+import { PetEditForm } from '../components/PetEditForm';
 
 export const EditPatientPage = (props) => {
 	const [patientData, setPatientData] = useState();
@@ -28,6 +29,7 @@ export const EditPatientPage = (props) => {
 				/> */}
 
 				<UserEditForm userID={patientData.user_id} />
+				<PetEditForm petID={patientData.pet_id} />
 			</Modal.Body>
 		</Modal>
 	);
