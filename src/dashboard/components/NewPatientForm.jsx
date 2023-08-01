@@ -10,7 +10,7 @@ import {
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import { useFormik } from 'formik';
 import { animalsSpecies } from '../../plan-details/components/FormGroupDetailPlans';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { backendAPI } from '../../api/backendAPI';
 import * as Yup from 'yup';
 
@@ -55,26 +55,47 @@ const patientSchema = Yup.object({
 		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto'),
 });
 
-export const NewPatientForm = () => {
+export const NewPatientForm = ({
+	editMode = false,
+	selectedPatientID = {},
+}) => {
 	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [suggestionList, setSuggestionList] = useState();
+	const [dataToEdit, setDataToEdit] = useState();
+
+	const initialValues = {
+		email: '',
+		firstName: '',
+		lastName: '',
+		phone: '',
+		name: '',
+		specie: 'placeholder',
+		race: '',
+	};
 
 	const formik = useFormik({
-		initialValues: {
-			email: '',
-			firstName: '',
-			lastName: '',
-			phone: '',
-			name: '',
-			specie: 'placeholder',
-			race: '',
-		},
+		initialValues: initialValues,
 		validationSchema: patientSchema,
 
 		onSubmit: (values) => {
 			// Logica para enviar informacion al backend
 			const castValues = patientSchema.cast(values);
+
+			if (editMode) {
+				backendAPI
+					.put(`/api/users/${dataToEdit.user_id}`, {
+						_id: dataToEdit.user_id,
+						email: castValues.email,
+						firstName: castValues.firstName,
+						lastName: castValues.lastName,
+						phone: castValues.phone,
+					})
+					.then((res) => console.log(res));
+
+				return;
+			}
+
 			backendAPI
 				.post('/api/patients', castValues)
 				.then((res) => console.log(res));
@@ -83,6 +104,17 @@ export const NewPatientForm = () => {
 			setIsUserInfoLoaded(false);
 		},
 	});
+
+	useEffect(() => {
+		if (!editMode) {
+			return;
+		}
+		backendAPI.get(`/api/patients/${selectedPatientID}`).then((res) => {
+			console.log(res.data);
+			setDataToEdit(res.data.data);
+			formik.setValues(res.data.data, true);
+		});
+	}, [editMode, selectedPatientID]);
 
 	const handleChangeEmail = (e) => {
 		const value = e.target.value;
@@ -111,7 +143,6 @@ export const NewPatientForm = () => {
 
 	const handleClickSuggestion = (suggestion) => {
 		console.log(suggestion);
-		console.log(formik);
 		setIsUserInfoLoaded(true);
 		formik.values.email = suggestion.email;
 		formik.values.firstName = suggestion.firstName;
@@ -132,8 +163,11 @@ export const NewPatientForm = () => {
 		formik.values.email = '';
 		formik.setFieldTouched('email', false);
 	};
+	if (editMode && !dataToEdit) {
+		return 'Cargando datos...';
+	}
 	return (
-		<Card>
+		<Card className={editMode ? 'border-0' : ''}>
 			<Card.Body>
 				<Form onSubmit={formik.handleSubmit}>
 					<Form.Group className='mb-3' controlId='email'>
@@ -293,14 +327,14 @@ export const NewPatientForm = () => {
 						<Button
 							className='px-4 py-2'
 							disabled={!formik.isValid}
-							variant='primary'
+							variant={editMode ? 'outline-primary' : 'primary'}
 							size='md'
 							type='submit'>
-							Enviar
+							{editMode ? 'Editar' : 'Enviar'}
 						</Button>
 						<Button
 							className='px-4 py-2'
-							variant='danger'
+							variant={editMode ? 'outline-danger' : 'danger'}
 							size='md'
 							onClick={() => {
 								formik.resetForm();
