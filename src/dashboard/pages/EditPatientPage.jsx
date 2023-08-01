@@ -2,7 +2,6 @@ import { Modal } from 'react-bootstrap';
 import { UserEditForm } from '../components/UserEditForm';
 import { backendAPI } from '../../api/backendAPI';
 import { useEffect, useState } from 'react';
-import { CustomToast } from '../components/CustomToast';
 
 export const EditPatientPage = (props) => {
 	const [patientData, setPatientData] = useState();
@@ -27,7 +26,7 @@ export const EditPatientPage = (props) => {
 					editMode={true}
 					selectedPatientID={props.selectedPatientID}
 				/> */}
-				
+
 				<UserEditForm userID={patientData.user_id} />
 			</Modal.Body>
 		</Modal>

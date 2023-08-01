@@ -3,11 +3,11 @@ import {
 	faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useState } from 'react';
-import Button from 'react-bootstrap/Button';
+import { useContext } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Toast from 'react-bootstrap/Toast';
+import { ToastContext } from '../../context/ToastContext';
 
 const variants = {
 	success: {
@@ -20,14 +20,17 @@ const variants = {
 	},
 };
 
-export const CustomToast = ({ variant = 'success', message = '' }) => {
-	const [show, setShow] = useState(false);
+export const CustomToast = () => {
+	const { status, setStatus } = useContext(ToastContext);
+
+	const { message = '', show, variant = 'success' } = status;
+
 	return (
 		<Row>
 			<Col xs={6}>
 				<Toast
 					className={`position-fixed bottom-0 end-0 me-3 mb-3 ${variants[variant].bg}`}
-					onClose={() => setShow(false)}
+					onClose={() => setStatus({ show: false })}
 					show={show}
 					delay={5000}
 					autohide>
@@ -39,9 +42,6 @@ export const CustomToast = ({ variant = 'success', message = '' }) => {
 					</Toast.Header>
 					<Toast.Body className='text-white'>{message}</Toast.Body>
 				</Toast>
-			</Col>
-			<Col xs={6}>
-				<Button onClick={() => setShow(true)}>Show Toast</Button>
 			</Col>
 		</Row>
 	);

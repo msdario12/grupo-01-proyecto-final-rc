@@ -3,9 +3,10 @@ import { UsersInputsForm } from './UsersInputsForm';
 import { useFormik } from 'formik';
 import { userSchema } from '../schema-validations/userSchema';
 import { backendAPI } from '../../api/backendAPI';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { CustomToast } from './CustomToast';
+import { ToastContext } from '../../context/ToastContext';
 
 const userEditSchema = Yup.object({ ...userSchema });
 
@@ -13,6 +14,7 @@ export const UserEditForm = ({ userID }) => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
 	const [isLoading, setIsLoading] = useState(false);
+	const { setStatus: setToastStatus } = useContext(ToastContext);
 
 	const initialValues = {
 		email: '',
@@ -29,10 +31,26 @@ export const UserEditForm = ({ userID }) => {
 			const castValues = userEditSchema.cast(values);
 			console.log(castValues);
 			setIsLoading(true);
-			backendAPI.put(`/api/users/${userID}`, castValues).then((res) => {
-				setIsLoading(false);
-				console.log(res);
-			});
+			backendAPI
+				.put(`/api/users/${userID}`, castValues)
+				.then((res) => {
+					setToastStatus({
+						show: true,
+						message: 'Usuario editado correctamente',
+						variant: 'success',
+					});
+					setIsLoading(false);
+					console.log(res);
+				})
+				.catch((e) => {
+					console.error(e);
+					setIsLoading(false);
+					setToastStatus({
+						show: true,
+						message: 'Error al editar el usuario',
+						variant: 'error',
+					});
+				});
 
 			setIsUserInfoLoaded(false);
 		},
