@@ -16,7 +16,7 @@ export const ComparisonPlans = () => {
 				Planes que ofrecemos
 			</h2>
 			{vetPlans.map((plan) => (
-				<div key={plan.title} className='col-4'>
+				<div key={plan.title} className='col-12 col-lg-4 mb-2'>
 					<ComparisonCardsPlans
 						name={plan.name}
 						button={plan.button ? plan.button : 'btn-secondary'}
