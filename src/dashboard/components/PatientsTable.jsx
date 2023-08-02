@@ -5,6 +5,7 @@ import { backendAPI } from '../../api/backendAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { EditPatientPage } from '../pages/EditPatientPage';
+import { DeletePatientPage } from './DeletePatientPage';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -20,13 +21,14 @@ export const PatientsTable = () => {
 	const [patientsList, setPatientsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
 	const [selectedPatientID, setSelectedPatientID] = useState('');
-	const [modalShow, setModalShow] = useState(false);
+	const [modalEditShow, setModalEditShow] = useState(false);
+	const [modalDeleteShow, setModalDeleteShow] = useState(false);
 	useEffect(() => {
 		backendAPI.get('/api/patients').then((res) => {
 			console.log(res.data.data);
 			setPatientsList(res.data.data);
 		});
-	}, [modalShow]);
+	}, [modalEditShow, modalDeleteShow]);
 	if (!patientsList) {
 		return (
 			<div className='d-flex justify-content-center'>
@@ -39,8 +41,14 @@ export const PatientsTable = () => {
 		<>
 			<EditPatientPage
 				selectedPatientID={selectedPatientID}
-				show={modalShow}
-				onHide={() => setModalShow(false)}
+				show={modalEditShow}
+				onHide={() => setModalEditShow(false)}
+			/>
+			<DeletePatientPage
+				selectedPatientID={selectedPatientID}
+				show={modalDeleteShow}
+				setModalDeleteShow={setModalDeleteShow}
+				onHide={() => setModalDeleteShow(false)}
 			/>
 			<Table hover responsive>
 				<thead>
@@ -84,7 +92,7 @@ export const PatientsTable = () => {
 									<Button
 										onClick={() => {
 											setSelectedPatientID(patient._id);
-											setModalShow(true);
+											setModalEditShow(true);
 										}}
 										size='sm'
 										variant='outline-success'
@@ -93,6 +101,10 @@ export const PatientsTable = () => {
 									</Button>
 
 									<Button
+										onClick={() => {
+											setSelectedPatientID(patient._id);
+											setModalDeleteShow(true);
+										}}
 										size='sm'
 										variant='outline-danger'
 										style={{ width: 30 }}>
