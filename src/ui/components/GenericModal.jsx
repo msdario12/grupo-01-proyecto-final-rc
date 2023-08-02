@@ -8,7 +8,6 @@ export const GenericModal = () => {
 
 	// Manejo del modal
 	const handleClose = () => setIsModalOpen(false);
-	const handleShow = () => setIsModalOpen(true);
 	return (
 		<>
 			<Modal show={isModalOpen} onHide={handleClose}>
