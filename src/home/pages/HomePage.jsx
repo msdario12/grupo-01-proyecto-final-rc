@@ -1,12 +1,10 @@
-import { useEffect } from 'react';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { ComparisonPlans } from '../components/ComparisonPlans';
 import { HeroSection } from '../components/HeroSection';
 import { TestimonialSection } from '../components/TestimonialSection';
 
 export const HomePage = ({ title }) => {
-	useEffect(() => {
-		document.title = title;
-	}, [title]);
+	useDocumentTitle(title);
 	return (
 		<main className='container-lg'>
 			<h2>Esto es el HomePage</h2>
