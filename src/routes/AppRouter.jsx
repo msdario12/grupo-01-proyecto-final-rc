@@ -13,6 +13,7 @@ import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
 import { NewPatientForm } from '../dashboard/components/NewPatientForm';
 import { RequireAuth } from '../auth/components/RequireAuth';
+import { GenericModal } from '../ui/components/GenericModal';
 
 export const AppRouter = () => {
 	return (
@@ -21,7 +22,7 @@ export const AppRouter = () => {
 				<Routes>
 					{/* Estas rutas son públicas */}
 					<Route element={<NavbarLayout />}>
-						<Route index element={<HomePage />} />
+						<Route index element={<HomePage title={'Home'} />} />
 						<Route path='contact' element={<ContactPage />} />
 						<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
 						<Route path='*' element={<Error404Page />} />

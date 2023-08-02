@@ -1,28 +1,7 @@
-import { Navigate, Outlet, useLocation } from 'react-router';
+import { Navigate, Outlet, useLocation, useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
-// Modal
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-
-function ModalExample({}) {
-	const [show, setShow] = useState(true);
-
-	// Manejo del modal
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
-	return (
-		<>
-			<Modal show={show} onHide={handleClose}>
-				<Modal.Header closeButton>
-					<Modal.Title>Modal heading</Modal.Title>
-				</Modal.Header>
-				<Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
-				<Modal.Footer></Modal.Footer>
-			</Modal>
-		</>
-	);
-}
+import { useContext } from 'react';
+import { ModalContext } from '../../context/ModalContext';
 
 // Con esto redireccionamos en caso de no contar con
 // los permisos para ir a la ruta protegida
@@ -34,10 +13,14 @@ function ModalExample({}) {
 export const RequireAuth = () => {
 	const { auth } = useAuth();
 	const location = useLocation();
+	const navigate = useNavigate();
+	const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
 
-	return auth?.user ? (
-		<Outlet />
-	) : (
-		<Navigate to='/' state={{ from: location }} replace />
-	);
+	if (!auth?.user) {
+		setIsModalOpen(true);
+		navigate(-1);
+		return;
+	}
+
+	return <Outlet />;
 };
