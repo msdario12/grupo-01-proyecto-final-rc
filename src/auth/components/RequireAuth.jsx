@@ -1,4 +1,10 @@
-import { Navigate, Outlet, useLocation, useNavigate } from 'react-router';
+import {
+	Navigate,
+	Outlet,
+	redirect,
+	useLocation,
+	useNavigate,
+} from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
 import { useContext } from 'react';
 import { ModalContext } from '../../context/ModalContext';
@@ -16,9 +22,12 @@ export const RequireAuth = () => {
 	const navigate = useNavigate();
 	const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
 
+	console.log(location.state.prevUrl.pathname);
+
 	if (!auth?.user) {
 		setIsModalOpen(true);
-		navigate(-1);
+		navigate(location.state.prevUrl.pathname);
+
 		return;
 	}
 

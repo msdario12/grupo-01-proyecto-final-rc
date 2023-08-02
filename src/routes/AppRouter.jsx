@@ -13,11 +13,13 @@ import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
 import { NewPatientForm } from '../dashboard/components/NewPatientForm';
 import { RequireAuth } from '../auth/components/RequireAuth';
+import { GenericModal } from '../ui/components/GenericModal';
 
 export const AppRouter = () => {
 	return (
 		<div>
 			<BrowserRouter>
+				<GenericModal />
 				<Routes>
 					{/* Estas rutas son públicas */}
 					<Route element={<NavbarLayout />}>
