@@ -13,10 +13,9 @@ export const TestimonialSection = () => {
       <Card>
         <Card.Img variant="top" src="https://imageup.me/images/976a5830-8993-48fc-82e7-8a15ddbfaf0a.jpeg" />
         <Card.Body>
-          <Card.Title>Card title</Card.Title>
+          <Card.Title>Carlos Gonzales</Card.Title>
           <Card.Text>
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
+            Una vez mi perro estuvo a punto de morir por envenamiento. Por suerte pude llegar a tiempo a la veterinaria y ellos lo salvaron. Muchas gracias.
           </Card.Text>
         </Card.Body>
         <Card.Footer>
