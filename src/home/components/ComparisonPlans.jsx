@@ -55,7 +55,7 @@ export const ComparisonPlans = () => {
 	return (
 		<section className='row mb-5'>
 		<h2 className='text-center display-5 fw-bold mb-5'>Planes que ofrecemos</h2>
-			<div className='col-4'>
+			<div className='col-12 col-md-4 mb-2'>
 				<ComparisonCardsPlans
 					title={'Plan Primeros Pasos'}
 					description={'Edades: Mascotas de 0 a 5 años.'}
@@ -82,7 +82,7 @@ export const ComparisonPlans = () => {
 					</ListItems>
 				</ComparisonCardsPlans>
 			</div>
-			<div className='col-4' style={{ transform: 'scale(1.05, 1.05)' }}>
+			<div className='col-12 col-md-4 mb-2'>
 				<ComparisonCardsPlans
 					title={'Plan Madurando'}
 					description={'Edades: Mascotas de 5 a 10 años.'}
@@ -110,7 +110,7 @@ export const ComparisonPlans = () => {
 					</ListItems>
 				</ComparisonCardsPlans>
 			</div>
-			<div className='col-4'>
+			<div className='col-12 col-md-4 mb-2'>
 				<ComparisonCardsPlans
 					title={'Plan Adultos'}
 					description={'Edades: Mascotas de más de 10 años.'}
