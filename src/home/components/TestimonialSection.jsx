@@ -7,9 +7,9 @@ export const TestimonialSection = () => {
   return (
     <>
     
-    <h2 ></h2>
+    <h2 className='text-center display-5 fw-bold mb-3'>Testimonios</h2>
 
-    <CardGroup>
+    <CardGroup className='mb-5'>
       <Card>
         <Card.Img variant="top" src="https://imageup.me/images/976a5830-8993-48fc-82e7-8a15ddbfaf0a.jpeg" />
         <Card.Body>
