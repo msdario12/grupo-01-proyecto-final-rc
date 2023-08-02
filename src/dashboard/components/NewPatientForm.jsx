@@ -99,7 +99,7 @@ export const NewPatientForm = ({
 	}, [editMode, selectedPatientID]);
 
 	if (editMode && !dataToEdit) {
-		return 'Cargando datos...';
+		return 'Cargando datos... s';
 	}
 	return (
 		<Card className={editMode || modalMode ? 'border-0' : ''}>

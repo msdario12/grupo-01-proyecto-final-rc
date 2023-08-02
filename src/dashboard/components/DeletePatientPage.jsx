@@ -44,7 +44,7 @@ export const DeletePatientPage = (props) => {
 			});
 	};
 	if (!patientData || !patientData.user_id) {
-		return 'Cargando datos...';
+		return;
 	}
 	return (
 		<Modal {...props} size='lg' aria-labelledby='contained-modal-title-vcenter'>

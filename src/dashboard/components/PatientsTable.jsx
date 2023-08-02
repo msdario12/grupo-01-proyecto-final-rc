@@ -30,11 +30,32 @@ export const PatientsTable = () => {
 			console.log(res.data.data);
 			setPatientsList(res.data.data);
 		});
-	}, [modalEditShow, modalDeleteShow]);
+	}, [modalEditShow, modalDeleteShow, modalNewPatientShow]);
 	if (!patientsList) {
 		return (
 			<div className='d-flex justify-content-center'>
 				<Spinner animation='border' />
+			</div>
+		);
+	}
+	if (patientsList.length === 0) {
+		return (
+			<div className='d-flex justify-content-center align-items-center gap-3 flex-column'>
+				<h4 className='display-6 fs-4 fw-semibold'>
+					La lista de pacientes esta vacía...
+				</h4>
+				<div>
+					<NewPatientPage
+						show={modalNewPatientShow}
+						setModalNewPatientShow={setModalNewPatientShow}
+						onHide={() => setModalNewPatientShow(false)}
+					/>
+					<Button
+						onClick={() => setModalNewPatientShow(true)}
+						variant='primary'>
+						Crear nuevo paciente
+					</Button>
+				</div>
 			</div>
 		);
 	}
