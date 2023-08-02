@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router';
-import { SideMenu } from '../components/SideMenu';
 import { MainNavBar } from '../../ui/components/MainNavBar';
 import { useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
 import { CustomToast } from '../components/CustomToast';
+import { OffCanvasSideBar } from '../components/OffCanvasSideBar';
+import { SideMenu } from '../components/SideMenu';
 
 export const DashboardLayout = () => {
-	const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+	const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 	const [toastStatus, setToastStatus] = useState({
 		show: false,
 		message: '',
@@ -36,16 +37,17 @@ export const DashboardLayout = () => {
 						addToast: addToast,
 						toastList: toastList,
 					}}>
-					<div
-						className={`min-vh-100 pe-0 ${
-							isSideBarOpen ? 'col-2 col-md-3 col-lg-2' : 'd-none'
-						}`}>
-						<SideMenu />
+					<div className='pe-0 d-none d-md-block col-2 col-md-2 col-lg-2 ps-0'>
+						<SideMenu
+							isSideBarOpen={isSideBarOpen}
+							setIsSideBarOpen={setIsSideBarOpen}
+						/>
 					</div>
-					<div
-						className={`px-0 ${
-							isSideBarOpen ? 'col-10 col-md-9 col-lg-10' : 'col-12'
-						}`}>
+					<OffCanvasSideBar
+						isSideBarOpen={isSideBarOpen}
+						setIsSideBarOpen={setIsSideBarOpen}
+					/>
+					<div className={`px-0 col-12 col-md-10 col-lg-10`}>
 						<MainNavBar
 							isInDashboard={true}
 							setIsSideBarOpen={setIsSideBarOpen}

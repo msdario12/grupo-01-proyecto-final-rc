@@ -4,7 +4,6 @@ import { CustomTh } from './CustomTh';
 import { backendAPI } from '../../api/backendAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 import { EditPatientPage } from '../pages/EditPatientPage';
 
 const columnList = [
