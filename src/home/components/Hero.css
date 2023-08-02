@@ -1,0 +1,19 @@
+.plan-transform {
+  transform: scale(1.05, 1.05);
+}
+
+@media (max-width: 768px) {
+  .plan-transform {
+    transform: none;
+  }
+
+  .container-plans {
+    text-align: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .container-img {
+    display: none;
+  }
+}

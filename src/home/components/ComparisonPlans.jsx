@@ -1,7 +1,7 @@
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
-import "./ComparasionPlan.css";
+import "./Hero.css";
 
 const ListItems = ({ children, title }) => {
   const tooltip = <Tooltip id="tooltip">{children}</Tooltip>;
