@@ -11,7 +11,7 @@ export const TestimonialSection = () => {
 
     <CardGroup>
       <Card className='me-2 mb-5'>
-        <Card.Img variant="top" src="https://www.copycat.dev/blog/wp-content/uploads/2022/12/rc.png" />
+        <Card.Img variant="top" src="https://img.europapress.es/fotoweb/fotonoticia_20150331134913-15031252329_420.jpg" />
         <Card.Body>
           <Card.Title>Card title</Card.Title>
           <Card.Text>
@@ -24,7 +24,7 @@ export const TestimonialSection = () => {
         </Card.Footer>
       </Card>
       <Card className='me-2 mb-5'>
-        <Card.Img variant="top" src="https://www.copycat.dev/blog/wp-content/uploads/2022/12/rc.png" />
+        <Card.Img variant="top" src="https://i0.wp.com/satelitenorte.com.mx/wp-content/uploads/2020/07/personalidad.jpg?fit=1200%2C930&ssl=1" />
         <Card.Body>
           <Card.Title>Card title</Card.Title>
           <Card.Text>
@@ -37,7 +37,7 @@ export const TestimonialSection = () => {
         </Card.Footer>
       </Card>
       <Card className='me-2 mb-5'>
-        <Card.Img variant="top" src="https://www.copycat.dev/blog/wp-content/uploads/2022/12/rc.png" />
+        <Card.Img variant="top" src="https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg" />
         <Card.Body>
           <Card.Title>Card title</Card.Title>
           <Card.Text>
