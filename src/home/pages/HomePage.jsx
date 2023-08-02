@@ -1,4 +1,5 @@
 import { ComparisonPlans } from '../components/ComparisonPlans';
+import { Footer } from '../components/Footer';
 import { HeroSection } from '../components/HeroSection';
 
 export const HomePage = () => {
@@ -7,6 +8,7 @@ export const HomePage = () => {
 			<h2>Esto es el HomePage</h2>
 			<HeroSection />
 			<ComparisonPlans />
+			<Footer />
 		</main>
 	);
 };
