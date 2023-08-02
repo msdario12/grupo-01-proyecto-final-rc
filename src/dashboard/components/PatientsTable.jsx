@@ -65,7 +65,7 @@ export const PatientsTable = () => {
 		<>
 			<HeaderTitleDashboard
 				title={'Listado de pacientes'}
-				subtitle={'Edita o remueve pacientes.'}
+				subtitle={'Edita o elimina pacientes.'}
 			/>
 			<EditPatientPage
 				selectedPatientID={selectedPatientID}
