@@ -1,12 +1,7 @@
-import {
-	faCalendarDay,
-	faDog,
-	faHouse,
-} from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Offcanvas } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { SidebarContent } from './SidebarContent';
 
 const setActiveItem = (state, name) => {
 	return state === name ? 'active' : 'text-white';
@@ -36,41 +31,11 @@ export const OffCanvasSideBar = ({ setIsSideBarOpen, isSideBarOpen }) => {
 				</Offcanvas.Title>
 			</Offcanvas.Header>
 			<Offcanvas.Body>
-				<ul className='nav nav-pills flex-column mb-auto '>
-					<li className='nav-item' onClick={() => handleClickMenu('home')}>
-						<Link
-							to={'/dashboard'}
-							className={`nav-link d-flex gap-2 justify-content-center justify-content-md-start align-items-center ${setActiveItem(
-								selectItem,
-								'home'
-							)}`}>
-							<FontAwesomeIcon icon={faHouse} />
-							<span className='d-none d-md-block'>Inicio</span>
-						</Link>
-					</li>
-					<li className='nav-item' onClick={() => handleClickMenu('patients')}>
-						<Link
-							to={'patients'}
-							className={`nav-link d-flex gap-2 justify-content-center justify-content-md-start align-items-center ${setActiveItem(
-								selectItem,
-								'patients'
-							)}`}>
-							<FontAwesomeIcon icon={faDog} />
-							<span className='d-none d-md-block'>Pacientes</span>
-						</Link>
-					</li>
-					<li className='nav-item' onClick={() => handleClickMenu('turns')}>
-						<Link
-							to={'turns'}
-							className={`nav-link d-flex gap-2 justify-content-center justify-content-md-start align-items-center ${setActiveItem(
-								selectItem,
-								'turns'
-							)}`}>
-							<FontAwesomeIcon icon={faCalendarDay} />
-							<span className='d-none d-md-block'>Turnos</span>
-						</Link>
-					</li>
-				</ul>
+				<SidebarContent
+					setActiveItem={setActiveItem}
+					handleClickMenu={handleClickMenu}
+					selectItem={selectItem}
+				/>
 			</Offcanvas.Body>
 		</Offcanvas>
 	);
