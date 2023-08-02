@@ -38,7 +38,8 @@ export const useWeatherData = () => {
 				})
 				.catch((e) => {
 					console.log(e);
-					localStorage.setItem('lastFetchWeather', now);
+					localStorage.removeItem('lastFetchWeather');
+					localStorage.removeItem('weatherData');
 				});
 		});
 	}, []);

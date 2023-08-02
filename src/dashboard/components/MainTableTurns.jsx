@@ -92,7 +92,7 @@ export const MainTableTurns = () => {
 				<tr className='text-uppercase table-light align-middle'>
 					<th className='text-muted small'>#</th>
 					{columnList.map((header) => (
-						<CustomTh
+						<CustomTh						
 							setSortedColumn={setSortedColumn}
 							sortedColumn={sortedColumn}
 							key={header.title}

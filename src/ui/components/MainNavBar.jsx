@@ -13,16 +13,12 @@ export const MainNavBar = ({
 	const [isUserLogged, setIsUserLogged] = useState(true);
 
 	return (
-		<Navbar
-			expand='lg'
-			sticky={isInDashboard ? false : 'top'}
-			className='bg-dark'
-			data-bs-theme='dark'>
-			<Container fluid={isInDashboard ? 'fluid' : 'lg'}>
+		<Navbar expand='lg' sticky={'top'} className='bg-dark' data-bs-theme='dark'>
+			<Container fluid={'lg'}>
 				{isInDashboard ? (
 					<Navbar.Brand>
 						<Button
-							variant='outline-light'
+							variant='outline-light d-lg-none'
 							onClick={() => setIsSideBarOpen((prev) => !prev)}>
 							{isSideBarOpen ? (
 								<FontAwesomeIcon icon={faAngleLeft} />

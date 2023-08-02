@@ -7,10 +7,12 @@ export const InputWithFeedback = ({
 	placeholder,
 	props,
 	noFeedback = false,
+	hasTextCapitalization = true,
 }) => {
 	return (
 		<>
 			<Form.Control
+				className={hasTextCapitalization ? 'text-capitalize' : ''}
 				{...props}
 				isValid={!formik.errors[name] && formik.touched[name]}
 				isInvalid={formik.errors[name]}

@@ -13,12 +13,14 @@ const sortIcons = {
 };
 
 export const CustomTh = ({
+	idName = 'id',
 	title,
 	name,
 	setTurnsList,
 	sortedColumn,
 	setSortedColumn,
 	hasIcon = true,
+	isCenter = false,
 }) => {
 	const [sortMode, setSortMode] = useState('ascend');
 
@@ -46,7 +48,7 @@ export const CustomTh = ({
 	const comparingFunction = (a, b, name) => {
 		console.log(typeof a[name], sortMode);
 		if (sortMode === 'original') {
-			return a['id'] - b['id'];
+			return a[idName] - b[idName];
 		}
 		const nameA = typeof a[name] === 'string' ? a[name].toUpperCase() : a[name]; // ignore upper and lowercase
 		const nameB = typeof b[name] === 'string' ? b[name].toUpperCase() : b[name]; // ignore upper and lowercase
@@ -76,7 +78,10 @@ export const CustomTh = ({
 				sortedColumn === name ? 'bg-primary text-light' : 'text-muted'
 			}`}
 			onClick={() => hasIcon && handleClickSortColumn(name)}>
-			<div className='d-flex align-items-center justify-content-between'>
+			<div
+				className={`d-flex align-items-center ${
+					isCenter ? 'justify-content-center' : 'justify-content-between'
+				}`}>
 				<span className='me-2'>{title}</span>
 				{hasIcon ? (
 					<FontAwesomeIcon

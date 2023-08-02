@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useWeatherData } from '../../hooks/useWeatherData';
 import formatDistance from 'date-fns/formatDistance';
 import es from 'date-fns/locale/es';
+import { Spinner } from 'react-bootstrap';
 
 export const WeatherData = () => {
 	const [weatherData] = useWeatherData({});
@@ -18,7 +19,12 @@ export const WeatherData = () => {
 	}, []);
 
 	if (!weatherData.current) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex gap-2 align-items-center'>
+				<Spinner animation='grow' size='sm' />
+				<span>Cargando datos del tiempo</span>
+			</div>
+		);
 	}
 	return (
 		<div className='d-flex'>
