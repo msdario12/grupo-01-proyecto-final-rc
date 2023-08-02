@@ -11,6 +11,7 @@ import { ContactPage } from '../contact/pages/ContactPage';
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
+import { NewPatientForm } from '../dashboard/components/NewPatientForm';
 
 export const AppRouter = () => {
 	return (
@@ -22,14 +23,14 @@ export const AppRouter = () => {
 						<Route path='contact' element={<ContactPage />} />
 						<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
 						<Route path='*' element={<Error404Page />} />
-             <Route path='about-us' element={<AboutUs />} />
+						<Route path='about-us' element={<AboutUs />} />
 					</Route>
 					<Route path='/dashboard' element={<DashboardLayout />}>
 						<Route index element={<MainDashboard />} />
 						<Route path='patients' element={<PatientsDashboard />} />
 						<Route path='turns' element={<TurnsDashboard />} />
+						<Route path='add-patient' element={<NewPatientForm />} />
 					</Route>
-
 				</Routes>
 			</BrowserRouter>
 		</div>
