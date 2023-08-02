@@ -11,7 +11,7 @@ export const TestimonialSection = () => {
 
     <CardGroup>
       <Card>
-        <Card.Img variant="top" src="https://i.postimg.cc/fRM79kzb/1a.png" />
+        <Card.Img variant="top" src="https://imageup.me/images/976a5830-8993-48fc-82e7-8a15ddbfaf0a.jpeg" />
         <Card.Body>
           <Card.Title>Card title</Card.Title>
           <Card.Text>
@@ -24,7 +24,7 @@ export const TestimonialSection = () => {
         </Card.Footer>
       </Card>
       <Card>
-        <Card.Img variant="top" src="https://i0.wp.com/satelitenorte.com.mx/wp-content/uploads/2020/07/personalidad.jpg?fit=1200%2C930&ssl=1" />
+        <Card.Img variant="top" src="https://imageup.me/images/5c2e46b7-d21a-4930-a288-16116f545434.jpeg" />
         <Card.Body>
           <Card.Title>Card title</Card.Title>
           <Card.Text>
@@ -37,7 +37,7 @@ export const TestimonialSection = () => {
         </Card.Footer>
       </Card>
       <Card>
-        <Card.Img variant="top" src="https://previews.123rf.com/images/rawpixel/rawpixel1704/rawpixel170441704/76561515-retrato-de-personas-estudio-disparar-con-expresi%C3%B3n-de-cara-sonriente.jpg" />
+        <Card.Img variant="top" src="https://imageup.me/images/fcdd9c4e-602a-4018-bc1d-5d3f22407afc.jpeg" />
         <Card.Body>
           <Card.Title>Card title</Card.Title>
           <Card.Text>
