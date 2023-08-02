@@ -10,10 +10,11 @@
   .container-plans {
     text-align: center;
   }
+
 }
 
-@media (max-width: 425px) {
-  .container-img {
-    display: none;
-  }
+@media (max-width: 767px) {
+    .container-img {
+        display: none;
+      }
 }
