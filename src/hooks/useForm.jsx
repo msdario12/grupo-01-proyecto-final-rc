@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Swal from "sweetalert2";
+import { backendAPI } from "../api/backendAPI";
 
 export const useForm = (initialForm, validateForm) => {
   const [form, setForm] = useState(initialForm);
@@ -27,7 +28,7 @@ export const useForm = (initialForm, validateForm) => {
     setIsFormComplete(isComplete);
   }, [form]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors(validateForm(form));
 
@@ -42,7 +43,19 @@ export const useForm = (initialForm, validateForm) => {
 
     setForm(initialForm);
 
-    //Falta la logica para enviar a la base de datos
+    try {
+			const resp = await backendAPI.post('/contact', {
+				name,
+        phone,
+				email,
+				description,
+			});
+
+
+			console.log(resp);
+		} catch (error) {
+			console.log(error);
+		}
 
   };
 
