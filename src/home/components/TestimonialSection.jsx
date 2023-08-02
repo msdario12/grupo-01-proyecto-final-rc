@@ -25,10 +25,9 @@ export const TestimonialSection = () => {
       <Card>
         <Card.Img variant="top" src="https://imageup.me/images/5c2e46b7-d21a-4930-a288-16116f545434.jpeg" />
         <Card.Body>
-          <Card.Title>Card title</Card.Title>
+          <Card.Title>Jesica Perez</Card.Title>
           <Card.Text>
-            This card has supporting text below as a natural lead-in to
-            additional content.{' '}
+            Tienen los mejores productos para el cuidado de tu mascota, muy buena atencion. Se los recomiendo mucho, la verdad un espetaculo venir aqui.
           </Card.Text>
         </Card.Body>
         <Card.Footer>
