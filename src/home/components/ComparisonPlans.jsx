@@ -1,6 +1,7 @@
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button, Card, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import "./ComparasionPlan.css"
 
 const ListItems = ({ children, title }) => {
 	const tooltip = <Tooltip id='tooltip'>{children}</Tooltip>;
@@ -53,7 +54,7 @@ const ComparisonCardsPlans = ({
 
 export const ComparisonPlans = () => {
 	return (
-		<section className='row mb-5'>
+		<section className='row mb-2'>
 		<h2 className='text-center display-5 fw-bold mb-5'>Planes que ofrecemos</h2>
 			<div className='col-12 col-md-4 mb-2'>
 				<ComparisonCardsPlans
@@ -82,7 +83,7 @@ export const ComparisonPlans = () => {
 					</ListItems>
 				</ComparisonCardsPlans>
 			</div>
-			<div className='col-12 col-md-4 mb-2'>
+			<div className='col-12 col-md-4 mb-2 plan-transform'>
 				<ComparisonCardsPlans
 					title={'Plan Madurando'}
 					description={'Edades: Mascotas de 5 a 10 años.'}
