@@ -19,7 +19,7 @@ export const TestimonialSection = () => {
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
+          <small className="text-muted">Publicado el 26/06/23</small>
         </Card.Footer>
       </Card>
       <Card>
@@ -31,21 +31,19 @@ export const TestimonialSection = () => {
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
+          <small className="text-muted">Publicado el 16/07/23</small>
         </Card.Footer>
       </Card>
       <Card>
         <Card.Img variant="top" src="https://imageup.me/images/fcdd9c4e-602a-4018-bc1d-5d3f22407afc.jpeg" />
         <Card.Body>
-          <Card.Title>Card title</Card.Title>
+          <Card.Title>Eduardo Vallejo</Card.Title>
           <Card.Text>
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This card has even longer content than the
-            first to show that equal height action.
+            Cada vez que llevo a mi perro para que le corten el pelo, vuelve bañado y con cortes muy buenos, la verdad muy ingeniosos los chicos.
           </Card.Text>
         </Card.Body>
         <Card.Footer>
-          <small className="text-muted">Last updated 3 mins ago</small>
+          <small className="text-muted">Publicado el 28/07/23</small>
         </Card.Footer>
       </Card>
     </CardGroup>
