@@ -7,6 +7,7 @@ import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { EditPatientPage } from '../pages/EditPatientPage';
 import { DeletePatientPage } from './DeletePatientPage';
 import { NewPatientPage } from '../pages/NewPatientPage';
+import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -62,6 +63,10 @@ export const PatientsTable = () => {
 
 	return (
 		<>
+			<HeaderTitleDashboard
+				title={'Listado de pacientes'}
+				subtitle={'Edita o remueve pacientes.'}
+			/>
 			<EditPatientPage
 				selectedPatientID={selectedPatientID}
 				show={modalEditShow}
