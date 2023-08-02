@@ -15,6 +15,7 @@ const patientSchema = Yup.object({
 });
 
 export const NewPatientForm = ({
+	modalMode = false,
 	editMode = false,
 	selectedPatientID = {},
 }) => {
@@ -101,7 +102,7 @@ export const NewPatientForm = ({
 		return 'Cargando datos...';
 	}
 	return (
-		<Card className={editMode ? 'border-0' : ''}>
+		<Card className={editMode || modalMode ? 'border-0' : ''}>
 			<Card.Body>
 				<Form onSubmit={formik.handleSubmit}>
 					<Row className='mb-lg-3 mb-1'>

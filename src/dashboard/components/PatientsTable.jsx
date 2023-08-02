@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { EditPatientPage } from '../pages/EditPatientPage';
 import { DeletePatientPage } from './DeletePatientPage';
+import { NewPatientPage } from '../pages/NewPatientPage';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -23,6 +24,7 @@ export const PatientsTable = () => {
 	const [selectedPatientID, setSelectedPatientID] = useState('');
 	const [modalEditShow, setModalEditShow] = useState(false);
 	const [modalDeleteShow, setModalDeleteShow] = useState(false);
+	const [modalNewPatientShow, setModalNewPatientShow] = useState(false);
 	useEffect(() => {
 		backendAPI.get('/api/patients').then((res) => {
 			console.log(res.data.data);
@@ -50,6 +52,16 @@ export const PatientsTable = () => {
 				setModalDeleteShow={setModalDeleteShow}
 				onHide={() => setModalDeleteShow(false)}
 			/>
+			<NewPatientPage
+				show={modalNewPatientShow}
+				setModalNewPatientShow={setModalNewPatientShow}
+				onHide={() => setModalNewPatientShow(false)}
+			/>
+			<div>
+				<Button onClick={() => setModalNewPatientShow(true)} variant='primary'>
+					Crear nuevo paciente
+				</Button>
+			</div>
 			<Table hover responsive>
 				<thead>
 					<tr className='text-uppercase table-light align-middle'>
