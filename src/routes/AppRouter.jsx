@@ -12,12 +12,14 @@ import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
 import { NewPatientForm } from '../dashboard/components/NewPatientForm';
+import { RequireAuth } from '../auth/components/RequireAuth';
 
 export const AppRouter = () => {
 	return (
 		<div>
 			<BrowserRouter>
 				<Routes>
+					{/* Estas rutas son públicas */}
 					<Route element={<NavbarLayout />}>
 						<Route index element={<HomePage />} />
 						<Route path='contact' element={<ContactPage />} />
@@ -25,11 +27,14 @@ export const AppRouter = () => {
 						<Route path='*' element={<Error404Page />} />
 						<Route path='about-us' element={<AboutUs />} />
 					</Route>
-					<Route path='/dashboard' element={<DashboardLayout />}>
-						<Route index element={<MainDashboard />} />
-						<Route path='patients' element={<PatientsDashboard />} />
-						<Route path='turns' element={<TurnsDashboard />} />
-						<Route path='add-patient' element={<NewPatientForm />} />
+					{/* Estas rutas son solo para administrador - protegidas */}
+					<Route element={<RequireAuth />}>
+						<Route path='/dashboard' element={<DashboardLayout />}>
+							<Route index element={<MainDashboard />} />
+							<Route path='patients' element={<PatientsDashboard />} />
+							<Route path='turns' element={<TurnsDashboard />} />
+							<Route path='add-patient' element={<NewPatientForm />} />
+						</Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>
