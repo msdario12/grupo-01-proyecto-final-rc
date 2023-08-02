@@ -13,6 +13,7 @@ export const PetEditForm = ({ petID }) => {
 	const [petData, setPetData] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const { addToast } = useContext(ToastContext);
+	const [inputsHasChanges, setInputsHasChanges] = useState(false);
 
 	const initialValues = {
 		name: '',
@@ -26,7 +27,7 @@ export const PetEditForm = ({ petID }) => {
 		onSubmit: (values) => {
 			// Logica para enviar informacion al backend
 			const castValues = userEditSchema.cast(values);
-			console.log(castValues);
+
 			setIsLoading(true);
 			backendAPI
 				.put(`/api/pets/${petID}`, castValues)
@@ -35,7 +36,7 @@ export const PetEditForm = ({ petID }) => {
 						message: 'Mascota editada correctamente',
 						variant: 'success',
 					});
-
+					setInputsHasChanges(false);
 					setIsLoading(false);
 					console.log(res);
 				})
@@ -51,17 +52,25 @@ export const PetEditForm = ({ petID }) => {
 	});
 
 	useEffect(() => {
-		console.log(petID);
 		if (petID) {
 			backendAPI.get(`/api/pets/${petID}`).then((res) => {
 				setPetData(res.data.data);
-				console.log(res.data.data);
+
 				formik.setValues(res.data.data, true);
 				formik.setTouched(res.data.data, true);
 			});
 		}
 	}, [petID, formik.handleSubmit]);
-	console.log(petData);
+
+	useEffect(() => {
+		if (formik.values === petData) {
+			console.log('son iguales');
+			setInputsHasChanges(false);
+		} else {
+			setInputsHasChanges(true);
+		}
+	}, [petData, formik.values, formik.handleSubmit]);
+
 	if (!petData) {
 		return 'Cargando datos...';
 	}
@@ -73,7 +82,7 @@ export const PetEditForm = ({ petID }) => {
 				<div className='d-flex justify-content-center gap-3'>
 					<Button
 						className='px-4 py-2'
-						disabled={!formik.isValid || isLoading}
+						disabled={!formik.isValid || isLoading || !inputsHasChanges}
 						variant={'secondary'}
 						size='md'
 						type='submit'>

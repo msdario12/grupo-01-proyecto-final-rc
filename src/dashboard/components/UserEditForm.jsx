@@ -13,6 +13,7 @@ export const UserEditForm = ({ userID }) => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
 	const [isLoading, setIsLoading] = useState(false);
+	const [inputsHasChanges, setInputsHasChanges] = useState(false);
 	const { addToast } = useContext(ToastContext);
 
 	const initialValues = {
@@ -39,6 +40,7 @@ export const UserEditForm = ({ userID }) => {
 					});
 
 					setIsLoading(false);
+					setInputsHasChanges(false);
 					console.log(res);
 				})
 				.catch((e) => {
@@ -63,6 +65,15 @@ export const UserEditForm = ({ userID }) => {
 		});
 	}, [userID, formik.handleSubmit]);
 
+	useEffect(() => {
+		if (formik.values === dataToEdit) {
+			console.log('son iguales');
+			setInputsHasChanges(false);
+		} else {
+			setInputsHasChanges(true);
+		}
+	}, [dataToEdit, formik.values]);
+
 	if (!dataToEdit) {
 		return 'Cargando datos...';
 	}
@@ -73,12 +84,13 @@ export const UserEditForm = ({ userID }) => {
 					formik={formik}
 					setIsUserInfoLoaded={setIsUserInfoLoaded}
 					isUserInfoLoaded={isUserInfoLoaded}
+					inputsHasChanges={inputsHasChanges}
 				/>
 
 				<div className='d-flex justify-content-center gap-3'>
 					<Button
 						className='px-4 py-2'
-						disabled={!formik.isValid || isLoading}
+						disabled={!formik.isValid || isLoading || !inputsHasChanges}
 						variant={'primary'}
 						size='md'
 						type='submit'>
