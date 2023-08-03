@@ -12,24 +12,55 @@ import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
 import { NewPatientForm } from '../dashboard/components/NewPatientForm';
+import { RequireAuth } from '../auth/components/RequireAuth';
+import { GenericModal } from '../ui/components/GenericModal';
 
 export const AppRouter = () => {
 	return (
 		<div>
 			<BrowserRouter>
+				<GenericModal />
 				<Routes>
+					{/* Estas rutas son públicas */}
 					<Route element={<NavbarLayout />}>
-						<Route index element={<HomePage />} />
-						<Route path='contact' element={<ContactPage />} />
-						<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
-						<Route path='*' element={<Error404Page />} />
-						<Route path='about-us' element={<AboutUs />} />
+						<Route index element={<HomePage title={'Home'} />} />
+						<Route
+							path='contact'
+							element={<ContactPage title={'Contáctenos'} />}
+						/>
+						<Route
+							path='/detail-plans/:name'
+							element={<DetailPlansPage title={'Nuestros planes'} />}
+						/>
+						<Route
+							path='*'
+							element={<Error404Page title={'Pagina no encontrada'} />}
+						/>
+						<Route
+							path='about-us'
+							element={<AboutUs title={'Sobre nosotros'} />}
+						/>
 					</Route>
-					<Route path='/dashboard' element={<DashboardLayout />}>
-						<Route index element={<MainDashboard />} />
-						<Route path='patients' element={<PatientsDashboard />} />
-						<Route path='turns' element={<TurnsDashboard />} />
-						<Route path='add-patient' element={<NewPatientForm />} />
+					{/* Estas rutas son solo para administrador - protegidas */}
+					<Route element={<RequireAuth />}>
+						<Route path='/dashboard' element={<DashboardLayout />}>
+							<Route
+								index
+								element={<MainDashboard title={'Panel administrador'} />}
+							/>
+							<Route
+								path='patients'
+								element={<PatientsDashboard title={'Pacientes'} />}
+							/>
+							<Route
+								path='turns'
+								element={<TurnsDashboard title={'Turnos'} />}
+							/>
+							<Route
+								path='add-patient'
+								element={<NewPatientForm title={'Añadir paciente'} />}
+							/>
+						</Route>
 					</Route>
 				</Routes>
 			</BrowserRouter>

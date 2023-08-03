@@ -5,10 +5,12 @@ import { ComparisonCardsPlans } from '../../home/elements/ComparisonCardsPlans';
 import { ListItems } from '../../home/elements/ListItems';
 
 import { FormGroupDetailPlans } from '../components/FormGroupDetailPlans';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-export const DetailPlansPage = () => {
+export const DetailPlansPage = ({ title }) => {
 	const params = useParams();
 	const [selectedPlan, setSetselectedPlan] = useState({});
+	useDocumentTitle(title);
 	useEffect(() => {
 		const foundedPlan = vetPlans.find((plan) => plan.name === params.name);
 		setSetselectedPlan(foundedPlan);

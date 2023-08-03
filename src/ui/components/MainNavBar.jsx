@@ -2,7 +2,7 @@ import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { WeatherData } from './WeatherData';
 
 export const MainNavBar = ({
@@ -11,6 +11,7 @@ export const MainNavBar = ({
 	isSideBarOpen,
 }) => {
 	const [isUserLogged, setIsUserLogged] = useState(true);
+	const location = useLocation();
 
 	return (
 		<Navbar expand='lg' sticky={'top'} className='bg-dark' data-bs-theme='dark'>
@@ -44,23 +45,36 @@ export const MainNavBar = ({
 					<Nav className='me-auto'>
 						{/* falta agregar que se compruebe que el usuario esta logueado */}
 						{isInDashboard ? (
-							<Nav.Link as={NavLink} to={'/'}>
+							<Nav.Link as={NavLink} to={'/'} state={{ prevUrl: location }}>
 								Home
 							</Nav.Link>
 						) : (
 							isUserLogged && (
-								<Nav.Link as={NavLink} to={'/dashboard'}>
+								<Nav.Link
+									as={NavLink}
+									to={'/dashboard'}
+									state={{ prevUrl: location }}>
 									Panel administrador
 								</Nav.Link>
 							)
 						)}
 
-						<Nav.Link href='#linkd'>Planes</Nav.Link>
-						<Nav.Link href='#link44'>Productos</Nav.Link>
-						<Nav.Link as={NavLink} to={'/contact'}>
+						<Nav.Link href='#linkd' state={{ prevUrl: location }}>
+							Planes
+						</Nav.Link>
+						<Nav.Link href='#link44' state={{ prevUrl: location }}>
+							Productos
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							to={'/contact'}
+							state={{ prevUrl: location }}>
 							Contáctenos
 						</Nav.Link>
-						<Nav.Link as={NavLink} to={'/about-us'}>
+						<Nav.Link
+							as={NavLink}
+							to={'/about-us'}
+							state={{ prevUrl: location }}>
 							Sobre Nosotros
 						</Nav.Link>
 					</Nav>
