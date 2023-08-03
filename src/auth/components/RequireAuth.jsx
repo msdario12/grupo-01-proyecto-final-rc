@@ -15,18 +15,18 @@ export const RequireAuth = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { setIsModalOpen } = useContext(ModalContext);
-
-	useEffect(() => {
-		if (!auth?.user) {
-			if (location?.state?.prevUrl?.pathname) {
-				navigate(location.state.prevUrl.pathname);
-			} else {
-				navigate(-1, { replace: true });
-			}
-			setIsModalOpen(true);
-			return;
-		}
-	}, []);
+    // ! Esto se tiene que descomentar cuando tengamos login
+	// useEffect(() => {
+	// 	if (!auth?.user) {
+	// 		if (location?.state?.prevUrl?.pathname) {
+	// 			navigate(location.state.prevUrl.pathname);
+	// 		} else {
+	// 			navigate(-1, { replace: true });
+	// 		}
+	// 		setIsModalOpen(true);
+	// 		return;
+	// 	}
+	// }, []);
 
 	return <Outlet />;
 };

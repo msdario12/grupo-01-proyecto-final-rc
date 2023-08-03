@@ -11,6 +11,9 @@ export const GenericModal = () => {
 	// Manejo del modal
 	const handleClose = () => setIsModalOpen(false);
 	useEffect(() => {
+		if (!isModalOpen) {
+			return;
+		}
 		const timeoutID = setTimeout(() => {
 			navigate('/', { state: { prevUrl: location }, replace: true }); //aca se tiene que redirigir al login
 			setIsModalOpen(false);
@@ -18,7 +21,8 @@ export const GenericModal = () => {
 		return () => {
 			clearTimeout(timeoutID);
 		};
-	}, [navigate, setIsModalOpen, location]);
+	}, [isModalOpen]);
+
 	return (
 		<Modal show={isModalOpen} onHide={handleClose}>
 			<RedirectLoginModal handleClose={handleClose} />
