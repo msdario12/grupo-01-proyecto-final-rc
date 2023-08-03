@@ -58,12 +58,12 @@ export const TurnForm = () => {
 
           <Form.Select aria-label="Default select example" className="mb-3">
             <option>Edad de la mascota</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="1">Cachorro - 0 a 6 meses</option>
+            <option value="2">Adolecente - 7 a 18 meses</option>
+            <option value="3">Adulto - 18 meses</option>
           </Form.Select>
 
-          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Group className="mb-3" controlId="description">
             <Form.Label>Descripcion de la consulta</Form.Label>
             <Form.Control as="textarea" rows={3} />
           </Form.Group>
