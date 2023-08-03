@@ -1,12 +1,6 @@
-import {
-	Navigate,
-	Outlet,
-	redirect,
-	useLocation,
-	useNavigate,
-} from 'react-router';
+import { Outlet, useLocation, useNavigate } from 'react-router';
 import { useAuth } from '../../hooks/useAuth';
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { ModalContext } from '../../context/ModalContext';
 
 // Con esto redireccionamos en caso de no contar con
@@ -20,16 +14,19 @@ export const RequireAuth = () => {
 	const { auth } = useAuth();
 	const location = useLocation();
 	const navigate = useNavigate();
-	const { isModalOpen, setIsModalOpen } = useContext(ModalContext);
+	const { setIsModalOpen } = useContext(ModalContext);
 
-	console.log(location.state.prevUrl.pathname);
-
-	if (!auth?.user) {
-		setIsModalOpen(true);
-		navigate(location.state.prevUrl.pathname);
-
-		return;
-	}
+	useEffect(() => {
+		if (!auth?.user) {
+			if (location?.state?.prevUrl?.pathname) {
+				navigate(location.state.prevUrl.pathname);
+			} else {
+				navigate(-1, { replace: true });
+			}
+			setIsModalOpen(true);
+			return;
+		}
+	}, []);
 
 	return <Outlet />;
 };
