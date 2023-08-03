@@ -19,7 +19,7 @@ export const Footer = () => {
 
             <div className="col-md-3 mb-md-0 mb-3">
               <h5 className="text-uppercase">Redes Sociales</h5>
-              <ul className="list-unstyled">
+              <ul className="list-unstyled links-footer-container">
                 <li>
                   <a href="#!"> <Icon icon={faInstagram} /> Instagram</a>
                 </li>
@@ -37,7 +37,7 @@ export const Footer = () => {
 
             <div className="col-md-3 mb-md-0 mb-3">
               <h5 className="text-uppercase">Ubicacion</h5>
-              <ul className="list-unstyled">
+              <ul className="list-unstyled links-footer-container">
                 <li>
                   <a href="#!"><Icon icon={faLocationDot} /> General Paz 576</a>
                 </li>
@@ -49,7 +49,7 @@ export const Footer = () => {
           </div>
         </div>
 
-        <div className="footer-copyright text-center py-3">
+        <div className="footer-copyright text-center py-3 links-footer-container">
           © 2020 Copyright:
           <a href="#"> RollingVet.com</a>
         </div>
