@@ -1,5 +1,4 @@
 import { ComparisonPlans } from "../components/ComparisonPlans";
-import { Footer } from "../components/Footer";
 import { HeroSection } from "../components/HeroSection";
 import { TestimonialSection } from "../components/TestimonialSection";
 

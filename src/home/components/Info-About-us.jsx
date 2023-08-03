@@ -3,7 +3,7 @@ import React from 'react';
 export const InfoAboutUs = () => {
 	return (
 		<>
-			<div className='container-card container-lg'>
+			<div className='container-card container-lg mb-5'>
 				<div className='content-card-aboutus row overflow-hidden'>
 					<div className='col-12 col-md-6 px-0 mb-3 mb-md-0'>
 						<img
