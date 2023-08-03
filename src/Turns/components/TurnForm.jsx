@@ -64,7 +64,7 @@ export const TurnForm = () => {
           </Form.Select>
 
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-            <Form.Label>Descripcion del problema</Form.Label>
+            <Form.Label>Descripcion de la consulta</Form.Label>
             <Form.Control as="textarea" rows={3} />
           </Form.Group>
         </Form>
