@@ -1,6 +1,8 @@
 import React from "react";
 import "./Footer.css";
 import { Icon } from "./Icon";
+import { faFacebook, faInstagram, faTwitter, faWhatsapp, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 export const Footer = () => {
   return (
@@ -19,25 +21,25 @@ export const Footer = () => {
               <h5 className="text-uppercase">Redes Sociales</h5>
               <ul className="list-unstyled">
                 <li>
-                  <a href="#!"><Icon icon={faWhatsapp} /></a>
+                  <a href="#!"> <Icon icon={faInstagram} /> Instagram</a>
                 </li>
                 <li>
-                  <a href="#!">Link 2</a>
+                  <a href="#!"><Icon icon={faFacebook} /> Facebook</a>
                 </li>
                 <li>
-                  <a href="#!">Link 3</a>
+                  <a href="#!"><Icon icon={faTwitter} /> Twitter</a>
                 </li>
                 <li>
-                  <a href="#!">Link 4</a>
+                  <a href="#!"><Icon icon={faYoutube} /> Youtube</a>
                 </li>
               </ul>
             </div>
 
             <div className="col-md-3 mb-md-0 mb-3">
-              <h5 className="text-uppercase">Links</h5>
+              <h5 className="text-uppercase">Ubicacion</h5>
               <ul className="list-unstyled">
                 <li>
-                  <a href="#!">Link 1</a>
+                  <a href="#!"><Icon icon={faLocationDot} /></a>
                 </li>
                 <li>
                   <a href="#!">Link 2</a>
