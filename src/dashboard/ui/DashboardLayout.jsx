@@ -5,6 +5,7 @@ import { ToastContext } from '../../context/ToastContext';
 import { CustomToast } from '../components/CustomToast';
 import { OffCanvasSideBar } from '../components/OffCanvasSideBar';
 import { SideMenu } from '../components/SideMenu';
+import { Footer } from '../../home/components/Footer';
 
 export const DashboardLayout = () => {
 	const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -47,7 +48,7 @@ export const DashboardLayout = () => {
 						isSideBarOpen={isSideBarOpen}
 						setIsSideBarOpen={setIsSideBarOpen}
 					/>
-					<div className={`px-0 col-12 col-md-10 col-lg-10`}>
+					<div className={`px-0 col-12 col-md-10 col-lg-10 d-flex flex-column justify-content-between min-vh-100`}>
 						<MainNavBar
 							isInDashboard={true}
 							setIsSideBarOpen={setIsSideBarOpen}
@@ -57,6 +58,7 @@ export const DashboardLayout = () => {
 							<Outlet />
 						</div>
 						<CustomToast />
+						<Footer />
 					</div>
 				</ToastContext.Provider>
 			</div>
