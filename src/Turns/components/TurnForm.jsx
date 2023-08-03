@@ -32,15 +32,17 @@ export const TurnForm = () => {
             </Form.Group>
           </div>
 
-          <Form.Group className="mb-3" controlId="animal">
-            <Form.Label>Animal</Form.Label>
-            <Form.Control type="text" placeholder="Perro" />
-          </Form.Group>
+          <div className="row">
+            <Form.Group className="mb-3 col-6" controlId="animal">
+              <Form.Label>Animal</Form.Label>
+              <Form.Control type="text" placeholder="Perro" />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="race">
-            <Form.Label>Raza</Form.Label>
-            <Form.Control type="text" placeholder="Doberman" />
-          </Form.Group>
+            <Form.Group className="mb-3 col-6" controlId="race">
+              <Form.Label>Raza</Form.Label>
+              <Form.Control type="text" placeholder="Doberman" />
+            </Form.Group>
+          </div>
 
           <Form.Group className="mb-3" controlId="namepet">
             <Form.Label>Nombre de la mascota</Form.Label>
