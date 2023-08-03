@@ -20,15 +20,17 @@ export const TurnForm = () => {
             </Form.Group>
           </div>
 
-          <Form.Group className="mb-3" controlId="phone">
-            <Form.Label>Telefono</Form.Label>
-            <Form.Control type="number" placeholder="3811234567" />
-          </Form.Group>
+          <div className="row">
+            <Form.Group className="mb-3 col-6" controlId="phone">
+              <Form.Label>Telefono</Form.Label>
+              <Form.Control type="number" placeholder="3811234567" />
+            </Form.Group>
 
-          <Form.Group className="mb-3" controlId="email">
-            <Form.Label>Correo Electronico</Form.Label>
-            <Form.Control type="email" placeholder="juanperez026@gmail.com" />
-          </Form.Group>
+            <Form.Group className="mb-3 col-6" controlId="email">
+              <Form.Label>Correo Electronico</Form.Label>
+              <Form.Control type="email" placeholder="juanperez026@gmail.com" />
+            </Form.Group>
+          </div>
 
           <Form.Group className="mb-3" controlId="animal">
             <Form.Label>Animal</Form.Label>
