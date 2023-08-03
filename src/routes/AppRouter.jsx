@@ -5,6 +5,7 @@ import { Error404Page } from '../error-404/pages/Error404Page';
 import { PatientsDashboard } from '../dashboard/pages/PatientsDashboard';
 import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
+import { LoginScreen } from '../Login/LoginScreen';
 
 export const AppRouter = () => {
 	return (
@@ -16,6 +17,7 @@ export const AppRouter = () => {
 						<Route path='patients' element={<PatientsDashboard />} />
 						<Route path='turns' element={<TurnsDashboard />} />
 					</Route>
+					<Route path='/Login' element={<LoginScreen/>} />
 					<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
 					<Route path='*' element={<Error404Page />} />
 				</Routes>
