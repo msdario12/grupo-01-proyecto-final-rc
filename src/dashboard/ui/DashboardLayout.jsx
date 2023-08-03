@@ -5,7 +5,6 @@ import { ToastContext } from '../../context/ToastContext';
 import { CustomToast } from '../components/CustomToast';
 import { OffCanvasSideBar } from '../components/OffCanvasSideBar';
 import { SideMenu } from '../components/SideMenu';
-import { Footer } from '../../home/components/Footer';
 import { FooterDashboard } from '../components/Footer-Dashboard';
 
 export const DashboardLayout = () => {
