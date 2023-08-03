@@ -12,7 +12,6 @@ export const HomePage = () => {
         <ComparisonPlans />
         <TestimonialSection />
       </main>
-      <Footer />
     </>
   );
 };
