@@ -6,6 +6,7 @@ import { CustomToast } from '../components/CustomToast';
 import { OffCanvasSideBar } from '../components/OffCanvasSideBar';
 import { SideMenu } from '../components/SideMenu';
 import { Footer } from '../../home/components/Footer';
+import { FooterDashboard } from '../components/Footer-Dashboard';
 
 export const DashboardLayout = () => {
 	const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -58,7 +59,7 @@ export const DashboardLayout = () => {
 							<Outlet />
 						</div>
 						<CustomToast />
-						<Footer />
+						<FooterDashboard />
 					</div>
 				</ToastContext.Provider>
 			</div>
