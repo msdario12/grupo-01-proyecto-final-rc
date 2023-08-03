@@ -9,6 +9,7 @@ import { userSchema } from '../schema-validations/userSchema';
 import { petSchema } from '../schema-validations/petSchema';
 import { ToastContext } from '../../context/ToastContext';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
 const patientSchema = Yup.object({
 	...userSchema,
@@ -16,6 +17,7 @@ const patientSchema = Yup.object({
 });
 
 export const NewPatientForm = ({
+	title = 'Agregar paciente',
 	modalMode = false,
 	editMode = false,
 	selectedPatientID = {},
@@ -23,7 +25,7 @@ export const NewPatientForm = ({
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
 	const { addToast } = useContext(ToastContext);
-
+	useDocumentTitle(title);
 	const initialValues = {
 		email: '',
 		firstName: '',
@@ -61,7 +63,7 @@ export const NewPatientForm = ({
 					.catch((e) =>
 						addToast({
 							variant: 'error',
-							message: 'Error al crear el paciente',
+							message: 'Error al crear el paciente ' + e,
 						})
 					);
 
@@ -80,7 +82,7 @@ export const NewPatientForm = ({
 				.catch((e) =>
 					addToast({
 						variant: 'error',
-						message: 'Error al crear el paciente',
+						message: 'Error al crear el paciente ' + e,
 					})
 				);
 

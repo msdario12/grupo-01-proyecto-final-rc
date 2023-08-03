@@ -1,7 +1,9 @@
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { MainTableTurns } from '../components/MainTableTurns';
 import { WelcomeInfo } from '../components/WelcomeInfo';
 
-export const MainDashboard = () => {
+export const MainDashboard = ({ title }) => {
+	useDocumentTitle(title);
 	return (
 		<div>
 			<div className='mt-1 mt-md-2 mt-lg-4'>
