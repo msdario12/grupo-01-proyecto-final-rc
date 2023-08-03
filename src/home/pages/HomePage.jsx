@@ -1,4 +1,5 @@
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { AdvertisingPizza } from '../components/AdvertisingPizza';
 import { AdvertisingWhater } from '../components/AdvertisingWhater';
 import { ComparisonPlans } from '../components/ComparisonPlans';
 import { HeroSection } from '../components/HeroSection';
@@ -10,9 +11,10 @@ export const HomePage = ({ title }) => {
 		<main className='container-lg'>
 			<h2>Esto es el HomePage</h2>
 			<HeroSection />
+			<AdvertisingPizza />
 			<ComparisonPlans />
-			<AdvertisingWhater />
 			<TestimonialSection />
+			<AdvertisingWhater />
 		</main>
 	);
 };
