@@ -49,7 +49,14 @@ export const TurnForm = () => {
             <Form.Control type="email" placeholder="Kokito" />
           </Form.Group>
 
-          <Form.Select aria-label="Default select example">
+          <Form.Select aria-label="Default select example" className="mb-3">
+            <option>Tamaño de la mascota</option>
+            <option value="1">Pequeño</option>
+            <option value="2">Mediano</option>
+            <option value="3">Grande</option>
+          </Form.Select>
+
+          <Form.Select aria-label="Default select example" className="mb-3">
             <option>Edad de la mascota</option>
             <option value="1">One</option>
             <option value="2">Two</option>
