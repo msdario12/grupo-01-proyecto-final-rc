@@ -6,6 +6,7 @@ export const AdvertisingWhater = () => {
       <img
         src="https://i.ibb.co/2K5tYWG/aqua-Mesa-de-trabajo-1.jpg"
         alt="Es una publicidad de agua"
+        className="mt-4 mb-4"
       />
     </>
   );

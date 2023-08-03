@@ -5,8 +5,8 @@ export const AdvertisingPizza = () => {
     <>
       <img
         src="https://i.ibb.co/DMQJKJr/Sin-t-tulo-1-Mesa-de-trabajo-1.jpg"
-        alt="Sin-t-tulo-1-Mesa-de-trabajo-1"
-        border="0"
+        alt="Es una publicidad de una pizzeria"
+        className="mt-4 mb-4"
       />
     </>
   );
