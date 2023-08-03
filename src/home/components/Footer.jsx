@@ -39,16 +39,10 @@ export const Footer = () => {
               <h5 className="text-uppercase">Ubicacion</h5>
               <ul className="list-unstyled">
                 <li>
-                  <a href="#!"><Icon icon={faLocationDot} /></a>
+                  <a href="#!"><Icon icon={faLocationDot} /> General Paz 576</a>
                 </li>
                 <li>
-                  <a href="#!">Link 2</a>
-                </li>
-                <li>
-                  <a href="#!">Link 3</a>
-                </li>
-                <li>
-                  <a href="#!">Link 4</a>
+                  <a href="#!"><Icon icon={faWhatsapp} /> +54 381 1234567</a>
                 </li>
               </ul>
             </div>
