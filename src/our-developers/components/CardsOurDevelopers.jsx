@@ -38,7 +38,7 @@ export const CardsOurDevelopers = () => {
         <Card className="col-12 col-md-4 p-0 mb-5" style={{ width: "18rem" }}>
           <Card.Img
             variant="top"
-            src="https://i.ibb.co/7Gcrc0w/perfil-dario.jpg"
+            src="https://i.ibb.co/v4w7my5/Sin-t-tulo-3.jpg"
           />
           <Card.Body>
             <Card.Title>Melany Rodriguez</Card.Title>
@@ -54,3 +54,4 @@ export const CardsOurDevelopers = () => {
     </>
   );
 };
+
