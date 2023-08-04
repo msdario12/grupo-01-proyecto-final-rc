@@ -39,11 +39,11 @@ export const AppRouter = () => {
             />
             <Route
               path="about-us"
-              element={<AboutUs title={"Nuestra historia"} />}
+              element={<AboutUs title={"Sobre nosotros"} />}
             />
             <Route
               path="our-developers"
-              element={<OurDevelopers title={"Sobre nosotros"} />}
+              element={<OurDevelopers title={"Nuestro equipo"} />}
             />
           </Route>
           {/* Estas rutas son solo para administrador - protegidas */}

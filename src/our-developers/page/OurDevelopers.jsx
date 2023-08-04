@@ -5,7 +5,7 @@ import ListGroup from "react-bootstrap/ListGroup";
 export const OurDevelopers = () => {
   return (
     <>
-      <h1>Sobre nosotros</h1>
+      <h1 className="text-center mb-4 mt-4">Nuestro equipo</h1>
       <div className="row">
         <Card className="col-12 col-md-4" style={{ width: "18rem" }}>
           <Card.Img variant="top" src="https://i.ibb.co/BVR0JWH/as.jpg" />
