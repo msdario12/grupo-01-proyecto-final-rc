@@ -26,7 +26,7 @@ export const Servicios = () => {
       <Carousel.Item>
         <img
           className="d-block w-100   .c-img"
-          src="https://imageup.me/images/c56e571e-d603-46bc-87df-fc012d58b528.jpg"
+          src="https://i.ibb.co/vHcn187/pexels-photo-6235663.jpg"
           alt="Second slide"
         />
         <Carousel.Caption>
@@ -39,7 +39,7 @@ export const Servicios = () => {
       <Carousel.Item>
         <img
           className="d-block w-100   .c-img "
-          src="https://imageup.me/images/c56e571e-d603-46bc-87df-fc012d58b528.jpg"
+          src="https://i.ibb.co/JWLJnqL/pexels-photo-6816869.jpg"
           alt="Third slide"
         />
         <Carousel.Caption>
@@ -53,7 +53,7 @@ export const Servicios = () => {
       <Carousel.Item>
         <img
           className="d-block w-100    .c-img"
-          src="https://imageup.me/images/c56e571e-d603-46bc-87df-fc012d58b528.jpg"
+          src="https://i.ibb.co/N6skH6W/pexels-photo-6816861.jpg"
           alt="Third slide"
         />
         <Carousel.Caption>
@@ -67,7 +67,7 @@ export const Servicios = () => {
       <Carousel.Item   className='c-item'>
         <img
           className="d-block w-100   .c-img "
-          src="https://imageup.me/images/c56e571e-d603-46bc-87df-fc012d58b528.jpg"
+          src="https://i.ibb.co/kctqMRW/pexels-photo-7474852.jpg"
           alt="Third slide"
         />
         <Carousel.Caption>
