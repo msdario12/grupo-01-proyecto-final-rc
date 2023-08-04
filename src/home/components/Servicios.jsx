@@ -10,7 +10,7 @@ export const Servicios = () => {
 <h2 className='bb'>Nuestros Servicios </h2>
 
     <Carousel className= "Carousel"  data-bs-theme="dark">
-      <Carousel.Item>
+      <Carousel.Item  className='c-item' >
         <img
           className="d-block w-100   .c-img "
           src="https://i.ibb.co/v1Xk18b/pexels-photo-6235233.jpg"
@@ -23,7 +23,7 @@ export const Servicios = () => {
       </Carousel.Item>
 
 
-      <Carousel.Item>
+      <Carousel.Item className='c-item' >
         <img
           className="d-block w-100   .c-img"
           src="https://i.ibb.co/vHcn187/pexels-photo-6235663.jpg"
@@ -36,7 +36,7 @@ export const Servicios = () => {
       </Carousel.Item>
 
       
-      <Carousel.Item>
+      <Carousel.Item className='c-item'  >
         <img
           className="d-block w-100   .c-img "
           src="https://i.ibb.co/JWLJnqL/pexels-photo-6816869.jpg"
@@ -50,7 +50,7 @@ export const Servicios = () => {
         </Carousel.Caption>
       </Carousel.Item>
 
-      <Carousel.Item>
+      <Carousel.Item className='c-item'>
         <img
           className="d-block w-100    .c-img"
           src="https://i.ibb.co/N6skH6W/pexels-photo-6816861.jpg"
