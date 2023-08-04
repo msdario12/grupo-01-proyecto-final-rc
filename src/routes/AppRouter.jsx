@@ -42,7 +42,7 @@ export const AppRouter = () => {
               element={<AboutUs title={"Nuestra historia"} />}
             />
             <Route
-              path="our-development"
+              path="our-developers"
               element={<OurDevelopers title={"Sobre nosotros"} />}
             />
           </Route>
