@@ -43,7 +43,7 @@ export const DetailPlansPage = ({ title }) => {
 								</ComparisonCardsPlans>
 							}
 						</div>
-						<div className='col-12 col-lg-6 mb-5 mt-5'>
+						<div className='col-12 col-lg-6 mb-5'>
 							<FormGroupDetailPlans selectedPlan={selectedPlan} />
 						</div>
 					</>
