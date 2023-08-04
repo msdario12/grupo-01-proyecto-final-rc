@@ -5,7 +5,8 @@ import ListGroup from "react-bootstrap/ListGroup";
 export const OurDevelopers = () => {
   return (
     <>
-      <Card style={{ width: "18rem" }}>
+        <div className="row">
+        <Card className="col-12 col-md-4" style={{ width: "18rem" }}>
         <Card.Img variant="top" src="https://i.ibb.co/BVR0JWH/as.jpg" />
         <Card.Body>
           <Card.Title>Homet Matias</Card.Title>
@@ -18,7 +19,7 @@ export const OurDevelopers = () => {
         </ListGroup>
       </Card>
 
-      <Card style={{ width: "18rem" }}>
+      <Card className="col-12 col-md-4" style={{ width: "18rem" }}>
         <Card.Img variant="top" src="https://i.ibb.co/7Gcrc0w/perfil-dario.jpg" />
         <Card.Body>
           <Card.Title>Dario Mansilla</Card.Title>
@@ -31,7 +32,7 @@ export const OurDevelopers = () => {
         </ListGroup>
       </Card>
 
-      <Card style={{ width: "18rem" }}>
+      <Card className="col-12 col-md-4" style={{ width: "18rem" }}>
         <Card.Img variant="top" src="https://i.ibb.co/7Gcrc0w/perfil-dario.jpg" />
         <Card.Body>
           <Card.Title>Melany Rodriguez</Card.Title>
@@ -43,6 +44,7 @@ export const OurDevelopers = () => {
           <ListGroup.Item>Puntual</ListGroup.Item>
         </ListGroup>
       </Card>
+        </div>
     </>
   );
 };
