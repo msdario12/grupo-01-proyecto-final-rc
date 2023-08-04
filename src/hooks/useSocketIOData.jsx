@@ -18,7 +18,7 @@ export const useSocketIOData = () => {
 
 		function onFooEvent(value) {
 			setEvents((previous) => [...previous, value]);
-			console.log('🎟', value);
+			console.log('🎟 de cliente', value);
 		}
 
 		socket.on('connect', onConnect);
