@@ -73,9 +73,15 @@ export const MainNavBar = ({
 						</Nav.Link>
 						<Nav.Link
 							as={NavLink}
-							to={'/about-us'}
+							to={'/our-developers'}
 							state={{ prevUrl: location }}>
 							Sobre Nosotros
+						</Nav.Link>
+						<Nav.Link
+							as={NavLink}
+							to={'/about-us'}
+							state={{ prevUrl: location }}>
+							Nuestra Empresa
 						</Nav.Link>
 					</Nav>
 					<Nav>
