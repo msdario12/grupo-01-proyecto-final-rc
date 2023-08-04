@@ -21,7 +21,7 @@ export const DetailPlansPage = ({ title }) => {
 			<section className='row align-content-center'>
 				{selectedPlan.items ? (
 					<>
-						<div className='col-6'>
+						<div className='col-12 col-lg-6'>
 							{
 								<ComparisonCardsPlans
 									detail={true}
@@ -43,7 +43,7 @@ export const DetailPlansPage = ({ title }) => {
 								</ComparisonCardsPlans>
 							}
 						</div>
-						<div className='col-6'>
+						<div className='col-12 col-lg-6'>
 							<FormGroupDetailPlans selectedPlan={selectedPlan} />
 						</div>
 					</>
