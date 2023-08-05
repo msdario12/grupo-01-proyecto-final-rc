@@ -5,10 +5,12 @@ import { ComparisonCardsPlans } from '../../home/elements/ComparisonCardsPlans';
 import { ListItems } from '../../home/elements/ListItems';
 
 import { FormGroupDetailPlans } from '../components/FormGroupDetailPlans';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-export const DetailPlansPage = () => {
+export const DetailPlansPage = ({ title }) => {
 	const params = useParams();
 	const [selectedPlan, setSetselectedPlan] = useState({});
+	useDocumentTitle(title);
 	useEffect(() => {
 		const foundedPlan = vetPlans.find((plan) => plan.name === params.name);
 		setSetselectedPlan(foundedPlan);
@@ -19,7 +21,7 @@ export const DetailPlansPage = () => {
 			<section className='row align-content-center'>
 				{selectedPlan.items ? (
 					<>
-						<div className='col-6'>
+						<div className='col-12 col-lg-6 mt-2 mb-5'>
 							{
 								<ComparisonCardsPlans
 									detail={true}
@@ -41,7 +43,7 @@ export const DetailPlansPage = () => {
 								</ComparisonCardsPlans>
 							}
 						</div>
-						<div className='col-6'>
+						<div className='col-12 col-lg-6 mt-2 mb-5'>
 							<FormGroupDetailPlans selectedPlan={selectedPlan} />
 						</div>
 					</>

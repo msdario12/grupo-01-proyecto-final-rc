@@ -1,8 +1,11 @@
-export const PatientsDashboard = () => {
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { PatientsTable } from '../components/PatientsTable';
+
+export const PatientsDashboard = ({ title }) => {
+	useDocumentTitle(title);
 	return (
-		<div>
-			<h2>PatientsDashboard</h2>
-			<p>Estos son pacientes</p>
-		</div>
+		<>
+			<PatientsTable />
+		</>
 	);
 };

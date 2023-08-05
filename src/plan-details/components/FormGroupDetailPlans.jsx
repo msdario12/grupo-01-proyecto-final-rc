@@ -5,13 +5,17 @@ import * as Yup from 'yup';
 import { InputWithFeedback } from '../elements/InputWithFeedback';
 
 // Opciones del select de especie de animales
-const animalsSpecies = [
-	{ value: 'cat', name: 'Gato' },
-	{ value: 'dog', name: 'Perro' },
-	{ value: 'turtle', name: 'Tortuga' },
-	{ value: 'rabbit', name: 'Conejo' },
-	{ value: 'bird', name: 'Ave' },
-	{ value: 'other', name: 'Otro' },
+export const animalsSpecies = [
+	{ value: 'perro', name: 'Perro' },
+	{ value: 'gato', name: 'Gato' },
+	{ value: 'conejo', name: 'Conejo' },
+	{ value: 'hámster', name: 'Hámster' },
+	{ value: 'cobaya', name: 'Cobaya' },
+	{ value: 'pájaro', name: 'Pájaro' },
+	{ value: 'tortuga', name: 'Tortuga' },
+	{ value: 'serpiente', name: 'Serpiente' },
+	{ value: 'pez', name: 'Pez' },
+	{ value: 'lagarto', name: 'Lagarto' },
 ];
 
 // Esquema de validacion de Yup
