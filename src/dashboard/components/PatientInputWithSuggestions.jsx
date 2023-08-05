@@ -48,6 +48,7 @@ export const PatientInputWithSuggestions = ({
 						setIsUserInfoLoaded(false);
 						return;
 					}
+                    console.log(res.data.data);
 					setSuggestionList(res.data.data);
 				})
 				.catch((e) =>
@@ -104,7 +105,7 @@ export const PatientInputWithSuggestions = ({
 								<div className='d-flex flex-column justify-content-between'>
 									{fieldsToRender.map((field, index) => (
 										<div key={field.name + index} className='text-muted small'>
-											<span className='fw-bold'>{field.title}: </span>
+											<span className='fw-bold'>{[field.title]}: </span>
 											<span>{suggestion[field.name]}</span>
 										</div>
 									))}
