@@ -20,6 +20,8 @@ export const RequireAuth = () => {
 		if (auth?.accessToken) {
 			return;
 		}
+		// leo el token, envio al backend para ver si es valido y en caso afirmativo, seteo el estado de auth
+		const accessToken = localStorage.getItem('token')
 		if (location?.state?.prevUrl?.pathname) {
 			navigate(location.state.prevUrl.pathname);
 			setIsModalOpen(true);
