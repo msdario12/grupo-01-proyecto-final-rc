@@ -2,8 +2,10 @@ import { Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 export const TurnsForm = () => {
+	const location = useLocation();
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState('init');
 	const formik = useFormik({
 		initialValues: {
@@ -37,7 +39,16 @@ export const TurnsForm = () => {
 					placeholder={'Introduzca el nombre, email o nombre de la mascota'}
 				/>
 			</Form.Group>
-			{!isUserInfoLoaded ? <Button>Crear paciente</Button> : ''}
+			{!isUserInfoLoaded ? (
+				<Button
+					as={Link}
+					to={'../add-patient'}
+					state={{ prevUrl: location, backToTurns: true }}>
+					Crear paciente
+				</Button>
+			) : (
+				''
+			)}
 		</Form>
 	);
 };

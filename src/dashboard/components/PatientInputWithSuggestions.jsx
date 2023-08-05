@@ -41,7 +41,7 @@ export const PatientInputWithSuggestions = ({
 		const valueLength = e.target.value.length;
 		if (valueLength === 0) {
 			setIsUserInfoLoaded(true);
-            formik.resetForm()
+			formik.resetForm();
 		}
 		if (valueLength >= 3) {
 			setIsDropDownOpen(true);
