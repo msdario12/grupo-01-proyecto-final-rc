@@ -5,7 +5,6 @@ import { Error404Page } from '../error-404/pages/Error404Page';
 import { PatientsDashboard } from '../dashboard/pages/PatientsDashboard';
 import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
 import { AboutUs } from '../home/pages/About-us';
-
 import { ContactPage } from '../contact/pages/ContactPage';
 import { LoginScreen } from '../Login/LoginScreen';
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './LoginScreen.css';
 import { useState } from 'react';
+import { Form } from 'react-bootstrap';
 export const LoginScreen = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -29,10 +30,13 @@ export const LoginScreen = () => {
 	};
 
 	return (
-		<div
-			className='container'
-			style={{ background: 'black', marginTop: 20, padding: 20 }}>
-			<h2 style={{ color: 'blue', textaling: 'center' }}>LOGIN</h2>
+		<div>
+			<h2>LOGIN</h2>
+			<Form>
+				<Form.Group>
+					
+				</Form.Group>
+			</Form>
 			<form onSubmit={handleLogin} className='form'>
 				<input
 					type='email'
