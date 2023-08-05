@@ -70,12 +70,29 @@ export const LoginScreen = () => {
 					console.log(res);
 					setResponse(res.data);
 					setIsLoading(false);
+					if (!res.data.accessToken) {
+						setResponse(res.data);
+						return;
+					}
 					const accessToken = res?.data?.accessToken;
 					const firstName = res?.data?.firstName;
 					setAuth({ email, firstName, accessToken });
 					// autenticación correcta
 					localStorage.setItem('token', accessToken);
 					setTimeout(() => navigate('/dashboard'), 2500);
+				})
+				.catch((e) => {
+					if (!e) {
+						setResponse({
+							success: false,
+							message: 'Sin respuesta del servidor',
+						});
+					} else {
+						setResponse({
+							success: false,
+							message: 'Error en la autenticación',
+						});
+					}
 				});
 		}
 	};

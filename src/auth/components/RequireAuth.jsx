@@ -15,18 +15,27 @@ export const RequireAuth = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { setIsModalOpen } = useContext(ModalContext);
-    // ! Esto se tiene que descomentar cuando tengamos login
-	// useEffect(() => {
-	// 	if (!auth?.user) {
-	// 		if (location?.state?.prevUrl?.pathname) {
-	// 			navigate(location.state.prevUrl.pathname);
-	// 		} else {
-	// 			navigate(-1, { replace: true });
-	// 		}
-	// 		setIsModalOpen(true);
-	// 		return;
-	// 	}
-	// }, []);
+	// ! Esto se tiene que descomentar cuando tengamos login
+	useEffect(() => {
+		if (auth?.accessToken) {
+			return;
+		}
+		if (location?.state?.prevUrl?.pathname) {
+			navigate(location.state.prevUrl.pathname);
+			setIsModalOpen(true);
+			return;
+		}
+		setIsModalOpen(true);
+
+		const timeOutID = setTimeout(
+			() => navigate('login', { replace: true }),
+			2500
+		);
+
+		return () => {
+			clearTimeout(timeOutID);
+		};
+	}, [auth]);
 
 	return <Outlet />;
 };

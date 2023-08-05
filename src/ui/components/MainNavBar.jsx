@@ -99,7 +99,7 @@ export const MainNavBar = ({
 						<Navbar.Text>
 							{isUserLogged ? (
 								<div className='d-flex flex-lg-column align-items-center gap-1'>
-									<span>Autenticado cómo: </span>
+									<span>Usuario: </span>
 									<NavDropdown
 										drop='down'
 										align={'end'}

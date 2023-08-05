@@ -14,6 +14,7 @@ import { NewPatientForm } from '../dashboard/components/NewPatientForm';
 import { RequireAuth } from '../auth/components/RequireAuth';
 import { GenericModal } from '../ui/components/GenericModal';
 import { OurDevelopers } from '../our-developers/page/OurDevelopers';
+import { UnauthorizedPage401 } from '../ui/pages/UnauthorizedPage401';
 
 export const AppRouter = () => {
 	return (
@@ -35,6 +36,10 @@ export const AppRouter = () => {
 						<Route
 							path='*'
 							element={<Error404Page title={'Pagina no encontrada'} />}
+						/>
+						<Route
+							path='unauthorized-page'
+							element={<UnauthorizedPage401 title={'401 - Sin Autorización'} />}
 						/>
 						<Route
 							path='about-us'

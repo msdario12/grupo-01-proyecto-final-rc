@@ -15,7 +15,7 @@ export const GenericModal = () => {
 			return;
 		}
 		const timeoutID = setTimeout(() => {
-			navigate('/', { state: { prevUrl: location }, replace: true }); //aca se tiene que redirigir al login
+			navigate('/login', { state: { prevUrl: location }, replace: true }); //aca se tiene que redirigir al login
 			setIsModalOpen(false);
 		}, 5000);
 		return () => {
