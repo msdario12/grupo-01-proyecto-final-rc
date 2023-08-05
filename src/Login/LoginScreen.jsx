@@ -70,12 +70,12 @@ export const LoginScreen = () => {
 					console.log(res);
 					setResponse(res.data);
 					setIsLoading(false);
-					const accessToken = res?.data?.token;
+					const accessToken = res?.data?.accessToken;
 					const firstName = res?.data?.firstName;
 					setAuth({ email, firstName, accessToken });
 					// autenticación correcta
-					setTimeout(() => navigate('/dashboard'), 2500);
 					localStorage.setItem('token', accessToken);
+					setTimeout(() => navigate('/dashboard'), 2500);
 				});
 		}
 	};

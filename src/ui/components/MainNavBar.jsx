@@ -1,17 +1,28 @@
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { NavLink, useLocation } from 'react-router-dom';
 import { WeatherData } from './WeatherData';
+import { AuthContext } from '../../context/AuthProvider';
 
 export const MainNavBar = ({
 	isInDashboard,
 	setIsSideBarOpen,
 	isSideBarOpen,
 }) => {
+	const { auth } = useContext(AuthContext);
 	const [isUserLogged, setIsUserLogged] = useState(true);
 	const location = useLocation();
+
+	useEffect(() => {
+		console.log(auth)
+		if (auth.accessToken) {
+			setIsUserLogged(true);
+		} else {
+			setIsUserLogged(false);
+		}
+	}, [auth]);
 
 	return (
 		<Navbar expand='lg' sticky={'top'} className='bg-dark' data-bs-theme='dark'>
@@ -88,11 +99,11 @@ export const MainNavBar = ({
 						<Navbar.Text>
 							{isUserLogged ? (
 								<div className='d-flex flex-lg-column align-items-center gap-1'>
-									<span>Signed in as:</span>
+									<span>Autenticado cómo: </span>
 									<NavDropdown
 										drop='down'
 										align={'end'}
-										title='Mark Otto'
+										title={auth.firstName}
 										menuVariant='dark'>
 										<NavDropdown.Item href='#action/3.1'>
 											Mi cuenta
@@ -104,7 +115,12 @@ export const MainNavBar = ({
 									</NavDropdown>
 								</div>
 							) : (
-								<Nav.Link href='#link445'>Acceder</Nav.Link>
+								<Nav.Link
+									as={NavLink}
+									to={'/login'}
+									state={{ prevUrl: location }}>
+									Acceder
+								</Nav.Link>
 							)}
 						</Navbar.Text>
 					</Nav>
