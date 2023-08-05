@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import './LoginScreen.css';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Alert, Button, Form } from 'react-bootstrap';
 import { HeaderTitleDashboard } from '../dashboard/elements/HeaderTitleDashboard';
 import { backendAPI } from '../api/backendAPI';
+import { AuthContext } from '../context/AuthProvider';
 export const LoginScreen = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -14,10 +15,11 @@ export const LoginScreen = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [response, setResponse] = useState({ success: true });
 	const [showAlert, setShowAlert] = useState(false);
+	const navigate = useNavigate();
+	const { setAuth } = useContext(AuthContext);
 	const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 	const passwordRegex =
 		/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-	const navigate = useNavigate();
 
 	const isValidEmail = emailRegex.test(email);
 	const isValidPassword = passwordRegex.test(password);
@@ -52,15 +54,29 @@ export const LoginScreen = () => {
 
 			console.log(email, password);
 			setIsLoading(true);
-			backendAPI.post('/api/auth/login', { email, password }).then((res) => {
-				console.log(res);
-				setResponse(res.data);
-				setIsLoading(false);
-				if (res.data.success) {
-					// autenticacion correcta
+
+			backendAPI
+				.post(
+					'/api/auth/login',
+					{ email, password },
+					{
+						headers: { 'Content-Type': 'application/json' },
+						withCredentials: true,
+					}
+				)
+				.then((res) => {
+					setEmail('');
+					setPassword('');
+					console.log(res);
+					setResponse(res.data);
+					setIsLoading(false);
+					const accessToken = res?.data?.token;
+					const firstName = res?.data?.firstName;
+					setAuth({ email, firstName, accessToken });
+					// autenticación correcta
 					setTimeout(() => navigate('/dashboard'), 2500);
-				}
-			});
+					localStorage.setItem('token', accessToken);
+				});
 		}
 	};
 
