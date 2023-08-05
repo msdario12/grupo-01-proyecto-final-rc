@@ -2,6 +2,8 @@ import { Form, InputGroup } from 'react-bootstrap';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import { useFormik } from 'formik';
 import { backendAPI } from '../../api/backendAPI';
+import { useContext, useState } from 'react';
+import { ToastContext } from '../../context/ToastContext';
 
 export const TurnsForm = () => {
 	const formik = useFormik({
@@ -9,6 +11,9 @@ export const TurnsForm = () => {
 			multiSearch: '',
 		},
 	});
+	const { addToast } = useContext(ToastContext);
+
+    const [resultList, setResultList] = useState([])
 
 	const handleChangeMultiSearch = (e) => {
 		const { value } = e.target;
@@ -16,7 +21,13 @@ export const TurnsForm = () => {
 			console.log(value);
 			backendAPI
 				.get(`/api/patients?searchParam=${value}`)
-				.then((res) => console.log(res.data));
+				.then((res) => setResultList(res.data.data))
+                .catch((e) =>
+						addToast({
+							variant: 'error',
+							message: 'Error en la búsqueda' + e,
+						})
+					);
 		}
 	};
 
