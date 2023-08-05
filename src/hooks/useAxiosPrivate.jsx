@@ -20,5 +20,5 @@ export const useAxiosPrivate = () => {
 		};
 	}, [auth]);
 
-	return privateBackendAPI;
+	return { privateBackendAPI };
 };
