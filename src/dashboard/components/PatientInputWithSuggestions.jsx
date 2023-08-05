@@ -38,7 +38,12 @@ export const PatientInputWithSuggestions = ({
 	};
 	const handleChange = (e) => {
 		const value = e.target.value;
-		if (e.target.value.length >= 3) {
+		const valueLength = e.target.value.length;
+		if (valueLength === 0) {
+			setIsUserInfoLoaded(true);
+            formik.resetForm()
+		}
+		if (valueLength >= 3) {
 			setIsDropDownOpen(true);
 			backendAPI
 				.get(endPoint, { params: { [queryName]: value } })
@@ -48,7 +53,7 @@ export const PatientInputWithSuggestions = ({
 						setIsUserInfoLoaded(false);
 						return;
 					}
-                    console.log(res.data.data);
+					console.log(res.data.data);
 					setSuggestionList(res.data.data);
 				})
 				.catch((e) =>
@@ -59,7 +64,6 @@ export const PatientInputWithSuggestions = ({
 				);
 		} else {
 			setIsDropDownOpen(false);
-			setIsUserInfoLoaded(false);
 		}
 	};
 	return (

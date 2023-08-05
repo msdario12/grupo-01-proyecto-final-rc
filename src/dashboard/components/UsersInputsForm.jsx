@@ -1,9 +1,7 @@
-import { useContext, useState } from 'react';
-import { Button, Col, Form, InputGroup, ListGroup, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
-import { backendAPI } from '../../api/backendAPI';
-import { ToastContext } from '../../context/ToastContext';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
+import { useEffect } from 'react';
 
 export const UsersInputsForm = ({
 	formik,
@@ -23,6 +21,13 @@ export const UsersInputsForm = ({
 		formik.values.phone = suggestion.phone;
 		formik.setFieldTouched('phone', true);
 	};
+	useEffect(() => {
+		if (!isUserInfoLoaded) {
+			formik.values.phone = '';
+			formik.values.firstName = '';
+			formik.values.lastName = '';
+		}
+	}, [isUserInfoLoaded]);
 	return (
 		<>
 			<Form.Group className='mb-3' controlId='email'>

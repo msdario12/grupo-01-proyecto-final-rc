@@ -1,10 +1,10 @@
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 import { useState } from 'react';
 
 export const TurnsForm = () => {
-	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
+	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState('init');
 	const formik = useFormik({
 		initialValues: {
 			multiSearch: '',
@@ -37,6 +37,7 @@ export const TurnsForm = () => {
 					placeholder={'Introduzca el nombre, email o nombre de la mascota'}
 				/>
 			</Form.Group>
+			{!isUserInfoLoaded ? <Button>Crear paciente</Button> : ''}
 		</Form>
 	);
 };
