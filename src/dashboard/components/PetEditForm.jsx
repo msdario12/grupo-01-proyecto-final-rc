@@ -1,11 +1,11 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { backendAPI } from '../../api/backendAPI';
 import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../context/ToastContext';
 import { petSchema } from '../schema-validations/petSchema';
 import { PetInputsForm } from './PetInputsForm';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 const userEditSchema = Yup.object({ ...petSchema });
 
@@ -14,6 +14,7 @@ export const PetEditForm = ({ petID }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const { addToast } = useContext(ToastContext);
 	const [inputsHasChanges, setInputsHasChanges] = useState(false);
+	const { privateBackendAPI } = useAxiosPrivate();
 
 	const initialValues = {
 		name: '',
@@ -29,7 +30,7 @@ export const PetEditForm = ({ petID }) => {
 			const castValues = userEditSchema.cast(values);
 
 			setIsLoading(true);
-			backendAPI
+			privateBackendAPI
 				.put(`/api/pets/${petID}`, castValues)
 				.then((res) => {
 					addToast({
@@ -53,7 +54,7 @@ export const PetEditForm = ({ petID }) => {
 
 	useEffect(() => {
 		if (petID) {
-			backendAPI.get(`/api/pets/${petID}`).then((res) => {
+			privateBackendAPI.get(`/api/pets/${petID}`).then((res) => {
 				setPetData(res.data.data);
 
 				formik.setValues(res.data.data, true);
