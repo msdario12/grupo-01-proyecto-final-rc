@@ -13,7 +13,7 @@ export const EditPatientPage = (props) => {
 		});
 	}, [props.selectedPatientID]);
 	if (!patientData) {
-		return 'Cargando datos...';
+		return;
 	}
 	return (
 		<Modal {...props} size='lg' aria-labelledby='contained-modal-title-vcenter'>

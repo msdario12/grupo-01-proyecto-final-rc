@@ -102,7 +102,7 @@ export const NewPatientForm = ({
 	}, [editMode, selectedPatientID]);
 
 	if (editMode && !dataToEdit) {
-		return 'Cargando datos... s';
+		return 'Cargando datos...';
 	}
 	return (
 		<div>

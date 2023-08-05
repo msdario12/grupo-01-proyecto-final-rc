@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Badge, Button, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
 import { backendAPI } from '../../api/backendAPI';
@@ -8,6 +8,9 @@ import { EditPatientPage } from '../pages/EditPatientPage';
 import { DeletePatientPage } from './DeletePatientPage';
 import { NewPatientPage } from '../pages/NewPatientPage';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
+import { ToastContext } from '../../context/ToastContext';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { useAuth } from '../../hooks/useAuth';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -26,16 +29,24 @@ export const PatientsTable = () => {
 	const [modalEditShow, setModalEditShow] = useState(false);
 	const [modalDeleteShow, setModalDeleteShow] = useState(false);
 	const [modalNewPatientShow, setModalNewPatientShow] = useState(false);
+	const { privateBackendAPI } = useAxiosPrivate();
+	const { auth } = useAuth();
 	useEffect(() => {
-		backendAPI.get('/api/patients').then((res) => {
-			console.log(res.data.data);
-			setPatientsList(res.data.data);
-		});
-	}, [modalEditShow, modalDeleteShow, modalNewPatientShow]);
+		privateBackendAPI
+			.get('/api/patients')
+			.then((res) => {
+				console.log(res.data.data);
+				setPatientsList(res.data.data);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	}, [modalEditShow, modalDeleteShow, modalNewPatientShow, auth]);
 	if (!patientsList) {
 		return (
-			<div className='d-flex justify-content-center'>
+			<div className='d-flex justify-content-center gap-3 align-items-center align-items-center'>
 				<Spinner animation='border' />
+				<h3>Cargando datos de pacientes</h3>
 			</div>
 		);
 	}
