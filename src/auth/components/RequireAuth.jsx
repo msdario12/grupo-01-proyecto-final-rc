@@ -15,7 +15,7 @@ export const RequireAuth = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 	const { setIsModalOpen } = useContext(ModalContext);
-	// ! Esto se tiene que descomentar cuando tengamos login
+
 	useEffect(() => {
 		if (auth?.accessToken) {
 			return;
@@ -25,16 +25,8 @@ export const RequireAuth = () => {
 			setIsModalOpen(true);
 			return;
 		}
+		navigate('/unauthorized-page', { replace: true });
 		setIsModalOpen(true);
-
-		const timeOutID = setTimeout(
-			() => navigate('login', { replace: true }),
-			2500
-		);
-
-		return () => {
-			clearTimeout(timeOutID);
-		};
 	}, [auth]);
 
 	return <Outlet />;
