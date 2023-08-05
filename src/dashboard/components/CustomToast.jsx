@@ -47,8 +47,8 @@ export const CustomToast = () => {
 
 	return (
 		<ToastContainer className='position-fixed bottom-0 end-0 me-3 mb-3'>
-			{toastList.map((toast) => (
-				<InternalToast key={toast.date} toast={toast} />
+			{toastList.map((toast, index) => (
+				<InternalToast key={toast.date + index} toast={toast} />
 			))}
 		</ToastContainer>
 	);
