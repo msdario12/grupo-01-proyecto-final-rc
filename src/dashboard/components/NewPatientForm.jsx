@@ -10,6 +10,7 @@ import { ToastContext } from '../../context/ToastContext';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { backendAPI } from '../../api/backendAPI';
 
 const patientSchema = Yup.object({
 	...userSchema,
@@ -44,6 +45,7 @@ export const NewPatientForm = ({
 		onSubmit: (values) => {
 			// Logica para enviar informacion al backend
 			const castValues = patientSchema.cast(values);
+			console.log(castValues);
 
 			if (editMode) {
 				privateBackendAPI

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAuth } from './useAuth';
-import { backendAPI, privateBackendAPI } from '../api/backendAPI';
+import { privateBackendAPI } from '../api/backendAPI';
 
 export const useAxiosPrivate = () => {
 	const { auth } = useAuth();
@@ -16,7 +16,7 @@ export const useAxiosPrivate = () => {
 		);
 
 		return () => {
-			backendAPI.interceptors.request.eject(requestIntercept);
+			privateBackendAPI.interceptors.request.eject(requestIntercept);
 		};
 	}, [auth]);
 
