@@ -139,22 +139,22 @@ export const MainTableTurns = () => {
 			<tbody className='align-middle fw-semibold'>
 				{turnsList.map((turn) => (
 					<tr key={turn._id}>
-						<td>{turn._id}</td>
+						<td>{turn.index}</td>
 						<td>{formatDate(turn.date)}</td>
 						<td>{formatTime(turn.date)}</td>
-						<td>{turn.customer}</td>
+						<td>{`${turn['patient_id.user_id.firstName']} ${turn['patient_id.user_id.lastName']}`}</td>
 						<td>
 							<div className='d-flex flex-column align-items-start'>
-								<span className=''>{turn.pet}</span>
+								<span className=''>{turn['patient_id.pet_id.name']}</span>
 								<div className=''>
 									<Badge pill bg='primary'>
-										{turn.animalType}
+										{turn['patient_id.pet_id.specie']}
 									</Badge>
 								</div>
 							</div>
 						</td>
-						<td>{turn.veterinarian}</td>
-						<td>{turn.detail}</td>
+						<td>{turn.vet}</td>
+						<td>{turn.details}</td>
 					</tr>
 				))}
 			</tbody>
