@@ -67,8 +67,8 @@ export const UserEditForm = ({ userID }) => {
 		privateBackendAPI.get(`/api/users/${userID}`).then((res) => {
 			console.log(res.data);
 			setDataToEdit(res.data.data);
-			formik.setValues(res.data.data, true);
-			formik.setTouched(res.data.data, true);
+			formik.setValues(res.data.data, false);
+			formik.setTouched(res.data.data, false);
 		});
 	}, [userID, formik.handleSubmit]);
 
@@ -82,12 +82,18 @@ export const UserEditForm = ({ userID }) => {
 	}, [dataToEdit, formik.values]);
 
 	if (!dataToEdit) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center'>
+				<Spinner animation='border' size='md' />
+				<span>Cargando Usuario</span>
+			</div>
+		);
 	}
 	return (
 		<div>
 			<Form onSubmit={formik.handleSubmit} onFocus={() => setShowAlert(false)}>
 				<UsersInputsForm
+					editMode={true}
 					formik={formik}
 					setIsUserInfoLoaded={setIsUserInfoLoaded}
 					isUserInfoLoaded={isUserInfoLoaded}

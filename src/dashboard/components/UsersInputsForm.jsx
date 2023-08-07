@@ -7,6 +7,7 @@ export const UsersInputsForm = ({
 	formik,
 	setIsUserInfoLoaded,
 	isUserInfoLoaded,
+	editMode = false,
 }) => {
 	const handleClickSuggestion = (suggestion) => {
 		console.log(suggestion);
@@ -31,22 +32,43 @@ export const UsersInputsForm = ({
 	return (
 		<>
 			<Form.Group className='mb-3' controlId='email'>
-				<Form.Label>Email *</Form.Label>
-				<PatientInputWithSuggestions
-					formik={formik}
-					setIsUserInfoLoaded={setIsUserInfoLoaded}
-					handleClickSuggestion={handleClickSuggestion}
-					name={'email'}
-					fieldsToRender={[
-						{ name: 'email', title: 'Email' },
-						{ name: 'firstName', title: 'Nombre' },
-						{ name: 'lastName', title: 'Apellido' },
-					]}
-					endPoint='/api/users'
-					queryName='email'
-					hasTextCapitalization={false}
-					placeholder={'Busque un email'}
-				/>
+				{!editMode ? (
+					<>
+						<Form.Label>Email *</Form.Label>
+						<PatientInputWithSuggestions
+							formik={formik}
+							setIsUserInfoLoaded={setIsUserInfoLoaded}
+							handleClickSuggestion={handleClickSuggestion}
+							name={'email'}
+							fieldsToRender={[
+								{ name: 'email', title: 'Email' },
+								{ name: 'firstName', title: 'Nombre' },
+								{ name: 'lastName', title: 'Apellido' },
+							]}
+							endPoint='/api/users'
+							queryName='email'
+							hasTextCapitalization={false}
+							placeholder={'Busque un email'}
+						/>
+					</>
+				) : (
+					<Form.Group
+						as={Col}
+						sm={12}
+						lg={6}
+						className='mb-3'
+						controlId='email'>
+						<Form.Label>Email *</Form.Label>
+						<InputWithFeedback
+							hasTextCapitalization={false}
+							type='text'
+							placeholder='Ramiro'
+							formik={formik}
+							name={'email'}
+							props={{ maxLength: 40, disabled: isUserInfoLoaded }}
+						/>
+					</Form.Group>
+				)}
 			</Form.Group>
 
 			<Row>

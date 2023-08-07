@@ -79,7 +79,12 @@ export const PetEditForm = ({ petID }) => {
 	}, [petData, formik.values, formik.handleSubmit]);
 
 	if (!petData) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center'>
+				<Spinner animation='border' size='md' />
+				<span>Cargando mascota</span>
+			</div>
+		);
 	}
 	return (
 		<div>
