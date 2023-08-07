@@ -6,64 +6,6 @@ import { CustomTh } from './CustomTh';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useAuth } from '../../hooks/useAuth';
 
-const turnsListObject = [
-	{
-		id: 1,
-		date: '07/07/23',
-		time: '15:55',
-		dateObj: new Date('02/07/23 15:55:00'),
-		customer: 'Analia Miranda',
-		pet: 'Roque',
-		veterinarian: 'Alvarez',
-		detail: 'Desparasitación y limpieza bucal',
-		animalType: 'Perro',
-	},
-	{
-		id: 2,
-		date: '06/07/23',
-		time: '12:30',
-		dateObj: new Date('07/04/23 02:55:00'),
-		customer: 'Pedro Ramirez',
-		pet: 'Max',
-		veterinarian: 'Ziddane',
-		detail: 'Vacunación anual',
-		animalType: 'Perro',
-	},
-	{
-		id: 3,
-		date: '10/07/23',
-		time: '09:15',
-		dateObj: new Date('03/01/23 16:55:00'),
-		customer: 'Ana Martínez',
-		pet: 'Luna',
-		veterinarian: 'Sánchez',
-		detail: 'Revisión general',
-		animalType: 'Gato',
-	},
-	{
-		id: 4,
-		date: '03/07/23',
-		time: '17:20',
-		dateObj: new Date('02/05/23 19:55:00'),
-		customer: 'Lucas Gómez',
-		pet: 'Simba',
-		veterinarian: 'Pérez',
-		detail: 'Corte de uñas',
-		animalType: 'Gato',
-	},
-	{
-		id: 5,
-		date: '14/07/23',
-		time: '14:00',
-		dateObj: new Date('12/04/23 22:55:00'),
-		customer: 'Guido Fernández',
-		pet: 'Bella',
-		veterinarian: 'Rodríguez',
-		detail: 'Esterilización',
-		animalType: 'Perro',
-	},
-];
-
 const columnList = [
 	{ title: 'Fecha', name: 'dateObj' },
 	{ title: 'Hora', name: 'dateObj', hasIcon: false },
@@ -120,22 +62,7 @@ export const MainTableTurns = () => {
 					))}
 				</tr>
 			</thead>
-			{/* {
-    "_id": "64d136c31cbb932e0b261a06",
-    "date": "2023-08-09T20:57:13.639Z",
-    "vet": "ddddd",
-    "details": "cosas",
-    "patient_id._id": "64d0e5e3d9527703685e2364",
-    "patient_id.user_id._id": "64cd773cad2cbdbe4e8527ff",
-    "patient_id.user_id.firstName": "dddddddd",
-    "patient_id.user_id.lastName": "ruizfa",
-    "patient_id.pet_id._id": "64d0e5e2d9527703685e2361",
-    "patient_id.pet_id.name": "maerlis",
-    "patient_id.turns.0": "64d136c31cbb932e0b261a06",
-    "patient_id.__v": 1,
-    "status": "pending",
-    "__v": 0
-} */}
+
 			<tbody className='align-middle fw-semibold'>
 				{turnsList.map((turn) => (
 					<tr key={turn._id}>
