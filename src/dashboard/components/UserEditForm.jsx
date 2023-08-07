@@ -2,10 +2,10 @@ import * as Yup from 'yup';
 import { UsersInputsForm } from './UsersInputsForm';
 import { useFormik } from 'formik';
 import { userSchema } from '../schema-validations/userSchema';
-import { backendAPI } from '../../api/backendAPI';
 import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../context/ToastContext';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 const userEditSchema = Yup.object({ ...userSchema });
 
@@ -15,6 +15,7 @@ export const UserEditForm = ({ userID }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [inputsHasChanges, setInputsHasChanges] = useState(false);
 	const { addToast } = useContext(ToastContext);
+	const {privateBackendAPI} = useAxiosPrivate()
 
 	const initialValues = {
 		email: '',
@@ -31,7 +32,7 @@ export const UserEditForm = ({ userID }) => {
 			const castValues = userEditSchema.cast(values);
 			console.log(castValues);
 			setIsLoading(true);
-			backendAPI
+			privateBackendAPI
 				.put(`/api/users/${userID}`, castValues)
 				.then((res) => {
 					addToast({
@@ -57,7 +58,7 @@ export const UserEditForm = ({ userID }) => {
 	});
 
 	useEffect(() => {
-		backendAPI.get(`/api/users/${userID}`).then((res) => {
+		privateBackendAPI.get(`/api/users/${userID}`).then((res) => {
 			console.log(res.data);
 			setDataToEdit(res.data.data);
 			formik.setValues(res.data.data, true);

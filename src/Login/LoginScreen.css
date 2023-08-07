@@ -1,0 +1,40 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 100px;
+}
+
+.form {
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-bottom: 20px;
+}
+
+
+.form input {
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 300px;
+}
+
+
+
+.form button {
+    padding: 10px 20px;
+    background-color: rgb(17, 16, 18);
+    color: rgb(246, 241, 241);
+    border: none;
+    cursor: pointer;
+}
+
+.message {
+    margin-bottom: 10px;
+    color: blueviolet;
+}
+
+
+
+
+

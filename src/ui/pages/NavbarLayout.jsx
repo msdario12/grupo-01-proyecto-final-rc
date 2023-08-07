@@ -4,9 +4,9 @@ import { Outlet } from 'react-router-dom';
 
 export const NavbarLayout = () => {
 	return (
-		<div className='d-flex flex-column justify-content-bwtween min-vh-100'>
+		<div className='d-flex flex-column justify-content-between min-vh-100'>
 			<MainNavBar />
-			<div>
+			<div className='my-auto container-lg'>
 				<Outlet />
 			</div>
 			<Footer />

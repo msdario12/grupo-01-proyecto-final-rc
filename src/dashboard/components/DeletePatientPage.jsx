@@ -1,18 +1,19 @@
 import { Button, Modal, Spinner } from 'react-bootstrap';
-import { backendAPI } from '../../api/backendAPI';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { ToastContext } from '../../context/ToastContext';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 export const DeletePatientPage = (props) => {
 	const [patientData, setPatientData] = useState();
 	const { addToast } = useContext(ToastContext);
 	const [isLoading, setIsLoading] = useState(false);
+	const { privateBackendAPI } = useAxiosPrivate();
 
 	useEffect(() => {
-		backendAPI
+		privateBackendAPI
 			.get(`/api/patients/${props.selectedPatientID}?populate=true`)
 			.then((res) => {
 				console.log(res.data);
@@ -24,7 +25,7 @@ export const DeletePatientPage = (props) => {
 	};
 	const handleDeletePatient = () => {
 		setIsLoading(true);
-		backendAPI
+		privateBackendAPI
 			.delete(`/api/patients/${props.selectedPatientID}`)
 			.then((res) => {
 				console.log(res.data);
@@ -33,12 +34,13 @@ export const DeletePatientPage = (props) => {
 					variant: 'success',
 				});
 				setIsLoading(false);
+				props.setModalDeleteShow(false);
 			})
 			.catch((e) => {
 				console.error(e);
 				setIsLoading(false);
 				addToast({
-					message: 'Error al eliminar el paciente',
+					message: 'Error al eliminar el paciente - ' + e,
 					variant: 'error',
 				});
 			});

@@ -6,7 +6,7 @@ export const RedirectLoginModal = ({ handleClose }) => {
 	const location = useLocation();
 	// Cambiar la redireccion al login en vez del home
 	const handleClick = () => {
-		navigate('/', { state: { prevUrl: location }, replace: true });
+		navigate('/login', { state: { prevUrl: location }, replace: true });
 		handleClose();
 	};
 	return (

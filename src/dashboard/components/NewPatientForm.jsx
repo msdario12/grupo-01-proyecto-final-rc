@@ -1,7 +1,6 @@
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
-import { backendAPI } from '../../api/backendAPI';
 import * as Yup from 'yup';
 import { UsersInputsForm } from './UsersInputsForm';
 import { PetInputsForm } from './PetInputsForm';
@@ -10,6 +9,8 @@ import { petSchema } from '../schema-validations/petSchema';
 import { ToastContext } from '../../context/ToastContext';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { backendAPI } from '../../api/backendAPI';
 import { useLocation, useNavigate } from 'react-router';
 
 const patientSchema = Yup.object({
@@ -27,6 +28,7 @@ export const NewPatientForm = ({
 	const [redirectToTurns, setRedirectToTurns] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
 	const { addToast } = useContext(ToastContext);
+	const { privateBackendAPI } = useAxiosPrivate();
 	const navigate = useNavigate();
 	const location = useLocation();
 	useDocumentTitle(title);
@@ -47,9 +49,10 @@ export const NewPatientForm = ({
 		onSubmit: (values) => {
 			// Logica para enviar informacion al backend
 			const castValues = patientSchema.cast(values);
+			console.log(castValues);
 
 			if (editMode) {
-				backendAPI
+				privateBackendAPI
 					.put(`/api/users/${dataToEdit.user_id}`, {
 						_id: dataToEdit.user_id,
 						email: castValues.email,
@@ -74,7 +77,7 @@ export const NewPatientForm = ({
 				return;
 			}
 
-			backendAPI
+			privateBackendAPI
 				.post('/api/patients', castValues)
 				.then((res) => {
 					addToast({
@@ -105,7 +108,7 @@ export const NewPatientForm = ({
 		if (!editMode) {
 			return;
 		}
-		backendAPI.get(`/api/patients/${selectedPatientID}`).then((res) => {
+		privateBackendAPI.get(`/api/patients/${selectedPatientID}`).then((res) => {
 			setDataToEdit(res.data.data);
 			formik.setValues(res.data.data, true);
 		});
