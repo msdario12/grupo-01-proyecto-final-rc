@@ -6,6 +6,7 @@ import { ToastContext } from '../../context/ToastContext';
 import { petSchema } from '../schema-validations/petSchema';
 import { PetInputsForm } from './PetInputsForm';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { CustomAlertResponse } from './CustomAlertResponse';
 
 const userEditSchema = Yup.object({ ...petSchema });
 
@@ -15,6 +16,8 @@ export const PetEditForm = ({ petID }) => {
 	const { addToast } = useContext(ToastContext);
 	const [inputsHasChanges, setInputsHasChanges] = useState(false);
 	const { privateBackendAPI } = useAxiosPrivate();
+	const [showAlert, setShowAlert] = useState(false);
+	const [response, setResponse] = useState({ success: true });
 
 	const initialValues = {
 		name: '',
@@ -45,9 +48,12 @@ export const PetEditForm = ({ petID }) => {
 					console.error(e);
 					setIsLoading(false);
 					addToast({
-						message: 'Error al editar la mascota ' + e,
+						message:
+							'Error al editar la mascota - ' + e?.response?.data?.message,
 						variant: 'error',
 					});
+					setResponse(e?.response?.data);
+					setShowAlert(true);
 				});
 		},
 	});
@@ -73,12 +79,18 @@ export const PetEditForm = ({ petID }) => {
 	}, [petData, formik.values, formik.handleSubmit]);
 
 	if (!petData) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center'>
+				<Spinner animation='border' size='md' />
+				<span>Cargando mascota</span>
+			</div>
+		);
 	}
 	return (
 		<div>
 			<Form onSubmit={formik.handleSubmit}>
 				<PetInputsForm formik={formik} />
+				<CustomAlertResponse response={response} showAlert={showAlert} />
 
 				<div className='d-flex justify-content-center gap-3'>
 					<Button

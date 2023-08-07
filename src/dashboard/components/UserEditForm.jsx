@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../context/ToastContext';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { CustomAlertResponse } from './CustomAlertResponse';
 
 const userEditSchema = Yup.object({ ...userSchema });
 
@@ -15,7 +16,9 @@ export const UserEditForm = ({ userID }) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [inputsHasChanges, setInputsHasChanges] = useState(false);
 	const { addToast } = useContext(ToastContext);
-	const {privateBackendAPI} = useAxiosPrivate()
+	const { privateBackendAPI } = useAxiosPrivate();
+	const [showAlert, setShowAlert] = useState(false);
+	const [response, setResponse] = useState({ success: true });
 
 	const initialValues = {
 		email: '',
@@ -48,9 +51,12 @@ export const UserEditForm = ({ userID }) => {
 					console.error(e);
 					setIsLoading(false);
 					addToast({
-						message: 'Error al editar el usuario',
+						message:
+							'Error al editar el usuario - ' + e?.response?.data?.message,
 						variant: 'error',
 					});
+					setResponse(e?.response?.data);
+					setShowAlert(true);
 				});
 
 			setIsUserInfoLoaded(false);
@@ -61,8 +67,8 @@ export const UserEditForm = ({ userID }) => {
 		privateBackendAPI.get(`/api/users/${userID}`).then((res) => {
 			console.log(res.data);
 			setDataToEdit(res.data.data);
-			formik.setValues(res.data.data, true);
-			formik.setTouched(res.data.data, true);
+			formik.setValues(res.data.data, false);
+			formik.setTouched(res.data.data, false);
 		});
 	}, [userID, formik.handleSubmit]);
 
@@ -76,17 +82,24 @@ export const UserEditForm = ({ userID }) => {
 	}, [dataToEdit, formik.values]);
 
 	if (!dataToEdit) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center'>
+				<Spinner animation='border' size='md' />
+				<span>Cargando Usuario</span>
+			</div>
+		);
 	}
 	return (
 		<div>
-			<Form onSubmit={formik.handleSubmit}>
+			<Form onSubmit={formik.handleSubmit} onFocus={() => setShowAlert(false)}>
 				<UsersInputsForm
+					editMode={true}
 					formik={formik}
 					setIsUserInfoLoaded={setIsUserInfoLoaded}
 					isUserInfoLoaded={isUserInfoLoaded}
 					inputsHasChanges={inputsHasChanges}
 				/>
+				<CustomAlertResponse response={response} showAlert={showAlert} />
 
 				<div className='d-flex justify-content-center gap-3'>
 					<Button
