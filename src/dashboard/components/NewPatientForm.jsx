@@ -22,7 +22,6 @@ const patientSchema = Yup.object({
 export const NewPatientForm = ({
 	title = 'Agregar paciente',
 	modalMode = false,
-	selectedPatientID = {},
 }) => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [redirectToTurns, setRedirectToTurns] = useState(false);
@@ -87,12 +86,7 @@ export const NewPatientForm = ({
 		if (location?.state?.backToTurns) {
 			setRedirectToTurns(true);
 		}
-
-		privateBackendAPI.get(`/api/patients/${selectedPatientID}`).then((res) => {
-			setDataToEdit(res.data.data);
-			formik.setValues(res.data.data, true);
-		});
-	}, [selectedPatientID, location?.state?.backToTurns]);
+	}, [location?.state?.backToTurns]);
 
 	return (
 		<div>
