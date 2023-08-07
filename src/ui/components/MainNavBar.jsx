@@ -1,4 +1,9 @@
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import {
+	faAngleLeft,
+	faAngleRight,
+	faSign,
+	faSignIn,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect, useState } from 'react';
 import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
@@ -137,7 +142,12 @@ export const MainNavBar = ({
 								as={NavLink}
 								to={'/login'}
 								state={{ prevUrl: location }}>
-								Acceder
+								{
+									<div className='d-flex gap-3 align-items-center'>
+										<FontAwesomeIcon icon={faSignIn} />
+										<span>Acceder</span>
+									</div>
+								}
 							</Nav.Link>
 						)}
 					</Navbar.Text>
