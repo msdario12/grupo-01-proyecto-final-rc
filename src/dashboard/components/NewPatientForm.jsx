@@ -12,6 +12,7 @@ import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { backendAPI } from '../../api/backendAPI';
 import { useLocation, useNavigate } from 'react-router';
+import { CustomAlertResponse } from './CustomAlertResponse';
 
 const patientSchema = Yup.object({
 	...userSchema,
@@ -66,16 +67,19 @@ export const NewPatientForm = ({
 					.then((res) => {
 						addToast({
 							variant: 'success',
-							message: 'Paciente creado correctamente',
+							message: 'Paciente editado correctamente',
 						});
 						console.log(res);
 					})
 					.catch((e) => {
-						console.log(e);
+						console.log('error', e);
 						addToast({
 							variant: 'error',
-							message: 'Error al crear el paciente ' + e,
+							message:
+								'Error al editar el paciente - ' + e?.response?.data?.message,
 						});
+						setResponse(e?.response?.data);
+						setShowAlert(true);
 					});
 
 				return;
@@ -89,6 +93,8 @@ export const NewPatientForm = ({
 						message: 'Paciente creado correctamente',
 					});
 					console.log(res);
+					formik.resetForm();
+					setIsUserInfoLoaded(false);
 					if (redirectToTurns) {
 						navigate('../turns');
 					}
@@ -97,14 +103,12 @@ export const NewPatientForm = ({
 					console.log(e);
 					addToast({
 						variant: 'error',
-						message: 'Error al crear el paciente ' + e?.response?.data?.message,
+						message:
+							'Error al crear el paciente -' + e?.response?.data?.message,
 					});
 					setResponse(e?.response?.data);
 					setShowAlert(true);
 				});
-
-			formik.resetForm();
-			setIsUserInfoLoaded(false);
 		},
 	});
 
@@ -154,21 +158,7 @@ export const NewPatientForm = ({
 								<PetInputsForm formik={formik} />
 							</Col>
 						</Row>
-						{showAlert ? (
-							<div>
-								{!response?.success ? (
-									<Alert transition={true} variant='danger'>
-										{response?.message}
-									</Alert>
-								) : (
-									<Alert transition={true} variant='success'>
-										{response?.message}
-									</Alert>
-								)}
-							</div>
-						) : (
-							<br />
-						)}
+						<CustomAlertResponse response={response} showAlert={showAlert} />
 						<div className='d-flex justify-content-center gap-3'>
 							<Button
 								className='px-4 py-2'

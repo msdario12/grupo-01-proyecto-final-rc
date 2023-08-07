@@ -4,6 +4,7 @@ import { useContext, useState } from 'react';
 import { Alert, Button, Card, Form } from 'react-bootstrap';
 import { backendAPI } from '../api/backendAPI';
 import { AuthContext } from '../context/AuthProvider';
+import { CustomAlertResponse } from '../dashboard/components/CustomAlertResponse';
 export const LoginScreen = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
@@ -147,21 +148,9 @@ export const LoginScreen = () => {
 									{passwordError}
 								</Form.Control.Feedback>
 							</Form.Group>
-							{showAlert ? (
-								<div>
-									{!response.success ? (
-										<Alert transition={true} variant='danger'>
-											{response.message}
-										</Alert>
-									) : (
-										<Alert transition={true} variant='success'>
-											{response.message}
-										</Alert>
-									)}
-								</div>
-							) : (
-								<br />
-							)}
+
+							<CustomAlertResponse response={response} showAlert={showAlert} />
+
 							<Button
 								type='submit'
 								className='px-4 py-2 w-100'
