@@ -41,28 +41,30 @@ export const PatientInputWithSuggestions = ({
 		const value = e.target.value;
 		const valueLength = e.target.value.length;
 		if (valueLength === 0) {
-			setIsUserInfoLoaded(true);
+
 			formik.resetForm();
 		}
 		if (valueLength >= 3) {
 			setIsDropDownOpen(true);
-			privateBackendAPI
-				.get(endPoint, { params: { [queryName]: value } })
-				.then((res) => {
-					if (!res.data.data) {
-						setSuggestionList();
-						setIsUserInfoLoaded(false);
-						return;
-					}
-					console.log(res.data.data);
-					setSuggestionList(res.data.data);
-				})
-				.catch((e) =>
-					addToast({
-						variant: 'error',
-						message: 'Error en la búsqueda ' + e,
+			setTimeout(() => {
+				privateBackendAPI
+					.get(endPoint, { params: { [queryName]: value } })
+					.then((res) => {
+						if (!res.data.data) {
+							setSuggestionList();
+							setIsUserInfoLoaded(false);
+							return;
+						}
+						console.log(res.data.data);
+						setSuggestionList(res.data.data);
 					})
-				);
+					.catch((e) =>
+						addToast({
+							variant: 'error',
+							message: 'Error en la búsqueda ' + e,
+						})
+					);
+			}, 450);
 		} else {
 			setIsDropDownOpen(false);
 		}
