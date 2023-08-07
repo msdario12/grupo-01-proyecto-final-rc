@@ -120,13 +120,29 @@ export const MainTableTurns = () => {
 					))}
 				</tr>
 			</thead>
+			{/* {
+    "_id": "64d136c31cbb932e0b261a06",
+    "date": "2023-08-09T20:57:13.639Z",
+    "vet": "ddddd",
+    "details": "cosas",
+    "patient_id._id": "64d0e5e3d9527703685e2364",
+    "patient_id.user_id._id": "64cd773cad2cbdbe4e8527ff",
+    "patient_id.user_id.firstName": "dddddddd",
+    "patient_id.user_id.lastName": "ruizfa",
+    "patient_id.pet_id._id": "64d0e5e2d9527703685e2361",
+    "patient_id.pet_id.name": "maerlis",
+    "patient_id.turns.0": "64d136c31cbb932e0b261a06",
+    "patient_id.__v": 1,
+    "status": "pending",
+    "__v": 0
+} */}
 			<tbody className='align-middle fw-semibold'>
 				{turnsList.map((turn) => (
 					<tr key={turn._id}>
 						<td>{turn._id}</td>
 						<td>{formatDate(turn.date)}</td>
 						<td>{formatTime(turn.date)}</td>
-						{/* <td>{turn.customer}</td>
+						<td>{turn.customer}</td>
 						<td>
 							<div className='d-flex flex-column align-items-start'>
 								<span className=''>{turn.pet}</span>
@@ -138,7 +154,7 @@ export const MainTableTurns = () => {
 							</div>
 						</td>
 						<td>{turn.veterinarian}</td>
-						<td>{turn.detail}</td> */}
+						<td>{turn.detail}</td>
 					</tr>
 				))}
 			</tbody>
