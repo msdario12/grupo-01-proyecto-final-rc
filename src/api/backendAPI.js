@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const URL = 'http://localhost:4000';
+const URL = 'https://backend-grupo-01-proyecto-final-rc-zorb-dev.fl0.io';
 
 export const backendAPI = axios.create({
 	baseURL: URL,
