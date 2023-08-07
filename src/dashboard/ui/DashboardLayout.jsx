@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router';
 import { MainNavBar } from '../../ui/components/MainNavBar';
-import { useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
 import { CustomToast } from '../components/CustomToast';
 import { OffCanvasSideBar } from '../components/OffCanvasSideBar';
 import { SideMenu } from '../components/SideMenu';
 import { FooterDashboard } from '../components/Footer-Dashboard';
+import { SocketIOContext } from '../../context/SocketIOContext';
 
 export const DashboardLayout = () => {
 	const [isSideBarOpen, setIsSideBarOpen] = useState(false);
@@ -14,7 +15,9 @@ export const DashboardLayout = () => {
 		message: '',
 		variant: 'success',
 	});
+	const { isConnected, events } = useContext(SocketIOContext);
 	const [toastList, setToastList] = useState([]);
+
 	const addToast = (toast) => {
 		const now = new Date();
 
@@ -27,6 +30,13 @@ export const DashboardLayout = () => {
 			},
 		]);
 	};
+
+	useEffect(() => {
+		const lastEvent = events.at(-1);
+		if (lastEvent) {
+			addToast(lastEvent);
+		}
+	}, [events]);
 	return (
 		<main className={`container-fluid ${isSideBarOpen && 'ps-0'}`}>
 			<div className='row'>
@@ -48,7 +58,8 @@ export const DashboardLayout = () => {
 						isSideBarOpen={isSideBarOpen}
 						setIsSideBarOpen={setIsSideBarOpen}
 					/>
-					<div className={`px-0 col-12 col-md-10 col-lg-10 d-flex flex-column justify-content-between min-vh-100`}>
+					<div
+						className={`px-0 col-12 col-md-10 col-lg-10 d-flex flex-column justify-content-between min-vh-100`}>
 						<MainNavBar
 							isInDashboard={true}
 							setIsSideBarOpen={setIsSideBarOpen}

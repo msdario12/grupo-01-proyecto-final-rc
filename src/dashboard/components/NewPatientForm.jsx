@@ -11,6 +11,7 @@ import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { backendAPI } from '../../api/backendAPI';
+import { useLocation, useNavigate } from 'react-router';
 
 const patientSchema = Yup.object({
 	...userSchema,
@@ -24,9 +25,12 @@ export const NewPatientForm = ({
 	selectedPatientID = {},
 }) => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
+	const [redirectToTurns, setRedirectToTurns] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
 	const { addToast } = useContext(ToastContext);
 	const { privateBackendAPI } = useAxiosPrivate();
+	const navigate = useNavigate();
+	const location = useLocation();
 	useDocumentTitle(title);
 	const initialValues = {
 		email: '',
@@ -81,6 +85,9 @@ export const NewPatientForm = ({
 						message: 'Paciente creado correctamente',
 					});
 					console.log(res);
+					if (redirectToTurns) {
+						navigate('../turns');
+					}
 				})
 				.catch((e) =>
 					addToast({
@@ -95,6 +102,9 @@ export const NewPatientForm = ({
 	});
 
 	useEffect(() => {
+		if (location?.state?.backToTurns) {
+			setRedirectToTurns(true);
+		}
 		if (!editMode) {
 			return;
 		}
@@ -102,7 +112,7 @@ export const NewPatientForm = ({
 			setDataToEdit(res.data.data);
 			formik.setValues(res.data.data, true);
 		});
-	}, [editMode, selectedPatientID]);
+	}, [editMode, selectedPatientID, location?.state?.backToTurns]);
 
 	if (editMode && !dataToEdit) {
 		return 'Cargando datos...';
