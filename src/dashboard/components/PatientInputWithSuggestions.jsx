@@ -1,4 +1,4 @@
-import { Button, InputGroup, ListGroup } from 'react-bootstrap';
+import { Button, InputGroup, ListGroup, Spinner } from 'react-bootstrap';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import { useContext, useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
@@ -18,7 +18,7 @@ export const PatientInputWithSuggestions = ({
 	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 	const [suggestionList, setSuggestionList] = useState();
 	const { privateBackendAPI } = useAxiosPrivate();
-
+	const [isLoading, setIsLoading] = useState(false);
 	const { addToast } = useContext(ToastContext);
 
 	const handleFocus = (e) => {
@@ -41,10 +41,10 @@ export const PatientInputWithSuggestions = ({
 		const value = e.target.value;
 		const valueLength = e.target.value.length;
 		if (valueLength === 0) {
-
 			formik.resetForm();
 		}
 		if (valueLength >= 3) {
+			setIsLoading(true);
 			setIsDropDownOpen(true);
 			setTimeout(() => {
 				privateBackendAPI
@@ -53,17 +53,21 @@ export const PatientInputWithSuggestions = ({
 						if (!res.data.data) {
 							setSuggestionList();
 							setIsUserInfoLoaded(false);
+							setIsLoading(false);
 							return;
 						}
+						setIsUserInfoLoaded(true);
 						console.log(res.data.data);
 						setSuggestionList(res.data.data);
+						setIsLoading(false);
 					})
-					.catch((e) =>
+					.catch((e) => {
 						addToast({
 							variant: 'error',
 							message: 'Error en la búsqueda ' + e,
-						})
-					);
+						});
+						setIsLoading(false);
+					});
 			}, 450);
 		} else {
 			setIsDropDownOpen(false);
@@ -100,7 +104,21 @@ export const PatientInputWithSuggestions = ({
 				}`}
 				style={{ top: 37 }}>
 				{!suggestionList ? (
-					<ListGroup.Item>No se encontraron resultados</ListGroup.Item>
+					isLoading ? (
+						<ListGroup.Item>
+							{' '}
+							<Spinner
+								as='span'
+								animation='border'
+								size='sm'
+								role='status'
+								aria-hidden='true'
+							/>
+							<span className='ms-2'>Cargando resultados</span>
+						</ListGroup.Item>
+					) : (
+						<ListGroup.Item>No se encontraron resultados</ListGroup.Item>
+					)
 				) : (
 					suggestionList.map((suggestion) => (
 						<ListGroup.Item
