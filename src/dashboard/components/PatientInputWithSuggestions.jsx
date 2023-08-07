@@ -120,24 +120,28 @@ export const PatientInputWithSuggestions = ({
 						<ListGroup.Item>No se encontraron resultados</ListGroup.Item>
 					)
 				) : (
-					suggestionList.map((suggestion) => (
-						<ListGroup.Item
-							type='button'
-							key={suggestion._id}
-							action
-							onClick={() => handleClickSuggestion(suggestion)}>
-							{
-								<div className='d-flex flex-column justify-content-between'>
-									{fieldsToRender.map((field, index) => (
-										<div key={field.name + index} className='text-muted small'>
-											<span className='fw-bold'>{[field.title]}: </span>
-											<span>{suggestion[field.name]}</span>
-										</div>
-									))}
-								</div>
-							}
-						</ListGroup.Item>
-					))
+					<div className='overflow-scroll' style={{ height: 275 }}>
+						{suggestionList.map((suggestion) => (
+							<ListGroup.Item
+								key={suggestion._id}
+								type='button'
+								action
+								onClick={() => handleClickSuggestion(suggestion)}>
+								{
+									<div className='d-flex flex-column justify-content-between'>
+										{fieldsToRender.map((field, index) => (
+											<div
+												key={field.name + index}
+												className='text-muted small'>
+												<span className='fw-bold'>{[field.title]}: </span>
+												<span>{suggestion[field.name]}</span>
+											</div>
+										))}
+									</div>
+								}
+							</ListGroup.Item>
+						))}
+					</div>
 				)}
 			</ListGroup>
 		</InputGroup>
