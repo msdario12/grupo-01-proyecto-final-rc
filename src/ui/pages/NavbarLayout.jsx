@@ -6,7 +6,7 @@ export const NavbarLayout = () => {
 	return (
 		<div className='d-flex flex-column justify-content-between min-vh-100'>
 			<MainNavBar />
-			<div className='my-auto'>
+			<div className='my-auto container-lg'>
 				<Outlet />
 			</div>
 			<Footer />

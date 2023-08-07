@@ -1,8 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './LoginScreen.css';
 import { useContext, useState } from 'react';
-import { Alert, Button, Form } from 'react-bootstrap';
-import { HeaderTitleDashboard } from '../dashboard/elements/HeaderTitleDashboard';
+import { Alert, Button, Card, Form } from 'react-bootstrap';
 import { backendAPI } from '../api/backendAPI';
 import { AuthContext } from '../context/AuthProvider';
 export const LoginScreen = () => {
@@ -18,13 +17,10 @@ export const LoginScreen = () => {
 	const navigate = useNavigate();
 	const { setAuth } = useContext(AuthContext);
 	const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-	const passwordRegex =
-		/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
 
 	const isValidEmail = emailRegex.test(email);
-	const isValidPassword = passwordRegex.test(password);
 
-	const handleChange = (e) => {
+	const handleChange = () => {
 		setEmailError(false);
 		setPasswordError(false);
 		setShowAlert(false);
@@ -98,74 +94,84 @@ export const LoginScreen = () => {
 	};
 
 	return (
-		<div>
-			<HeaderTitleDashboard
-				title={'Login de administrador'}
-				subtitle={'Ingresa con tus credenciales'}
-			/>
-			<Form onSubmit={handleLogin} className='mt-5'>
-				<Form.Group controlId='email' className='mb-3'>
-					<Form.Label>Email *</Form.Label>
-					<Form.Control
-						name='email'
-						type='text'
-						isInvalid={emailError && emailTouched}
-						isValid={!emailError && emailTouched && isLoading}
-						placeholder='example@gmail.com'
-						onChange={(e) => {
-							setEmail(e.target.value);
-							setEmailTouched(false);
-							handleChange();
-						}}
-						onBlur={() => setEmailTouched(true)}
-						value={email}
-					/>
-					<Form.Control.Feedback type='invalid'>
-						{emailError}
-					</Form.Control.Feedback>
-				</Form.Group>
-				<Form.Group controlId='password' className='mb-3'>
-					<Form.Label>Contraseña *</Form.Label>
-					<Form.Control
-						name='password'
-						type='password'
-						placeholder='contraseña'
-						isInvalid={passwordError && passwordTouched}
-						isValid={!passwordError && passwordTouched && isLoading}
-						onBlur={() => setPasswordTouched(true)}
-						onChange={(e) => {
-							setPassword(e.target.value);
-							setPasswordTouched(false);
-							handleChange();
-						}}
-						value={password}
-					/>
-					<Form.Control.Feedback type='invalid'>
-						{passwordError}
-					</Form.Control.Feedback>
-				</Form.Group>
-				{showAlert && (
-					<div>
-						{!response.success ? (
-							<Alert transition={true} variant='danger'>
-								{response.message}
-							</Alert>
-						) : (
-							<Alert transition={true} variant='success'>
-								{response.message}
-							</Alert>
-						)}
-					</div>
-				)}
-				<div className='d-flex justify-content-center'>
-					<Button
-						type='submit'
-						className='px-4 py-2'
-						disabled={emailError || passwordError}>
-						Ingresar
-					</Button>
-				</div>
-			</Form>
+		<div className=''>
+			<div style={{ width: 450 }} className='mx-auto'>
+				<Form onSubmit={handleLogin} className='my-5'>
+					<Card>
+						<Card.Body>
+							<div className=' mb-5'>
+								<h2
+									style={{ letterSpacing: 0.1 }}
+									className='display-6 fw-bold'>
+									Inicio de sesión
+								</h2>
+								<h4 className='display-6 fs-5'>Accede con tus credenciales</h4>
+							</div>
+							<Form.Group controlId='email' className='mb-3'>
+								<Form.Label>Email *</Form.Label>
+								<Form.Control
+									name='email'
+									type='text'
+									isInvalid={emailError && emailTouched}
+									isValid={!emailError && emailTouched && isLoading}
+									placeholder='example@gmail.com'
+									onChange={(e) => {
+										setEmail(e.target.value);
+										setEmailTouched(false);
+										handleChange();
+									}}
+									onBlur={() => setEmailTouched(true)}
+									value={email}
+								/>
+								<Form.Control.Feedback type='invalid'>
+									{emailError}
+								</Form.Control.Feedback>
+							</Form.Group>
+							<Form.Group controlId='password' className='mb-3'>
+								<Form.Label>Contraseña *</Form.Label>
+								<Form.Control
+									name='password'
+									type='password'
+									placeholder='contraseña'
+									isInvalid={passwordError && passwordTouched}
+									isValid={!passwordError && passwordTouched && isLoading}
+									onBlur={() => setPasswordTouched(true)}
+									onChange={(e) => {
+										setPassword(e.target.value);
+										setPasswordTouched(false);
+										handleChange();
+									}}
+									value={password}
+								/>
+								<Form.Control.Feedback type='invalid'>
+									{passwordError}
+								</Form.Control.Feedback>
+							</Form.Group>
+							{showAlert ? (
+								<div>
+									{!response.success ? (
+										<Alert transition={true} variant='danger'>
+											{response.message}
+										</Alert>
+									) : (
+										<Alert transition={true} variant='success'>
+											{response.message}
+										</Alert>
+									)}
+								</div>
+							) : (
+								<br />
+							)}
+							<Button
+								type='submit'
+								className='px-4 py-2 w-100'
+								disabled={emailError || passwordError}>
+								Ingresar
+							</Button>
+						</Card.Body>
+					</Card>
+				</Form>
+			</div>
 		</div>
 	);
 };
