@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { Alert, Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
@@ -31,6 +31,9 @@ export const NewPatientForm = ({
 	const { privateBackendAPI } = useAxiosPrivate();
 	const navigate = useNavigate();
 	const location = useLocation();
+	const [showAlert, setShowAlert] = useState(false);
+	const [response, setResponse] = useState({ success: true });
+
 	useDocumentTitle(title);
 	const initialValues = {
 		email: '',
@@ -67,12 +70,13 @@ export const NewPatientForm = ({
 						});
 						console.log(res);
 					})
-					.catch((e) =>
+					.catch((e) => {
+						console.log(e);
 						addToast({
 							variant: 'error',
 							message: 'Error al crear el paciente ' + e,
-						})
-					);
+						});
+					});
 
 				return;
 			}
@@ -89,12 +93,15 @@ export const NewPatientForm = ({
 						navigate('../turns');
 					}
 				})
-				.catch((e) =>
+				.catch((e) => {
+					console.log(e);
 					addToast({
 						variant: 'error',
-						message: 'Error al crear el paciente ' + e,
-					})
-				);
+						message: 'Error al crear el paciente ' + e?.response?.data?.message,
+					});
+					setResponse(e?.response?.data);
+					setShowAlert(true);
+				});
 
 			formik.resetForm();
 			setIsUserInfoLoaded(false);
@@ -130,7 +137,9 @@ export const NewPatientForm = ({
 
 			<Card className={editMode || modalMode ? 'border-0' : ''}>
 				<Card.Body>
-					<Form onSubmit={formik.handleSubmit}>
+					<Form
+						onSubmit={formik.handleSubmit}
+						onFocus={() => setShowAlert(false)}>
 						<Row className='mb-lg-3 mb-1'>
 							<Col sm={12} lg={6}>
 								<h3 className='mb-lg-3 mb-1'>Datos del dueño</h3>
@@ -145,6 +154,21 @@ export const NewPatientForm = ({
 								<PetInputsForm formik={formik} />
 							</Col>
 						</Row>
+						{showAlert ? (
+							<div>
+								{!response?.success ? (
+									<Alert transition={true} variant='danger'>
+										{response?.message}
+									</Alert>
+								) : (
+									<Alert transition={true} variant='success'>
+										{response?.message}
+									</Alert>
+								)}
+							</div>
+						) : (
+							<br />
+						)}
 						<div className='d-flex justify-content-center gap-3'>
 							<Button
 								className='px-4 py-2'
