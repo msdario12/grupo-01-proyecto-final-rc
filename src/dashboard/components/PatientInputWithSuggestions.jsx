@@ -2,7 +2,7 @@ import { Button, InputGroup, ListGroup } from 'react-bootstrap';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import { useContext, useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
-import { backendAPI } from '../../api/backendAPI';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 
 export const PatientInputWithSuggestions = ({
 	formik,
@@ -17,6 +17,7 @@ export const PatientInputWithSuggestions = ({
 }) => {
 	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
 	const [suggestionList, setSuggestionList] = useState();
+	const { privateBackendAPI } = useAxiosPrivate();
 
 	const { addToast } = useContext(ToastContext);
 
@@ -45,7 +46,7 @@ export const PatientInputWithSuggestions = ({
 		}
 		if (valueLength >= 3) {
 			setIsDropDownOpen(true);
-			backendAPI
+			privateBackendAPI
 				.get(endPoint, { params: { [queryName]: value } })
 				.then((res) => {
 					if (!res.data.data) {
