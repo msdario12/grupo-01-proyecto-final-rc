@@ -27,6 +27,8 @@ export const LoginScreen = () => {
 		setShowAlert(false);
 	};
 
+	console.log(import.meta.env.BACKEND_URL)
+
 	const handleLogin = async (e) => {
 		e.preventDefault();
 

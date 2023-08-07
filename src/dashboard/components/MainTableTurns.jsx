@@ -3,6 +3,8 @@ import { es } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 import { Badge, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { useAuth } from '../../hooks/useAuth';
 
 const turnsListObject = [
 	{
@@ -74,17 +76,31 @@ const columnList = [
 export const MainTableTurns = () => {
 	const [turnsList, setTurnsList] = useState([]);
 	const [sortedColumn, setSortedColumn] = useState('');
+	const { privateBackendAPI } = useAxiosPrivate();
+	const { auth } = useAuth();
+
 	useEffect(() => {
-		setTurnsList(turnsListObject);
-	}, []);
+		privateBackendAPI
+			.get('/api/turns')
+			.then((res) => {
+				console.log(res.data.data);
+				setTurnsList(res.data.data);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	}, [auth]);
+
 	if (!turnsList) {
 		return 'Cargando datos...';
 	}
 	const formatDate = (date) => {
-		return format(date, 'P', { locale: es });
+		const obj = new Date(date);
+		return format(obj, 'P', { locale: es });
 	};
 	const formatTime = (date) => {
-		return format(date, 'p', { locale: es });
+		const obj = new Date(date);
+		return format(obj, 'p', { locale: es });
 	};
 	return (
 		<Table hover responsive>
@@ -92,7 +108,7 @@ export const MainTableTurns = () => {
 				<tr className='text-uppercase table-light align-middle'>
 					<th className='text-muted small'>#</th>
 					{columnList.map((header) => (
-						<CustomTh						
+						<CustomTh
 							setSortedColumn={setSortedColumn}
 							sortedColumn={sortedColumn}
 							key={header.title}
@@ -106,11 +122,11 @@ export const MainTableTurns = () => {
 			</thead>
 			<tbody className='align-middle fw-semibold'>
 				{turnsList.map((turn) => (
-					<tr key={turn.id}>
-						<td>{turn.id}</td>
-						<td>{formatDate(turn.dateObj)}</td>
-						<td>{formatTime(turn.dateObj)}</td>
-						<td>{turn.customer}</td>
+					<tr key={turn._id}>
+						<td>{turn._id}</td>
+						<td>{formatDate(turn.date)}</td>
+						<td>{formatTime(turn.date)}</td>
+						{/* <td>{turn.customer}</td>
 						<td>
 							<div className='d-flex flex-column align-items-start'>
 								<span className=''>{turn.pet}</span>
@@ -122,7 +138,7 @@ export const MainTableTurns = () => {
 							</div>
 						</td>
 						<td>{turn.veterinarian}</td>
-						<td>{turn.detail}</td>
+						<td>{turn.detail}</td> */}
 					</tr>
 				))}
 			</tbody>

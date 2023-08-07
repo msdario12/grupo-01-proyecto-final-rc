@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-const remoteHost = 'https://backend-grupo-01-proyecto-final-rc-zorb-dev.fl0.io';
-
-const URL = remoteHost;
+const URL = import.meta.env.VITE_BACKEND_URL;
 
 export const backendAPI = axios.create({
 	baseURL: URL,
