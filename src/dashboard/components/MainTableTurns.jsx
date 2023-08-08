@@ -1,7 +1,7 @@
 import format from 'date-fns/format';
 import { es } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
-import { Badge, Table } from 'react-bootstrap';
+import { Badge, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useAuth } from '../../hooks/useAuth';
@@ -33,9 +33,6 @@ export const MainTableTurns = () => {
 			});
 	}, [auth]);
 
-	if (!turnsList) {
-		return 'Cargando datos...';
-	}
 	const formatDate = (date) => {
 		const obj = new Date(date);
 		return format(obj, 'P', { locale: es });
@@ -44,6 +41,16 @@ export const MainTableTurns = () => {
 		const obj = new Date(date);
 		return format(obj, 'p', { locale: es });
 	};
+
+	if (!turnsList) {
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center align-items-center'>
+				<Spinner animation='border' />
+				<h3>Cargando listado de turnos</h3>
+			</div>
+		);
+	}
+
 	return (
 		<Table hover responsive>
 			<thead>
