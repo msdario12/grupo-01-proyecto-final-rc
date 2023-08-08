@@ -1,7 +1,7 @@
 import { Button, Form, FormControl, Card, Col, Spinner } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
@@ -17,6 +17,8 @@ import {
 } from '../schema-validations/turnSchema';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons';
+import { ToastContext } from '../../context/ToastContext';
+import { CustomAlertResponse } from './CustomAlertResponse';
 
 export const vetList = ['Juarez', 'Alvarez', 'Rodriguez'];
 
@@ -26,6 +28,9 @@ export const TurnsForm = () => {
 	const location = useLocation();
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState('init');
 	const { privateBackendAPI } = useAxiosPrivate();
+	const { addToast } = useContext(ToastContext);
+	const [showAlert, setShowAlert] = useState(false);
+	const [response, setResponse] = useState({ success: true });
 	const [selectedPatient, setSelectedPatient] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const formik = useFormik({
@@ -37,16 +42,42 @@ export const TurnsForm = () => {
 		},
 		validationSchema: newTurnSchema,
 		onSubmit: (values) => {
+			const castValues = newTurnSchema.cast(values);
+			castValues.patient_id = selectedPatient._id;
+			castValues.date = castValues.turnDate.toISOString();
 			console.log(values);
 			formik.resetForm();
 			setSelectedPatient();
+			setIsLoading(true);
+			privateBackendAPI
+				.post('/api/turns', castValues)
+				.then((res) => {
+					addToast({
+						variant: 'success',
+						message: 'Turno creado correctamente',
+					});
+					console.log(res);
+					formik.resetForm();
+					setIsUserInfoLoaded(false);
+					setIsLoading(false);
+				})
+				.catch((e) => {
+					console.log(e);
+					addToast({
+						variant: 'error',
+						message:
+							'Error al crear el paciente -' + e?.response?.data?.message,
+					});
+					setResponse(e?.response?.data);
+					setShowAlert(true);
+					setIsLoading(false);
+				});
 		},
 	});
 
 	useEffect(() => {
 		if (location?.state?.patient) {
 			console.log(location?.state?.patient);
-			setIsLoading(true);
 			const patientID = location?.state?.patient._id;
 			privateBackendAPI
 				.get(`/api/patients/${patientID}?populate=true`)
@@ -229,6 +260,7 @@ export const TurnsForm = () => {
 							}}
 						/>
 					</Form.Group>
+					<CustomAlertResponse response={response} showAlert={showAlert} />
 
 					<div className='d-flex'>
 						<Button

@@ -37,6 +37,7 @@ export const turnSchema = {
 		.test('Es fuera de horario', 'Debe ser desde 8 a 12 ó 16 a 20hs', (value) =>
 			filterPassedTime(value)
 		),
+
 	details: Yup.string()
 		.required('Campo obligatorio')
 		.min(3, 'Mínimo de 3 caracteres')
