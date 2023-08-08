@@ -11,8 +11,17 @@ import { GenericEditPageContext } from './GenericEditPage';
 import { TurnsInputForm } from '../components/TurnsInputForm';
 import { turnEditSchema } from '../schema-validations/turnSchema';
 import { parseISO } from 'date-fns';
+import { statusList } from '../../helpers/turn-status-code';
 
-const newTurnSchema = Yup.object({ ...turnEditSchema });
+const newTurnSchema = Yup.object({
+	...turnEditSchema,
+	status: Yup.string()
+		.required('Campo obligatorio')
+		.oneOf(
+			statusList.map((vet) => vet.name),
+			'Selecciona una estado de la lista'
+		),
+});
 
 export const TurnEditPage = () => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
@@ -30,6 +39,7 @@ export const TurnEditPage = () => {
 			vet: '',
 			turnDate: '',
 			details: '',
+			status: '',
 		},
 		validationSchema: newTurnSchema,
 		onSubmit: (values) => {
@@ -95,19 +105,22 @@ export const TurnEditPage = () => {
 			formik.setFieldValue('vet', data.vet);
 			formik.setFieldValue('details', data.details);
 			formik.setFieldValue('turnDate', new Date(data?.date));
+			formik.setFieldValue('status', data.status);
 
 			formik.setFieldTouched('vet', true, false);
 			formik.setFieldTouched('details', true, false);
 			formik.setFieldTouched('turnDate', true, false);
+			formik.setFieldTouched('status', true, false);
 		}
 	}, [data]);
 
 	useEffect(() => {
-		const { details, turnDate, vet } = formik.values;
+		const { details, turnDate, vet, status } = formik.values;
 		if (
 			details === data.details &&
 			turnDate.toISOString() === data.date &&
-			vet === data.vet
+			vet === data.vet &&
+			status === data.status
 		) {
 			console.log('son iguales');
 			setInputsHasChanges(false);
@@ -134,6 +147,27 @@ export const TurnEditPage = () => {
 					isUserInfoLoaded={isUserInfoLoaded}
 					inputsHasChanges={inputsHasChanges}
 				/>
+				<Form.Group className='mb-3' controlId='status'>
+					<Form.Label>Estado del turno *</Form.Label>
+					<Form.Select
+						className='text-capitalize'
+						name='status'
+						{...formik.getFieldProps('status')}
+						isValid={!formik.errors.status && formik.touched.status}
+						isInvalid={formik.errors.status && formik.touched.status}>
+						<option disabled value={'placeholder'}>
+							Selecciona un estado
+						</option>
+						{statusList.map((status) => (
+							<option key={status.name} value={status.name}>
+								{status.title}
+							</option>
+						))}
+					</Form.Select>
+					<Form.Control.Feedback type='invalid'>
+						{formik.errors.status}
+					</Form.Control.Feedback>
+				</Form.Group>
 				<CustomAlertResponse response={response} showAlert={showAlert} />
 
 				<div className='d-flex justify-content-center gap-3'>
