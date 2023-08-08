@@ -1,11 +1,13 @@
 import format from 'date-fns/format';
 import { es } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
-import { Badge, Spinner, Table } from 'react-bootstrap';
+import { Badge, Button, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useAuth } from '../../hooks/useAuth';
 import { TurnStatusBadge } from '../elements/TurnStatusBadge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 
 const columnList = [
 	{ title: 'Fecha', name: 'date' },
@@ -15,11 +17,15 @@ const columnList = [
 	{ title: 'Mascota', name: 'patient_id.pet_id.name' },
 	{ title: 'Veterinario', name: 'vet' },
 	{ title: 'Detalle', name: 'details' },
+	{ title: 'Acción', name: 'action', hasIcon: false, center: true },
 ];
 
 export const MainTableTurns = () => {
 	const [turnsList, setTurnsList] = useState([]);
 	const [sortedColumn, setSortedColumn] = useState('');
+	const [selectedTurn, setSelectedTurn] = useState('');
+	const [modalEditShow, setModalEditShow] = useState(false);
+	const [modalDeleteShow, setModalDeleteShow] = useState(false);
 	const { privateBackendAPI } = useAxiosPrivate();
 	const { auth } = useAuth();
 
@@ -95,6 +101,31 @@ export const MainTableTurns = () => {
 						</td>
 						<td>{turn.vet}</td>
 						<td>{turn.details}</td>
+						<td>
+							<div className='d-flex gap-2 justify-content-center'>
+								<Button
+									onClick={() => {
+										setSelectedTurn(patient._id);
+										setModalEditShow(true);
+									}}
+									size='sm'
+									variant='outline-success'
+									style={{ width: 30 }}>
+									<FontAwesomeIcon icon={faEdit} />
+								</Button>
+
+								<Button
+									onClick={() => {
+										setSelectedTurn(patient._id);
+										setModalDeleteShow(true);
+									}}
+									size='sm'
+									variant='outline-danger'
+									style={{ width: 30 }}>
+									<FontAwesomeIcon icon={faRemove} />
+								</Button>
+							</div>
+						</td>
 					</tr>
 				))}
 			</tbody>
