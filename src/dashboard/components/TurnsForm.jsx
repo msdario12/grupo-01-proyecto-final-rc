@@ -1,4 +1,4 @@
-import { Button, Form, FormControl } from 'react-bootstrap';
+import { Button, Form, FormControl, Card, Col } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 import { useEffect, useState } from 'react';
@@ -7,24 +7,38 @@ import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getDay, setHours, setMinutes } from 'date-fns';
+import * as Yup from 'yup';
 import ReactDatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
+import {
+	filterPassedTime,
+	isWeekday,
+	turnSchema,
+} from '../schema-validations/turnSchema';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCalendar } from '@fortawesome/free-solid-svg-icons';
 
-const vetList = ['Juarez', 'Alvarez', 'Rodriguez'];
+export const vetList = ['Juarez', 'Alvarez', 'Rodriguez'];
+
+const newTurnSchema = Yup.object({ ...turnSchema });
 
 export const TurnsForm = () => {
 	const location = useLocation();
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState('init');
 	const { privateBackendAPI } = useAxiosPrivate();
+	const [selectedPatient, setSelectedPatient] = useState();
 	const formik = useFormik({
 		initialValues: {
 			multiSearch: '',
 			vet: 'placeholder',
-			date: new Date(),
+			date: '',
 			details: '',
 		},
+		validationSchema: newTurnSchema,
 		onSubmit: (values) => {
 			console.log(values);
+			formik.resetForm();
+			setSelectedPatient();
 		},
 	});
 
@@ -36,35 +50,19 @@ export const TurnsForm = () => {
 		}
 	}, [location]);
 
-	const isWeekday = (date) => {
-		const day = getDay(date);
-		return day !== 0 && day !== 6;
-	};
-
-	const filterPassedTime = (time) => {
-		const openMorning = setHours(new Date(time), 8);
-		const closeMorning = setHours(new Date(time), 12);
-		const openAfternoon = setHours(new Date(time), 16);
-		const closeAfternoon = setHours(new Date(time), 20);
-		const selectedDate = new Date(time);
-
-		const morningCheck =
-			selectedDate.getTime() > openMorning.getTime() &&
-			selectedDate.getTime() < closeMorning.getTime();
-		const afternoonCheck =
-			selectedDate.getTime() > openAfternoon.getTime() &&
-			selectedDate.getTime() < closeAfternoon.getTime();
-
-		return morningCheck || afternoonCheck;
-	};
-
 	const handleClickSuggestion = (suggestion) => {
+		setSelectedPatient(suggestion);
+		console.log(suggestion);
 		setIsUserInfoLoaded(true);
+
+		formik.values.multiSearch = suggestion.email;
+		formik.setFieldTouched('multiSearch', true);
 	};
 
 	return (
 		<Form onSubmit={formik.handleSubmit}>
 			<Form.Group className='mb-3' controlId='multiSearch'>
+				<h3 className='mb-lg-4 mb-3'>Buscador de pacientes</h3>
 				<Form.Label>
 					Ingresa el nombre de la mascota, o del dueño o el correo electrónico
 				</Form.Label>
@@ -85,21 +83,68 @@ export const TurnsForm = () => {
 				/>
 			</Form.Group>
 			{!isUserInfoLoaded ? (
-				<Button
-					as={Link}
-					to={'../add-patient'}
-					state={{ prevUrl: location, backToTurns: true }}>
-					Crear paciente
-				</Button>
+				<div className='mb-3 d-flex flex-column'>
+					<p>
+						No se encuentra un paciente con el criterio ingresado, por favor
+						crea uno nuevo
+					</p>
+					<Button
+						as={Link}
+						to={'../add-patient'}
+						state={{ prevUrl: location, backToTurns: true }}>
+						Crear paciente
+					</Button>
+				</div>
 			) : (
 				<div>
+					{selectedPatient ? (
+						<>
+							<h3 className='mb-lg-4 mb-3'>Datos del paciente</h3>
+							<Card className='mb-3'>
+								<Card.Body className='row'>
+									<Col>
+										<div>
+											<span className='text-uppercase fw-bold'>nombre: </span>
+											<span className='text-capitalize'>
+												{selectedPatient.firstName}
+											</span>
+										</div>
+										<div>
+											<span className='text-uppercase fw-bold'>apellido: </span>
+											<span className='text-capitalize'>
+												{selectedPatient.lastName}
+											</span>
+										</div>
+										<div>
+											<span className='text-uppercase fw-bold'>email: </span>
+											<span>{selectedPatient.email}</span>
+										</div>
+									</Col>
+									<Col>
+										<div>
+											<span className='text-uppercase fw-bold'>Mascota: </span>
+											<span>{selectedPatient.name}</span>
+										</div>
+										<div>
+											<span className='text-uppercase fw-bold'>Especie: </span>
+											<span>{selectedPatient.specie}</span>
+										</div>
+									</Col>
+								</Card.Body>
+							</Card>
+						</>
+					) : (
+						''
+					)}
+					<h3 className='mb-lg-4 mb-3'>Formulario del turno</h3>
+
 					<Form.Group className='mb-3' controlId='vet'>
 						<Form.Label>Veterinario para el turno *</Form.Label>
 						<Form.Select
 							name='vet'
 							{...formik.getFieldProps('vet')}
-							isValid={!formik.errors.specie && formik.touched.specie}
-							isInvalid={formik.errors.specie && formik.touched.specie}>
+							isValid={!formik.errors.vet && formik.touched.vet}
+							isInvalid={formik.errors.vet && formik.touched.vet}>
 							<option disabled value={'placeholder'}>
 								Selecciona un veterinario
 							</option>
@@ -113,46 +158,36 @@ export const TurnsForm = () => {
 							{formik.errors.vet}
 						</Form.Control.Feedback>
 					</Form.Group>
-					<Form.Group className='mb-3 d-flex gap-3' controlId='date'>
+					<Form.Group
+						className='mb-3 d-flex gap-3 align-items-center'
+						controlId='turnDate'>
 						<Form.Label>Selecciona la fecha y hora para el turno *</Form.Label>
-						{/* <ReactDatePicker
-							name='date'
-							isClearable
-							showIcon
-							autoComplete='off'
-							minDate={new Date()}
-							selected={formik.values.date}
-							onChange={(date) => formik.setFieldValue('date', date)}
-							onBlur={formik.handleBlur}
-							value={formik.values.date}
-							filterDate={isWeekday}
-							placeholderText='Select a weekday'
-							showTimeSelect
-							filterTime={filterPassedTime}
-							dateFormat='PPp'
-							locale={es}
-						/> */}
+
 						<FormControl
 							as={ReactDatePicker}
-							name='date'
+							name='turnDate'
 							isClearable
 							showIcon
 							autoComplete='off'
 							minDate={new Date()}
-							selected={formik.values.date}
-							onChange={(date) => formik.setFieldValue('date', date)}
+							selected={formik.values.turnDate}
+							onChange={(value) => formik.setFieldValue('turnDate', value)}
 							onBlur={formik.handleBlur}
-							value={formik.values.date}
+							value={formik.values.turnDate}
 							filterDate={isWeekday}
-							placeholderText='Select a weekday'
+							placeholderText='Fecha y hora'
 							showTimeSelect
 							filterTime={filterPassedTime}
 							dateFormat='PPp'
 							locale={es}
+							isValid={!formik.errors.turnDate && formik.touched.turnDate}
+							isInvalid={formik.errors.turnDate}
 						/>
+
 						<Form.Control.Feedback type='invalid'>
-							{formik.errors.specie}
+							{formik.errors.turnDate}
 						</Form.Control.Feedback>
+						<span className='text-danger'>{formik.errors.turnDate}</span>
 					</Form.Group>
 					<Form.Group className='mb-3' controlId='details'>
 						<Form.Label>Detalles del turno *</Form.Label>

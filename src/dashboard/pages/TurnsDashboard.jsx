@@ -6,7 +6,6 @@ export const TurnsDashboard = ({ title }) => {
 	useDocumentTitle(title);
 	return (
 		<div>
-			<h2>TurnsDashboard</h2>
 			<TurnsForm />
 			<MainTableTurns />
 		</div>

@@ -120,7 +120,9 @@ export const PatientInputWithSuggestions = ({
 						<ListGroup.Item>No se encontraron resultados</ListGroup.Item>
 					)
 				) : (
-					<div className='overflow-scroll' style={{ height: 275 }}>
+					<div
+						className='overflow-scroll'
+						style={{ height: 275, zIndex: 10000 }}>
 						{suggestionList.map((suggestion) => (
 							<ListGroup.Item
 								key={suggestion._id}
