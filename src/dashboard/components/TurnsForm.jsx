@@ -1,23 +1,17 @@
-import { Button, Form, FormControl, Card, Col, Spinner } from 'react-bootstrap';
+import { Button, Form, Card, Col, Spinner } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as Yup from 'yup';
-import ReactDatePicker from 'react-datepicker';
-import { es } from 'date-fns/locale';
-import {
-	filterPassedTime,
-	isWeekday,
-	turnSchema,
-} from '../schema-validations/turnSchema';
+import { turnSchema } from '../schema-validations/turnSchema';
 import { ToastContext } from '../../context/ToastContext';
 import { CustomAlertResponse } from './CustomAlertResponse';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
 import { TurnsInputForm } from './TurnsInputForm';
+import { PatientInfoCard } from './PatientInfoCard';
 
 export const vetList = ['Juarez', 'Alvarez', 'Rodriguez'];
 
@@ -182,44 +176,7 @@ export const TurnsForm = ({ modalMode = false }) => {
 						{selectedPatient ? (
 							<>
 								<h3 className='mb-lg-4 mb-3'>Datos del paciente</h3>
-								<Card className='mb-3'>
-									<Card.Body className='row'>
-										<Col>
-											<div>
-												<span className='text-uppercase fw-bold'>nombre: </span>
-												<span className='text-capitalize'>
-													{selectedPatient.firstName}
-												</span>
-											</div>
-											<div>
-												<span className='text-uppercase fw-bold'>
-													apellido:{' '}
-												</span>
-												<span className='text-capitalize'>
-													{selectedPatient.lastName}
-												</span>
-											</div>
-											<div>
-												<span className='text-uppercase fw-bold'>email: </span>
-												<span>{selectedPatient.email}</span>
-											</div>
-										</Col>
-										<Col>
-											<div>
-												<span className='text-uppercase fw-bold'>
-													Mascota:{' '}
-												</span>
-												<span>{selectedPatient.name}</span>
-											</div>
-											<div>
-												<span className='text-uppercase fw-bold'>
-													Especie:{' '}
-												</span>
-												<span>{selectedPatient.specie}</span>
-											</div>
-										</Col>
-									</Card.Body>
-								</Card>
+								<PatientInfoCard selectedPatient={selectedPatient} />
 								<h3 className='mb-lg-4 mb-3'>Formulario del turno</h3>
 								<TurnsInputForm formik={formik} />
 								<CustomAlertResponse
