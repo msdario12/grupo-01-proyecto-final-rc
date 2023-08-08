@@ -126,7 +126,7 @@ export const TurnEditPage = () => {
 		}
 	}, [data, formik.values]);
 
-	if (!dataToEdit) {
+	if (!data || !dataToEdit) {
 		return (
 			<div className='d-flex justify-content-center gap-3 align-items-center'>
 				<Spinner animation='border' size='md' />

@@ -3,7 +3,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { ToastContext } from '../../context/ToastContext';
 
-export const GenericEditPageContext = createContext();
+export const GenericEditPageContext = createContext({});
 
 export const GenericEditPage = (props) => {
 	const [data, setData] = useState();
@@ -24,10 +24,8 @@ export const GenericEditPage = (props) => {
 					variant: 'error',
 				});
 			});
-	}, [props.selectID]);
-	if (!data) {
-		return '';
-	}
+	}, [props]);
+
 	return (
 		<Modal {...props} size='lg' aria-labelledby='contained-modal-title-vcenter'>
 			<Modal.Header closeButton>

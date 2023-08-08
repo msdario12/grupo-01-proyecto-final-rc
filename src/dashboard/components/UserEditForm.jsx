@@ -66,12 +66,14 @@ export const UserEditForm = () => {
 	});
 
 	useEffect(() => {
-		privateBackendAPI.get(`/api/users/${data.user_id}`).then((res) => {
-			console.log(res.data);
-			setDataToEdit(res.data.data);
-			formik.setValues(res.data.data, false);
-			formik.setTouched(res.data.data, false);
-		});
+		if (data) {
+			privateBackendAPI.get(`/api/users/${data.user_id}`).then((res) => {
+				console.log(res.data);
+				setDataToEdit(res.data.data);
+				formik.setValues(res.data.data, false);
+				formik.setTouched(res.data.data, false);
+			});
+		}
 	}, [data.user_id, formik.handleSubmit]);
 
 	useEffect(() => {

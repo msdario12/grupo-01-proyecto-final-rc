@@ -26,7 +26,7 @@ export const DeleteTurnPage = (props) => {
 	const handleDeletePatient = () => {
 		setIsLoading(true);
 		privateBackendAPI
-			.delete(`/api/patients/${props.selectedTurn}`)
+			.delete(`/api/patients/${props.selectedTurn._id}`)
 			.then((res) => {
 				console.log(res.data);
 				addToast({
@@ -45,8 +45,8 @@ export const DeleteTurnPage = (props) => {
 				});
 			});
 	};
-	if (!turnData) {
-		return 'Cargando';
+	if (!turnData?.date) {
+		return '';
 	}
 	return (
 		<Modal {...props} size='lg' aria-labelledby='contained-modal-title-vcenter'>

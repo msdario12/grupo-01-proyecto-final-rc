@@ -43,7 +43,7 @@ export const MainTableTurns = () => {
 			.catch((e) => {
 				console.log(e);
 			});
-	}, [auth, modalEditShow]);
+	}, [auth, modalEditShow, modalDeleteShow]);
 
 	if (!turnsList) {
 		return (
@@ -59,7 +59,7 @@ export const MainTableTurns = () => {
 			<GenericEditPage
 				title='Edición de turnos'
 				endPoint='/api/turns/'
-				selectedTurn={selectedTurn}
+				selectID={selectedTurn}
 				show={modalEditShow}
 				setModalEditShow={setModalEditShow}
 				onHide={() => setModalEditShow(false)}>
