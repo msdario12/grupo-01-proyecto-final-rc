@@ -1,4 +1,4 @@
-import { Button, Form, FormControl, Card, Col } from 'react-bootstrap';
+import { Button, Form, FormControl, Card, Col, Spinner } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 import { useEffect, useState } from 'react';
@@ -27,6 +27,7 @@ export const TurnsForm = () => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState('init');
 	const { privateBackendAPI } = useAxiosPrivate();
 	const [selectedPatient, setSelectedPatient] = useState();
+	const [isLoading, setIsLoading] = useState(false);
 	const formik = useFormik({
 		initialValues: {
 			multiSearch: '',
@@ -96,7 +97,7 @@ export const TurnsForm = () => {
 					</Button>
 				</div>
 			) : (
-				<div>
+				<div className='mb-3'>
 					{selectedPatient ? (
 						<>
 							<h3 className='mb-lg-4 mb-3'>Datos del paciente</h3>
@@ -205,7 +206,30 @@ export const TurnsForm = () => {
 							}}
 						/>
 					</Form.Group>
-					<Button type='submit'>Enviar</Button>
+
+					<div className='d-flex'>
+						<Button
+							className='px-4 py-2 w-100'
+							disabled={!formik.isValid || isLoading}
+							variant={'primary'}
+							size='md'
+							type='submit'>
+							{isLoading ? (
+								<div>
+									<Spinner
+										as='span'
+										animation='border'
+										size='sm'
+										role='status'
+										aria-hidden='true'
+									/>
+									<span className='ms-2'>Cargando</span>
+								</div>
+							) : (
+								'Crear turno'
+							)}
+						</Button>
+					</div>
 				</div>
 			)}
 		</Form>
