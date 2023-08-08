@@ -65,7 +65,7 @@ export const DashboardLayout = () => {
 							setIsSideBarOpen={setIsSideBarOpen}
 							isSideBarOpen={isSideBarOpen}
 						/>
-						<div className='my-auto py-1 py-lg-3 container-lg d-flex flex-column gap-3 gap-lg-5 h-100 justify-content-center'>
+						<div className='my-auto py-1 py-lg-3 container-lg d-flex flex-column gap-4 gap-lg-5 h-100 justify-content-center'>
 							<Outlet />
 						</div>
 						<CustomToast />

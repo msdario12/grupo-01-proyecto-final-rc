@@ -5,10 +5,12 @@ import { Badge, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useAuth } from '../../hooks/useAuth';
+import { TurnStatusBadge } from '../elements/TurnStatusBadge';
 
 const columnList = [
 	{ title: 'Fecha', name: 'date' },
 	{ title: 'Hora', name: 'date', hasIcon: false },
+	{ title: 'Estado', name: 'status' },
 	{ title: 'Cliente', name: 'patient_id.user_id.firstName' },
 	{ title: 'Mascota', name: 'patient_id.pet_id.name' },
 	{ title: 'Veterinario', name: 'vet' },
@@ -77,6 +79,9 @@ export const MainTableTurns = () => {
 						<td>{turn.index}</td>
 						<td>{formatDate(turn.date)}</td>
 						<td>{formatTime(turn.date)}</td>
+						<td>
+							<TurnStatusBadge status={turn.status} />
+						</td>
 						<td>{`${turn['patient_id.user_id.firstName']} ${turn['patient_id.user_id.lastName']}`}</td>
 						<td>
 							<div className='d-flex flex-column align-items-start'>
