@@ -44,9 +44,6 @@ export const TurnsForm = ({ modalMode = false }) => {
 			const castValues = newTurnSchema.cast(values);
 			castValues.patient_id = selectedPatient._id;
 			castValues.date = castValues.turnDate.toISOString();
-			console.log(values);
-			formik.resetForm();
-			setSelectedPatient();
 			setIsLoading(true);
 			privateBackendAPI
 				.post('/api/turns', castValues)
@@ -59,15 +56,39 @@ export const TurnsForm = ({ modalMode = false }) => {
 					formik.resetForm();
 					setIsUserInfoLoaded(false);
 					setIsLoading(false);
+					setSelectedPatient();
+					formik.resetForm();
 				})
 				.catch((e) => {
 					console.log(e);
+					if (e.response.data.errors) {
+						const { errors } = e.response.data;
+						const errorList = (
+							<ul>
+								{errors.map((e) => (
+									<li key={e.value}>{e.msg}</li>
+								))}
+							</ul>
+						);
+						addToast({
+							variant: 'error',
+							message: errorList,
+						});
+						setResponse({
+							success: false,
+							message: errorList,
+						});
+						setShowAlert(true);
+						setIsLoading(false);
+
+						return;
+					}
 					addToast({
 						variant: 'error',
-						message:
-							'Error al crear el paciente -' + e?.response?.data?.message,
+						message: 'Error al crear el turno -' + e?.response?.data?.message,
 					});
 					setResponse(e?.response?.data);
+					setShowAlert(true);
 					setIsLoading(false);
 				});
 		},
