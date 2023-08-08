@@ -5,6 +5,8 @@ import Card from 'react-bootstrap/Card';
 export const ProductosPage = () => {
     return (
         <>
+            <h2 className='text-center display-5 fw-bold mb-3'>Productos</h2>
+
             <div className='row d-flex flex-md-row justify-content-center gap-md-5 gap-sm-5  m-0'>
 
 
@@ -13,7 +15,7 @@ export const ProductosPage = () => {
                     <Card.Header>
                         <Card.Body>
                             <Card.Title>Comedero con bebedero</Card.Title>
-                
+
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
@@ -26,7 +28,7 @@ export const ProductosPage = () => {
                     <Card.Header>
                         <Card.Body>
                             <Card.Title>Buho con chifle</Card.Title>
-                        
+
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
@@ -40,7 +42,7 @@ export const ProductosPage = () => {
                     <Card.Header>
                         <Card.Body>
                             <Card.Title>Comedero de Plastico</Card.Title>
-                            
+
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
@@ -55,7 +57,7 @@ export const ProductosPage = () => {
                     <Card.Header>
                         <Card.Body>
                             <Card.Title>Elefante peluche</Card.Title>
-                            
+
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
@@ -69,14 +71,14 @@ export const ProductosPage = () => {
                     <Card.Header>
                         <Card.Body>
                             <Card.Title>Hueso de cuero</Card.Title>
-                            
+
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
                         $1.200,400
                     </Card.Footer>
                 </Card>
-                
+
             </div>
 
         </>
