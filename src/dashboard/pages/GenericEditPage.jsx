@@ -10,20 +10,22 @@ export const GenericEditPage = (props) => {
 	const { privateBackendAPI } = useAxiosPrivate();
 	const { addToast } = useContext(ToastContext);
 	useEffect(() => {
-		privateBackendAPI
-			.get(`${props.endPoint + props.selectID}`)
-			.then((res) => {
-				console.log(res.data);
-				setData(res.data.data);
-			})
-			.catch((e) => {
-				console.error(e);
+		if (props.show) {
+			privateBackendAPI
+				.get(`${props.endPoint + props.selectID}`)
+				.then((res) => {
+					console.log(res.data);
+					setData(res.data.data);
+				})
+				.catch((e) => {
+					console.error(e);
 
-				addToast({
-					message: 'Error al recibir los datos' + e,
-					variant: 'error',
+					addToast({
+						message: 'Error al recibir los datos' + e,
+						variant: 'error',
+					});
 				});
-			});
+		}
 	}, [props]);
 
 	return (

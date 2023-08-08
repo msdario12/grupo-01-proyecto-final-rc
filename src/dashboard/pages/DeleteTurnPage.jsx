@@ -26,7 +26,7 @@ export const DeleteTurnPage = (props) => {
 	const handleDeletePatient = () => {
 		setIsLoading(true);
 		privateBackendAPI
-			.delete(`/api/patients/${props.selectedTurn._id}`)
+			.delete(`/api/turns/${props.selectedTurn._id}`)
 			.then((res) => {
 				console.log(res.data);
 				addToast({
