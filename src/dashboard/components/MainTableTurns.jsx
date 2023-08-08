@@ -9,8 +9,9 @@ import { TurnStatusBadge } from '../elements/TurnStatusBadge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { GenericEditPage } from '../pages/GenericEditPage';
-import { TurnsForm } from './TurnsForm';
 import { TurnEditPage } from '../pages/TurnEditPage';
+import { DeleteTurnPage } from '../pages/DeleteTurnPage';
+import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
 
 const columnList = [
 	{ title: 'Fecha', name: 'date' },
@@ -44,15 +45,6 @@ export const MainTableTurns = () => {
 			});
 	}, [auth, modalEditShow]);
 
-	const formatDate = (date) => {
-		const obj = new Date(date);
-		return format(obj, 'P', { locale: es });
-	};
-	const formatTime = (date) => {
-		const obj = new Date(date);
-		return format(obj, 'p', { locale: es });
-	};
-
 	if (!turnsList) {
 		return (
 			<div className='d-flex justify-content-center gap-3 align-items-center align-items-center'>
@@ -67,12 +59,18 @@ export const MainTableTurns = () => {
 			<GenericEditPage
 				title='Edición de turnos'
 				endPoint='/api/turns/'
-				selectID={selectedTurn}
+				selectedTurn={selectedTurn}
 				show={modalEditShow}
 				setModalEditShow={setModalEditShow}
 				onHide={() => setModalEditShow(false)}>
 				<TurnEditPage />
 			</GenericEditPage>
+			<DeleteTurnPage
+				selectedTurn={selectedTurn}
+				show={modalDeleteShow}
+				setModalDeleteShow={setModalDeleteShow}
+				onHide={() => setModalDeleteShow(false)}
+			/>
 			<Table hover responsive>
 				<thead>
 					<tr className='text-uppercase table-light align-middle'>
@@ -95,8 +93,8 @@ export const MainTableTurns = () => {
 					{turnsList.map((turn) => (
 						<tr key={turn._id}>
 							<td>{turn.index}</td>
-							<td>{formatDate(turn.date)}</td>
-							<td>{formatTime(turn.date)}</td>
+							<td>{formatDateCustom(turn.date)}</td>
+							<td>{formatTimeCustom(turn.date)}</td>
 							<td>
 								<TurnStatusBadge status={turn.status} />
 							</td>
@@ -127,7 +125,7 @@ export const MainTableTurns = () => {
 									</Button>
 									<Button
 										onClick={() => {
-											setSelectedTurn(turn._id);
+											setSelectedTurn(turn);
 											setModalDeleteShow(true);
 										}}
 										size='sm'
