@@ -27,7 +27,7 @@ export const LoginScreen = () => {
 		setShowAlert(false);
 	};
 
-	console.log(import.meta.env.BACKEND_URL)
+	console.log(import.meta.env.BACKEND_URL);
 
 	const handleLogin = async (e) => {
 		e.preventDefault();
@@ -43,7 +43,6 @@ export const LoginScreen = () => {
 		} else if (!isValidEmail) {
 			setEmailError('No es un email valido');
 		} else {
-			setShowAlert(true);
 			setPasswordError(false);
 			setEmailError(false);
 			setEmailTouched(false);
@@ -64,9 +63,9 @@ export const LoginScreen = () => {
 					}
 				)
 				.then((res) => {
-					setEmail('');
 					setPassword('');
 					console.log(res);
+					setShowAlert(true);
 					setResponse(res.data);
 					setIsLoading(false);
 					if (!res.data.accessToken) {
@@ -81,6 +80,7 @@ export const LoginScreen = () => {
 					setTimeout(() => navigate('/dashboard'), 2500);
 				})
 				.catch((e) => {
+					setShowAlert(true);
 					if (!e) {
 						setResponse({
 							success: false,
