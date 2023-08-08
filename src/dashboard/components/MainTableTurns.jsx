@@ -42,7 +42,7 @@ export const MainTableTurns = () => {
 			.catch((e) => {
 				console.log(e);
 			});
-	}, [auth]);
+	}, [auth, modalEditShow]);
 
 	const formatDate = (date) => {
 		const obj = new Date(date);
@@ -64,7 +64,7 @@ export const MainTableTurns = () => {
 
 	return (
 		<div>
-		<GenericEditPage
+			<GenericEditPage
 				title='Edición de turnos'
 				endPoint='/api/turns/'
 				selectID={selectedTurn}
