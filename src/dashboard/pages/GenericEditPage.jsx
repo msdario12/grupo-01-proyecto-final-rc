@@ -1,7 +1,5 @@
 import { Modal } from 'react-bootstrap';
-import { UserEditForm } from '../components/UserEditForm';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { PetEditForm } from '../components/PetEditForm';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { ToastContext } from '../../context/ToastContext';
 
@@ -13,7 +11,7 @@ export const GenericEditPage = (props) => {
 	const { addToast } = useContext(ToastContext);
 	useEffect(() => {
 		privateBackendAPI
-			.get(`${props.endPoint + props.selectedPatientID}`)
+			.get(`${props.endPoint + props.selectID}`)
 			.then((res) => {
 				console.log(res.data);
 				setData(res.data.data);
@@ -26,7 +24,7 @@ export const GenericEditPage = (props) => {
 					variant: 'error',
 				});
 			});
-	}, [props.selectedPatientID]);
+	}, [props.selectID]);
 	if (!data) {
 		return '';
 	}

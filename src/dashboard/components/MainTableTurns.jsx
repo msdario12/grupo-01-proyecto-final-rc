@@ -8,6 +8,8 @@ import { useAuth } from '../../hooks/useAuth';
 import { TurnStatusBadge } from '../elements/TurnStatusBadge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
+import { GenericEditPage } from '../pages/GenericEditPage';
+import { TurnsForm } from './TurnsForm';
 
 const columnList = [
 	{ title: 'Fecha', name: 'date' },
@@ -60,75 +62,84 @@ export const MainTableTurns = () => {
 	}
 
 	return (
-		<Table hover responsive>
-			<thead>
-				<tr className='text-uppercase table-light align-middle'>
-					<th className='text-muted small'>#</th>
-					{columnList.map((header) => (
-						<CustomTh
-							idName='index'
-							setSortedColumn={setSortedColumn}
-							sortedColumn={sortedColumn}
-							key={header.title}
-							setTurnsList={setTurnsList}
-							title={header.title}
-							name={header.name}
-							hasIcon={header.hasIcon}
-						/>
-					))}
-				</tr>
-			</thead>
-
-			<tbody className='align-middle fw-semibold'>
-				{turnsList.map((turn) => (
-					<tr key={turn._id}>
-						<td>{turn.index}</td>
-						<td>{formatDate(turn.date)}</td>
-						<td>{formatTime(turn.date)}</td>
-						<td>
-							<TurnStatusBadge status={turn.status} />
-						</td>
-						<td>{`${turn['patient_id.user_id.firstName']} ${turn['patient_id.user_id.lastName']}`}</td>
-						<td>
-							<div className='d-flex flex-column align-items-start'>
-								<span className=''>{turn['patient_id.pet_id.name']}</span>
-								<div className=''>
-									<Badge pill bg='primary'>
-										{turn['patient_id.pet_id.specie']}
-									</Badge>
-								</div>
-							</div>
-						</td>
-						<td>{turn.vet}</td>
-						<td>{turn.details}</td>
-						<td>
-							<div className='d-flex gap-2 justify-content-center'>
-								<Button
-									onClick={() => {
-										setSelectedTurn(patient._id);
-										setModalEditShow(true);
-									}}
-									size='sm'
-									variant='outline-success'
-									style={{ width: 30 }}>
-									<FontAwesomeIcon icon={faEdit} />
-								</Button>
-
-								<Button
-									onClick={() => {
-										setSelectedTurn(patient._id);
-										setModalDeleteShow(true);
-									}}
-									size='sm'
-									variant='outline-danger'
-									style={{ width: 30 }}>
-									<FontAwesomeIcon icon={faRemove} />
-								</Button>
-							</div>
-						</td>
+		<div>
+		<GenericEditPage
+				title='Edición de turnos'
+				endPoint='/api/turns/'
+				selectID={selectedTurn}
+				show={modalEditShow}
+				setModalEditShow={setModalEditShow}
+				onHide={() => setModalEditShow(false)}>
+				<TurnsForm />
+			</GenericEditPage>
+			<Table hover responsive>
+				<thead>
+					<tr className='text-uppercase table-light align-middle'>
+						<th className='text-muted small'>#</th>
+						{columnList.map((header) => (
+							<CustomTh
+								idName='index'
+								setSortedColumn={setSortedColumn}
+								sortedColumn={sortedColumn}
+								key={header.title}
+								setTurnsList={setTurnsList}
+								title={header.title}
+								name={header.name}
+								hasIcon={header.hasIcon}
+							/>
+						))}
 					</tr>
-				))}
-			</tbody>
-		</Table>
+				</thead>
+				<tbody className='align-middle fw-semibold'>
+					{turnsList.map((turn) => (
+						<tr key={turn._id}>
+							<td>{turn.index}</td>
+							<td>{formatDate(turn.date)}</td>
+							<td>{formatTime(turn.date)}</td>
+							<td>
+								<TurnStatusBadge status={turn.status} />
+							</td>
+							<td>{`${turn['patient_id.user_id.firstName']} ${turn['patient_id.user_id.lastName']}`}</td>
+							<td>
+								<div className='d-flex flex-column align-items-start'>
+									<span className=''>{turn['patient_id.pet_id.name']}</span>
+									<div className=''>
+										<Badge pill bg='primary'>
+											{turn['patient_id.pet_id.specie']}
+										</Badge>
+									</div>
+								</div>
+							</td>
+							<td>{turn.vet}</td>
+							<td>{turn.details}</td>
+							<td>
+								<div className='d-flex gap-2 justify-content-center'>
+									<Button
+										onClick={() => {
+											setSelectedTurn(turn._id);
+											setModalEditShow(true);
+										}}
+										size='sm'
+										variant='outline-success'
+										style={{ width: 30 }}>
+										<FontAwesomeIcon icon={faEdit} />
+									</Button>
+									<Button
+										onClick={() => {
+											setSelectedTurn(turn._id);
+											setModalDeleteShow(true);
+										}}
+										size='sm'
+										variant='outline-danger'
+										style={{ width: 30 }}>
+										<FontAwesomeIcon icon={faRemove} />
+									</Button>
+								</div>
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+		</div>
 	);
 };

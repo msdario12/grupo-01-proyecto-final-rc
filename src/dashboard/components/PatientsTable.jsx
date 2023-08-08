@@ -82,7 +82,7 @@ export const PatientsTable = () => {
 			<GenericEditPage
 				title='Edición de pacientes'
 				endPoint='/api/patients/'
-				selectedPatientID={selectedPatientID}
+				selectID={selectedPatientID}
 				show={modalEditShow}
 				setModalEditShow={setModalEditShow}
 				onHide={() => setModalEditShow(false)}>
