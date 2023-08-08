@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './LoginScreen.css';
 import { useContext, useState } from 'react';
-import { Alert, Button, Card, Form } from 'react-bootstrap';
+import { Button, Card, Form } from 'react-bootstrap';
 import { backendAPI } from '../api/backendAPI';
 import { AuthContext } from '../context/AuthProvider';
 import { CustomAlertResponse } from '../dashboard/components/CustomAlertResponse';

@@ -7,12 +7,12 @@ import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useAuth } from '../../hooks/useAuth';
 
 const columnList = [
-	{ title: 'Fecha', name: 'dateObj' },
-	{ title: 'Hora', name: 'dateObj', hasIcon: false },
-	{ title: 'Cliente', name: 'customer' },
-	{ title: 'Mascota', name: 'pet' },
-	{ title: 'Veterinario', name: 'veterinarian' },
-	{ title: 'Detalle', name: 'detail' },
+	{ title: 'Fecha', name: 'date' },
+	{ title: 'Hora', name: 'date', hasIcon: false },
+	{ title: 'Cliente', name: 'patient_id.user_id.firstName' },
+	{ title: 'Mascota', name: 'patient_id.pet_id.name' },
+	{ title: 'Veterinario', name: 'vet' },
+	{ title: 'Detalle', name: 'details' },
 ];
 
 export const MainTableTurns = () => {
@@ -58,6 +58,7 @@ export const MainTableTurns = () => {
 					<th className='text-muted small'>#</th>
 					{columnList.map((header) => (
 						<CustomTh
+							idName='index'
 							setSortedColumn={setSortedColumn}
 							sortedColumn={sortedColumn}
 							key={header.title}
