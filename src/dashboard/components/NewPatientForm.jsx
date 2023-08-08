@@ -65,7 +65,7 @@ export const NewPatientForm = ({
 					setIsUserInfoLoaded(false);
 					setIsLoading(false);
 					if (redirectToTurns) {
-						navigate('../turns');
+						navigate('../turns', { state: { patient: res.data.data } });
 					}
 				})
 				.catch((e) => {

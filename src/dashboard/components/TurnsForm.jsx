@@ -44,10 +44,33 @@ export const TurnsForm = () => {
 	});
 
 	useEffect(() => {
-		if (location?.state?.patient_id) {
+		if (location?.state?.patient) {
+			console.log(location?.state?.patient);
+			setIsLoading(true);
+			const patientID = location?.state?.patient._id;
 			privateBackendAPI
-				.get(`/api/patients/${location.state.patient_id}`)
-				.then((res) => console.log(res));
+				.get(`/api/patients/${patientID}?populate=true`)
+				.then((res) => {
+					console.log(res);
+					const { _id } = res.data.data;
+					const { name, race, specie } = res.data.data.pet_id;
+					const { firstName, lastName, phone, email } = res.data.data.user_id;
+					setSelectedPatient({
+						_id,
+						firstName,
+						lastName,
+						phone,
+						email,
+						name,
+						race,
+						specie,
+					});
+					setIsUserInfoLoaded(true);
+
+					formik.values.multiSearch = email;
+					formik.setFieldTouched('multiSearch', true);
+					setIsLoading(false);
+				});
 		}
 	}, [location]);
 
