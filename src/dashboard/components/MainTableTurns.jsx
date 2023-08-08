@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { GenericEditPage } from '../pages/GenericEditPage';
 import { TurnsForm } from './TurnsForm';
+import { TurnEditPage } from '../pages/TurnEditPage';
 
 const columnList = [
 	{ title: 'Fecha', name: 'date' },
@@ -70,7 +71,7 @@ export const MainTableTurns = () => {
 				show={modalEditShow}
 				setModalEditShow={setModalEditShow}
 				onHide={() => setModalEditShow(false)}>
-				<TurnsForm />
+				<TurnEditPage />
 			</GenericEditPage>
 			<Table hover responsive>
 				<thead>

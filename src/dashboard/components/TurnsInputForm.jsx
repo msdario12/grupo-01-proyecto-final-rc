@@ -8,12 +8,15 @@ import ReactDatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 
-export const TurnsInputForm = ({ formik }) => {
+export const TurnsInputForm = ({
+	formik,
+}) => {
 	return (
 		<div>
 			<Form.Group className='mb-3' controlId='vet'>
 				<Form.Label>Veterinario para el turno *</Form.Label>
 				<Form.Select
+					className='text-capitalize'
 					name='vet'
 					{...formik.getFieldProps('vet')}
 					isValid={!formik.errors.vet && formik.touched.vet}

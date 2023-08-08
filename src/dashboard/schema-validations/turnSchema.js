@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 import { getDay, setHours } from 'date-fns';
 
-export const vetList = ['Juarez', 'Alvarez', 'Rodriguez'];
+export const vetList = ['juarez', 'alvarez', 'rodriguez'];
 
 export const isWeekday = (date) => {
 	const day = getDay(date);
@@ -25,8 +25,7 @@ export const filterPassedTime = (time) => {
 	return morningCheck || afternoonCheck;
 };
 
-export const turnSchema = {
-	multiSearch: Yup.string().required('Campo obligatorio'),
+export const turnEditSchema = {
 	turnDate: Yup.date()
 		.required('Campo obligatorio')
 		.test(
@@ -49,4 +48,9 @@ export const turnSchema = {
 			vetList.map((vet) => vet),
 			'Selecciona una veterinario de la lista'
 		),
+};
+
+export const turnSchema = {
+	multiSearch: Yup.string().required('Campo obligatorio'),
+	...turnEditSchema,
 };

@@ -1,4 +1,4 @@
-import { Button, Form, Card, Col, Spinner } from 'react-bootstrap';
+import { Button, Form, Spinner } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 import { useContext, useEffect, useState } from 'react';
@@ -31,7 +31,7 @@ export const TurnsForm = ({ modalMode = false }) => {
 		initialValues: {
 			multiSearch: '',
 			vet: 'placeholder',
-			date: '',
+			turnDate: new Date(),
 			details: '',
 		},
 		validationSchema: newTurnSchema,
