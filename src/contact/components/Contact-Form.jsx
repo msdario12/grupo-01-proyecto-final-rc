@@ -2,6 +2,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useForm } from '../../hooks/useForm';
 import './Style-Contact.css';
+import { useRef } from 'react';
 
 const initialForm = {
 	name: '',
@@ -44,6 +45,8 @@ const validationsForm = (form) => {
 };
 
 export const ContactForm = () => {
+	const formRef = useRef();
+
 	const {
 		form,
 		errors,
@@ -52,13 +55,13 @@ export const ContactForm = () => {
 		handleBlur,
 		handleSubmit,
 		handleChange,
-	} = useForm(initialForm, validationsForm);
+	} = useForm(initialForm, validationsForm, formRef);
 
 	return (
 		<>
 			<div className='contact-form-container mt-5 p-2'>
 				<h2>Obten tu consulta online</h2>
-				<Form className='mb-5' onSubmit={handleSubmit}>
+				<Form className='mb-5' onSubmit={handleSubmit} ref={formRef}>
 					<div className='row'>
 						<Form.Group className='mb-3 col-12 col-md-6' controlId='name'>
 							<Form.Label>Nombre y Apellido</Form.Label>

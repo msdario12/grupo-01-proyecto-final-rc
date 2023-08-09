@@ -5,8 +5,7 @@ import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 export const ContactPage = ({ title }) => {
 	useDocumentTitle(title);
 	return (
-		<>
-			<h1>Contact Page</h1>
+		<div className='container-lg'>
 			<div className='row container-contact-prim'>
 				<div className='col-12 col-md-6'>
 					<ContactForm />
@@ -15,6 +14,6 @@ export const ContactPage = ({ title }) => {
 					<ContactInfo />
 				</div>
 			</div>
-		</>
+		</div>
 	);
 };
