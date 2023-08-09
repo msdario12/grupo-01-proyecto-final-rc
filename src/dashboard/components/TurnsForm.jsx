@@ -17,7 +17,10 @@ export const vetList = ['Juarez', 'Alvarez', 'Rodriguez'];
 
 const newTurnSchema = Yup.object({ ...turnSchema });
 
-export const TurnsForm = ({ modalMode = false }) => {
+export const TurnsForm = ({
+	modalMode = false,
+	patientIDFromTurns = false,
+}) => {
 	const location = useLocation();
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState('init');
 	const { privateBackendAPI } = useAxiosPrivate();
@@ -92,6 +95,33 @@ export const TurnsForm = ({ modalMode = false }) => {
 		},
 	});
 
+	useEffect(() => {
+		console.log(patientIDFromTurns);
+		if (patientIDFromTurns) {
+			privateBackendAPI
+				.get(`/api/patients/${patientIDFromTurns}?populate=true`)
+				.then((res) => {
+					console.log(res);
+					const { _id } = res.data.data;
+					const { name, race, specie } = res.data.data.pet_id;
+					const { firstName, lastName, phone, email } = res.data.data.user_id;
+					setSelectedPatient({
+						_id,
+						firstName,
+						lastName,
+						phone,
+						email,
+						name,
+						race,
+						specie,
+					});
+					setIsUserInfoLoaded(true);
+					formik.values.multiSearch = email;
+					formik.setFieldTouched('multiSearch', true);
+					setIsLoading(false);
+				});
+		}
+	}, [patientIDFromTurns]);
 	useEffect(() => {
 		if (location?.state?.patient) {
 			console.log(location?.state?.patient);
