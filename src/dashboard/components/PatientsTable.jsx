@@ -154,6 +154,7 @@ export const PatientsTable = () => {
 							<td>
 								<div className='d-flex gap-2 justify-content-center'>
 									<Button
+										className='z-3'
 										onClick={() => {
 											setSelectedPatientID(patient._id);
 											setModalEditShow(true);
@@ -165,6 +166,7 @@ export const PatientsTable = () => {
 									</Button>
 
 									<Button
+										className='z-3'
 										onClick={() => {
 											setSelectedPatientID(patient._id);
 											setModalDeleteShow(true);
