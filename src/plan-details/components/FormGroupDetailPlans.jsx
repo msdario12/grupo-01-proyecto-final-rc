@@ -1,8 +1,11 @@
-import { Button, Form, Card, Row, Col } from 'react-bootstrap';
+import { Button, Form, Card, Row, Col, Spinner } from 'react-bootstrap';
 import { vetPlans } from '../../../vetPlansDB';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { InputWithFeedback } from '../elements/InputWithFeedback';
+import { useRef, useState } from 'react';
+import emailjs from '@emailjs/browser';
+import { CustomAlertResponse } from '../../dashboard/components/CustomAlertResponse';
 
 // Opciones del select de especie de animales
 export const animalsSpecies = [
@@ -66,6 +69,13 @@ const consultFormSchema = Yup.object({
 });
 
 export const FormGroupDetailPlans = ({ selectedPlan }) => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [response, setResponse] = useState({
+		success: true,
+		message: '',
+	});
+	const [showAlert, setShowAlert] = useState(false);
+	const form = useRef();
 	const formik = useFormik({
 		initialValues: {
 			userName: '',
@@ -81,14 +91,36 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 		validationSchema: consultFormSchema,
 		onSubmit: (values) => {
 			console.log(values);
-			// Logica para enviar informacion al backend
-			// const castValues = productSchema.cast(values);
-			// console.log(castValues);
-			// const { name, price, description } = castValues;
+			setIsLoading(true);
+			emailjs
+				.sendForm(
+					'service_pzdzjgj',
+					'template_udc3eyn',
+					form.current,
+					'IA7y8FZdE1Zr4Ky_M'
+				)
+				.then(
+					(result) => {
+						setShowAlert(true);
+						setIsLoading(false);
+						console.log(result.text);
+						setResponse({
+							success: true,
+							message:
+								'Se envió correctamente un email a la dirección ingresada.',
+						});
+					},
+					(error) => {
+						setShowAlert(true);
+						setIsLoading(false);
+						console.log(error.text);
+						setResponse({
+							success: false,
+							message: 'Hubo un error al enviar el mail.',
+						});
+					}
+				);
 
-			// const res = await addProductToDB(name, price, description);
-			// getProductsFromDB();
-			// alert(JSON.stringify(values, null, 2));
 			formik.resetForm();
 		},
 	});
@@ -98,7 +130,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 				<Card.Title className='display-6 fw-bold'>
 					Envíenos su consulta
 				</Card.Title>
-				<Form onSubmit={formik.handleSubmit}>
+				<Form ref={form} onSubmit={formik.handleSubmit}>
 					<Row>
 						<Form.Group
 							as={Col}
@@ -135,6 +167,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 					<Form.Group className='mb-3' controlId='email'>
 						<Form.Label>Correo Electrónico *</Form.Label>
 						<InputWithFeedback
+							hasTextCapitalization={false}
 							type='email'
 							placeholder='juanperez@example.com'
 							formik={formik}
@@ -157,6 +190,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							controlId='petAge'>
 							<Form.Label>Edad de tu mascota *</Form.Label>
 							<InputWithFeedback
+								hasTextCapitalization={false}
 								type='number'
 								placeholder='Edad en años o meses'
 								formik={formik}
@@ -219,6 +253,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 							<Form.Label>Raza de tu mascota</Form.Label>
 
 							<InputWithFeedback
+								hasTextCapitalization={false}
 								type='text'
 								placeholder='O una descripción'
 								formik={formik}
@@ -247,6 +282,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 						<Form.Label>Escribe tu consulta *</Form.Label>
 
 						<InputWithFeedback
+							hasTextCapitalization={false}
 							type='text'
 							placeholder='Quisiera adquirir el Plan Primeros Pasos...'
 							formik={formik}
@@ -259,14 +295,29 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 						/>
 					</Form.Group>
 
+					<CustomAlertResponse response={response} showAlert={showAlert} />
+
 					<div className='d-flex justify-content-center'>
 						<Button
-							disabled={!formik.isValid}
-							variant='primary'
+							className='px-4 py-2'
+							disabled={!formik.isValid || isLoading}
+							variant={'primary'}
 							size='md'
-							type='submit'
-							className='w-50'>
-							Enviar
+							type='submit'>
+							{isLoading ? (
+								<div>
+									<Spinner
+										as='span'
+										animation='border'
+										size='sm'
+										role='status'
+										aria-hidden='true'
+									/>
+									<span className='ms-2'>Cargando</span>
+								</div>
+							) : (
+								'Enviar'
+							)}
 						</Button>
 					</div>
 				</Form>

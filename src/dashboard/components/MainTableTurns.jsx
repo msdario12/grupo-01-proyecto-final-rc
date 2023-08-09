@@ -144,7 +144,7 @@ export const MainTableTurns = ({ detailMode = false, patientID }) => {
 						))}
 					</tr>
 				</thead>
-				<tbody className='align-middle fw-semibold'>
+				<tbody className='align-middle fw-semibold text-capitalize'>
 					{turnsList.map((turn) => (
 						<tr key={turn._id}>
 							<td>{turn.index}</td>

@@ -13,6 +13,10 @@ export const DetailPlansPage = ({ title }) => {
 	useDocumentTitle(title);
 	useEffect(() => {
 		const foundedPlan = vetPlans.find((plan) => plan.name === params.name);
+		if (!foundedPlan) {
+			setSetselectedPlan(vetPlans[0]);
+			return;
+		}
 		setSetselectedPlan(foundedPlan);
 	}, [params.name]);
 

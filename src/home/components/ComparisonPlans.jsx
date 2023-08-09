@@ -3,7 +3,6 @@ import { vetPlans } from '../../../vetPlansDB';
 import { ListItems } from '../elements/ListItems';
 import { ComparisonCardsPlans } from '../elements/ComparisonCardsPlans';
 
-import React from 'react';
 
 export const DetailListItems = () => {
 	return <div>DetailListItems</div>;
@@ -12,9 +11,6 @@ export const DetailListItems = () => {
 export const ComparisonPlans = () => {
 	return (
 		<section className='row mb-5'>
-			<h2 className='text-center display-5 fw-bold mb-5'>
-				Planes que ofrecemos
-			</h2>
 			{vetPlans.map((plan) => (
 				<div key={plan.title} className='col-12 col-md-4 mb-2'>
 					<ComparisonCardsPlans

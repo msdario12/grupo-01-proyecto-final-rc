@@ -25,43 +25,40 @@ const servicesContent = [
 	},
 	{
 		title: 'CUIDADO DENTAL',
-		content:
-			'El cuidado de sus dientes debe empezar cuando aun es cachorro. Esto te permitirá educarlo correctamente para permitir el cepillado y las inspecciones que deba realizar su veterinario.',
+		content: 'El cuidado de sus dientes debe empezar cuando aun es cachorro.',
 		src: 'https://i.ibb.co/SdSqXwg/ccn-dental-care-oral-checks-w-640-fm-jpg-auto-compress.jpg',
 		alt: 'Perro siendo atendido en la veterinaria.',
 	},
 	{
 		title: 'GERIATRÍA VETERINARIA',
 		content: 'Atención para tus mascotas en edad mas avanzada.',
-		src: 'https://i.ibb.co/hKSjNSK/ed62h-how-your-dog-s-nutrition-needs-change-with-age-hero-dog-w-1280-fm-jpg-auto-compress.jpg',
+		src: 'https://images.unsplash.com/photo-1554456854-55a089fd4cb2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80',
 		alt: 'Perro mirando a la cámara.',
 	},
 ];
 
 export const Servicios = () => {
 	return (
-		<>
-			<h2>Nuestros Servicios </h2>
-
-			<Carousel className='Carousel' data-bs-theme='light'>
+		<div className='bg-black  w-100'>
+			<Carousel className='Carousel container-lg' data-bs-theme='light'>
 				{servicesContent.map((service) => (
 					<Carousel.Item key={service.alt} className='c-item'>
 						<div className='container-carousel'>
 							<img
-								className='d-block w-100 object-fit-cover'
+								className='d-block h-100 w-100 object-fit-cover'
 								src={service.src}
 								alt={service.alt}
 							/>
 						</div>
 						<Carousel.Caption>
 							<div className='text-start'>
-								<h5 className='fw-bold'>{service.title}</h5>
-								<p>{service.content}</p>
+								<h5 className='fw-bold display-5 fs-3'>{service.title}</h5>
+								<p className='display-6 fs-3'>{service.content}</p>
 							</div>
 						</Carousel.Caption>
 					</Carousel.Item>
 				))}
 			</Carousel>
-		</>
+		</div>
 	);
 };

@@ -1,13 +1,9 @@
-import React from 'react';
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
 
 export const TestimonialSection = () => {
 	return (
 		<>
-		
-			<h2 className='text-center display-5 fw-bold mb-3'>Testimonios</h2>
-
 			<CardGroup className='mb-5'>
 				<Card>
 					<Card.Img

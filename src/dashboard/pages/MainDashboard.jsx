@@ -12,7 +12,7 @@ export const MainDashboard = ({ title }) => {
 			<div className='mt-1 mt-md-2 mt-lg-4'>
 				<h2 style={{ letterSpacing: 0.1 }} className='display-4 fw-bold'>
 					Bienvenido de vuelta{' '}
-					<span className='px-2 text-bg-secondary text-light'>
+					<span className='px-2 text-bg-secondary text-light text-capitalize'>
 						{auth?.firstName}
 					</span>
 				</h2>
