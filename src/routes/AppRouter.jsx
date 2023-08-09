@@ -12,7 +12,6 @@ import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
 import { NewPatientForm } from '../dashboard/components/NewPatientForm';
-import { ProductosPage } from '../productos/pages/ProductosPage';
 
 
 
@@ -27,7 +26,6 @@ export const AppRouter = () => {
 						<Route path='/detail-plans/:name' element={<DetailPlansPage />} />
 						<Route path='*' element={<Error404Page />} />
 						<Route path='about-us' element={<AboutUs />} />
-						<Route path='productos' element={<ProductosPage />} />
 
 					</Route>
 					<Route path='/dashboard' element={<DashboardLayout />}>

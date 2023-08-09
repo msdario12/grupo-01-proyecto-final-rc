@@ -10,7 +10,7 @@ const productContent = [
 		rating: 5,
 	},
 	{
-		src: 'https://i.ibb.co/BCgN3fc/133761-c2d2f05832af44de0916802728721395-640-0.webp',
+		src: 'https://i.ibb.co/4M3ZH36/501211-791ab23d61f76280b816814740850544-640-0.webp',
 		title: 'Buho con chifle',
 		price: '$3.200,80',
 		rating: 4,
@@ -35,7 +35,7 @@ const productContent = [
 	},
 ];
 
-export const ProductosPage = () => {
+export const ProductsSection = () => {
 	return (
 		<>
 			<h2 className='text-center display-5 fw-bold mb-3'>Productos</h2>
@@ -44,7 +44,7 @@ export const ProductosPage = () => {
 				{productContent.map((product) => (
 					<Card
 						key={product.title}
-						className='col-12 col-lg-6 p-0 mb-5 h-100'
+						className='col-12 col-lg-6 p-0 mb-3 mx-2 h-100'
 						style={{ width: '12rem' }}>
 						<Card.Img variant='top' src={product.src} />
 						<Card.Header>

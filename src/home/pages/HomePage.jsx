@@ -1,3 +1,4 @@
+import { ProductsSection } from '../../productos/pages/ProductosSection';
 import { ComparisonPlans } from '../components/ComparisonPlans';
 import { HeroSection } from '../components/HeroSection';
 import { TestimonialSection } from '../components/TestimonialSection';
@@ -8,6 +9,7 @@ export const HomePage = () => {
 			<h2>Esto es el HomePage</h2>
 			<HeroSection />
 			<ComparisonPlans />
+			<ProductsSection />
 			<TestimonialSection />
 		</main>
 	);
