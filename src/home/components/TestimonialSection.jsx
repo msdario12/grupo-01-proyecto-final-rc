@@ -8,7 +8,7 @@ export const TestimonialSection = () => {
 				<Card>
 					<Card.Img
 						variant='top'
-						src='https://imageup.me/images/976a5830-8993-48fc-82e7-8a15ddbfaf0a.jpeg'
+						src='https://img.freepik.com/free-photo/confident-handsome-guy-posing-against-white-wall_176420-32936.jpg?w=996&t=st=1691616949~exp=1691617549~hmac=ae11f34f08f53f8cc1e52d822c0cb0b4c45f20182396e63a824551eeab8dfdc5'
 					/>
 					<Card.Body>
 						<Card.Title>Carlos Gonzales</Card.Title>
@@ -25,7 +25,7 @@ export const TestimonialSection = () => {
 				<Card>
 					<Card.Img
 						variant='top'
-						src='https://imageup.me/images/5c2e46b7-d21a-4930-a288-16116f545434.jpeg'
+						src='https://img.freepik.com/free-photo/young-beautiful-woman-pink-warm-sweater-natural-look-smiling-portrait-isolated-long-hair_285396-896.jpg?w=996&t=st=1691616958~exp=1691617558~hmac=53a01f4cba1e1eb03edfbb902c1e25148ce74ea7106327d4e2b48fcf218b5e47'
 					/>
 					<Card.Body>
 						<Card.Title>Jesica Perez</Card.Title>
@@ -42,7 +42,7 @@ export const TestimonialSection = () => {
 				<Card>
 					<Card.Img
 						variant='top'
-						src='https://imageup.me/images/fcdd9c4e-602a-4018-bc1d-5d3f22407afc.jpeg'
+						src='https://img.freepik.com/free-photo/close-up-portrait-curly-handsome-european-male_176532-8133.jpg?w=996&t=st=1691616952~exp=1691617552~hmac=be71212d98352ce049eb0bbdec397ca8377cfff949d31338f9154f46c67ad439'
 					/>
 					<Card.Body>
 						<Card.Title>Eduardo Vallejo</Card.Title>
