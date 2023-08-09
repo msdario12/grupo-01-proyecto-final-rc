@@ -1,16 +1,14 @@
 import { useAuth } from '../../hooks/useAuth';
-import { Button } from 'react-bootstrap';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { MainTableTurns } from '../components/MainTableTurns';
 import { WelcomeInfo } from '../components/WelcomeInfo';
-import { backendAPI } from '../../api/backendAPI';
 
 export const MainDashboard = ({ title }) => {
 	useDocumentTitle(title);
 	const { auth } = useAuth();
 
 	return (
-		<div>
+		<div className='d-flex flex-column gap-4'>
 			<div className='mt-1 mt-md-2 mt-lg-4'>
 				<h2 style={{ letterSpacing: 0.1 }} className='display-4 fw-bold'>
 					Bienvenido de vuelta{' '}

@@ -7,10 +7,11 @@ import { petSchema } from '../schema-validations/petSchema';
 import { PetInputsForm } from './PetInputsForm';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { CustomAlertResponse } from './CustomAlertResponse';
+import { GenericEditPageContext } from '../pages/GenericEditPage';
 
 const userEditSchema = Yup.object({ ...petSchema });
 
-export const PetEditForm = ({ petID }) => {
+export const PetEditForm = () => {
 	const [petData, setPetData] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const { addToast } = useContext(ToastContext);
@@ -18,6 +19,7 @@ export const PetEditForm = ({ petID }) => {
 	const { privateBackendAPI } = useAxiosPrivate();
 	const [showAlert, setShowAlert] = useState(false);
 	const [response, setResponse] = useState({ success: true });
+	const { data } = useContext(GenericEditPageContext);
 
 	const initialValues = {
 		name: '',
@@ -34,7 +36,7 @@ export const PetEditForm = ({ petID }) => {
 
 			setIsLoading(true);
 			privateBackendAPI
-				.put(`/api/pets/${petID}`, castValues)
+				.put(`/api/pets/${data.pet_id}`, castValues)
 				.then((res) => {
 					addToast({
 						message: 'Mascota editada correctamente',
@@ -59,15 +61,15 @@ export const PetEditForm = ({ petID }) => {
 	});
 
 	useEffect(() => {
-		if (petID) {
-			privateBackendAPI.get(`/api/pets/${petID}`).then((res) => {
+		if (data) {
+			privateBackendAPI.get(`/api/pets/${data.pet_id}`).then((res) => {
 				setPetData(res.data.data);
 
 				formik.setValues(res.data.data, true);
 				formik.setTouched(res.data.data, true);
 			});
 		}
-	}, [petID, formik.handleSubmit]);
+	}, [data, formik.handleSubmit]);
 
 	useEffect(() => {
 		if (formik.values === petData) {

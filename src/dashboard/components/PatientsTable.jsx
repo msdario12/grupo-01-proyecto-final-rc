@@ -1,16 +1,16 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Badge, Button, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
-import { backendAPI } from '../../api/backendAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
-import { EditPatientPage } from '../pages/EditPatientPage';
 import { DeletePatientPage } from './DeletePatientPage';
 import { NewPatientPage } from '../pages/NewPatientPage';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
-import { ToastContext } from '../../context/ToastContext';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useAuth } from '../../hooks/useAuth';
+import { GenericEditPage } from '../pages/GenericEditPage';
+import { UserEditForm } from './UserEditForm';
+import { PetEditForm } from './PetEditForm';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -78,11 +78,17 @@ export const PatientsTable = () => {
 				title={'Listado de pacientes'}
 				subtitle={'Edita o elimina pacientes.'}
 			/>
-			<EditPatientPage
-				selectedPatientID={selectedPatientID}
+
+			<GenericEditPage
+				title='Edición de pacientes'
+				endPoint='/api/patients/'
+				selectID={selectedPatientID}
 				show={modalEditShow}
-				onHide={() => setModalEditShow(false)}
-			/>
+				setModalEditShow={setModalEditShow}
+				onHide={() => setModalEditShow(false)}>
+				<UserEditForm />
+				<PetEditForm />
+			</GenericEditPage>
 			<DeletePatientPage
 				selectedPatientID={selectedPatientID}
 				show={modalDeleteShow}

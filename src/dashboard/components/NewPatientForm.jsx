@@ -65,7 +65,7 @@ export const NewPatientForm = ({
 					setIsUserInfoLoaded(false);
 					setIsLoading(false);
 					if (redirectToTurns) {
-						navigate('../turns');
+						navigate('../turns', { state: { patient: res.data.data } });
 					}
 				})
 				.catch((e) => {
@@ -106,7 +106,7 @@ export const NewPatientForm = ({
 						onFocus={() => setShowAlert(false)}>
 						<Row className='mb-lg-3 mb-1'>
 							<Col sm={12} lg={6}>
-								<h3 className='mb-lg-3 mb-1'>Datos del dueño</h3>
+								<h3 className='mb-lg-4 mb-3'>Datos del dueño</h3>
 								<UsersInputsForm
 									formik={formik}
 									setIsUserInfoLoaded={setIsUserInfoLoaded}
@@ -114,7 +114,7 @@ export const NewPatientForm = ({
 								/>
 							</Col>
 							<Col sm={12} lg={6}>
-								<h3 className='mb-lg-3 mb-1'>Datos de la mascota</h3>
+								<h3 className='mb-lg-4 mb-3'>Datos de la mascota</h3>
 								<PetInputsForm formik={formik} />
 							</Col>
 						</Row>

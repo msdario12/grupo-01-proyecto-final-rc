@@ -7,10 +7,11 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../context/ToastContext';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { CustomAlertResponse } from './CustomAlertResponse';
+import { GenericEditPageContext } from '../pages/GenericEditPage';
 
 const userEditSchema = Yup.object({ ...userSchema });
 
-export const UserEditForm = ({ userID }) => {
+export const UserEditForm = () => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [dataToEdit, setDataToEdit] = useState();
 	const [isLoading, setIsLoading] = useState(false);
@@ -19,6 +20,7 @@ export const UserEditForm = ({ userID }) => {
 	const { privateBackendAPI } = useAxiosPrivate();
 	const [showAlert, setShowAlert] = useState(false);
 	const [response, setResponse] = useState({ success: true });
+	const { data } = useContext(GenericEditPageContext);
 
 	const initialValues = {
 		email: '',
@@ -36,7 +38,7 @@ export const UserEditForm = ({ userID }) => {
 			console.log(castValues);
 			setIsLoading(true);
 			privateBackendAPI
-				.put(`/api/users/${userID}`, castValues)
+				.put(`/api/users/${data.user_id}`, castValues)
 				.then((res) => {
 					addToast({
 						message: 'Usuario editado correctamente',
@@ -64,13 +66,15 @@ export const UserEditForm = ({ userID }) => {
 	});
 
 	useEffect(() => {
-		privateBackendAPI.get(`/api/users/${userID}`).then((res) => {
-			console.log(res.data);
-			setDataToEdit(res.data.data);
-			formik.setValues(res.data.data, false);
-			formik.setTouched(res.data.data, false);
-		});
-	}, [userID, formik.handleSubmit]);
+		if (data) {
+			privateBackendAPI.get(`/api/users/${data.user_id}`).then((res) => {
+				console.log(res.data);
+				setDataToEdit(res.data.data);
+				formik.setValues(res.data.data, false);
+				formik.setTouched(res.data.data, false);
+			});
+		}
+	}, [data, formik.handleSubmit]);
 
 	useEffect(() => {
 		if (formik.values === dataToEdit) {

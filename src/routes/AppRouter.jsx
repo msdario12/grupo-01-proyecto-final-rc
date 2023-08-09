@@ -15,6 +15,7 @@ import { RequireAuth } from '../auth/components/RequireAuth';
 import { GenericModal } from '../ui/components/GenericModal';
 import { OurDevelopers } from '../our-developers/page/OurDevelopers';
 import { UnauthorizedPage401 } from '../ui/pages/UnauthorizedPage401';
+import { NewTurnPage } from '../dashboard/pages/NewTurnPage';
 
 export const AppRouter = () => {
 	return (
@@ -69,6 +70,10 @@ export const AppRouter = () => {
 							<Route
 								path='add-patient'
 								element={<NewPatientForm title={'Añadir paciente'} />}
+							/>
+							<Route
+								path='add-turn'
+								element={<NewTurnPage title={'Añadir paciente'} />}
 							/>
 						</Route>
 					</Route>
