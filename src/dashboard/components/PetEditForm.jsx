@@ -1,19 +1,25 @@
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { backendAPI } from '../../api/backendAPI';
 import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../context/ToastContext';
 import { petSchema } from '../schema-validations/petSchema';
 import { PetInputsForm } from './PetInputsForm';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { CustomAlertResponse } from './CustomAlertResponse';
+import { GenericEditPageContext } from '../pages/GenericEditPage';
 
 const userEditSchema = Yup.object({ ...petSchema });
 
-export const PetEditForm = ({ petID }) => {
+export const PetEditForm = () => {
 	const [petData, setPetData] = useState();
 	const [isLoading, setIsLoading] = useState(false);
 	const { addToast } = useContext(ToastContext);
 	const [inputsHasChanges, setInputsHasChanges] = useState(false);
+	const { privateBackendAPI } = useAxiosPrivate();
+	const [showAlert, setShowAlert] = useState(false);
+	const [response, setResponse] = useState({ success: true });
+	const { data } = useContext(GenericEditPageContext);
 
 	const initialValues = {
 		name: '',
@@ -29,8 +35,8 @@ export const PetEditForm = ({ petID }) => {
 			const castValues = userEditSchema.cast(values);
 
 			setIsLoading(true);
-			backendAPI
-				.put(`/api/pets/${petID}`, castValues)
+			privateBackendAPI
+				.put(`/api/pets/${data.pet_id}`, castValues)
 				.then((res) => {
 					addToast({
 						message: 'Mascota editada correctamente',
@@ -44,23 +50,26 @@ export const PetEditForm = ({ petID }) => {
 					console.error(e);
 					setIsLoading(false);
 					addToast({
-						message: 'Error al editar la mascota ' + e,
+						message:
+							'Error al editar la mascota - ' + e?.response?.data?.message,
 						variant: 'error',
 					});
+					setResponse(e?.response?.data);
+					setShowAlert(true);
 				});
 		},
 	});
 
 	useEffect(() => {
-		if (petID) {
-			backendAPI.get(`/api/pets/${petID}`).then((res) => {
+		if (data) {
+			privateBackendAPI.get(`/api/pets/${data.pet_id}`).then((res) => {
 				setPetData(res.data.data);
 
 				formik.setValues(res.data.data, true);
 				formik.setTouched(res.data.data, true);
 			});
 		}
-	}, [petID, formik.handleSubmit]);
+	}, [data, formik.handleSubmit]);
 
 	useEffect(() => {
 		if (formik.values === petData) {
@@ -72,12 +81,18 @@ export const PetEditForm = ({ petID }) => {
 	}, [petData, formik.values, formik.handleSubmit]);
 
 	if (!petData) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center'>
+				<Spinner animation='border' size='md' />
+				<span>Cargando mascota</span>
+			</div>
+		);
 	}
 	return (
 		<div>
 			<Form onSubmit={formik.handleSubmit}>
 				<PetInputsForm formik={formik} />
+				<CustomAlertResponse response={response} showAlert={showAlert} />
 
 				<div className='d-flex justify-content-center gap-3'>
 					<Button

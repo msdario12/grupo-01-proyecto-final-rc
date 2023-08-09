@@ -1,0 +1,21 @@
+
+.E404{
+    box-shadow: 0 0 20px 1px rgb(15, 14, 14);
+    text-align: center;
+    
+  
+  }
+  
+  .Error404{
+    box-shadow: 0 0 20px 1px rgb(17, 17, 17);
+  }
+
+  .NoDisponible{
+    text-align: center;
+    color: #f6f1f1;
+  }
+
+  .Container{
+
+    background-color: black;
+  }

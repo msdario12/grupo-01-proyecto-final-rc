@@ -1,131 +1,199 @@
-import format from 'date-fns/format';
-import { es } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
-import { Badge, Table } from 'react-bootstrap';
+import { Badge, Button, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
-
-const turnsListObject = [
-	{
-		id: 1,
-		date: '07/07/23',
-		time: '15:55',
-		dateObj: new Date('02/07/23 15:55:00'),
-		customer: 'Analia Miranda',
-		pet: 'Roque',
-		veterinarian: 'Alvarez',
-		detail: 'Desparasitación y limpieza bucal',
-		animalType: 'Perro',
-	},
-	{
-		id: 2,
-		date: '06/07/23',
-		time: '12:30',
-		dateObj: new Date('07/04/23 02:55:00'),
-		customer: 'Pedro Ramirez',
-		pet: 'Max',
-		veterinarian: 'Ziddane',
-		detail: 'Vacunación anual',
-		animalType: 'Perro',
-	},
-	{
-		id: 3,
-		date: '10/07/23',
-		time: '09:15',
-		dateObj: new Date('03/01/23 16:55:00'),
-		customer: 'Ana Martínez',
-		pet: 'Luna',
-		veterinarian: 'Sánchez',
-		detail: 'Revisión general',
-		animalType: 'Gato',
-	},
-	{
-		id: 4,
-		date: '03/07/23',
-		time: '17:20',
-		dateObj: new Date('02/05/23 19:55:00'),
-		customer: 'Lucas Gómez',
-		pet: 'Simba',
-		veterinarian: 'Pérez',
-		detail: 'Corte de uñas',
-		animalType: 'Gato',
-	},
-	{
-		id: 5,
-		date: '14/07/23',
-		time: '14:00',
-		dateObj: new Date('12/04/23 22:55:00'),
-		customer: 'Guido Fernández',
-		pet: 'Bella',
-		veterinarian: 'Rodríguez',
-		detail: 'Esterilización',
-		animalType: 'Perro',
-	},
-];
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { useAuth } from '../../hooks/useAuth';
+import { TurnStatusBadge } from '../elements/TurnStatusBadge';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
+import { GenericEditPage } from '../pages/GenericEditPage';
+import { TurnEditPage } from '../pages/TurnEditPage';
+import { DeleteTurnPage } from '../pages/DeleteTurnPage';
+import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
+import { NewTurnModal } from '../pages/NewTurnModal';
+import { useLocation } from 'react-router-dom';
 
 const columnList = [
-	{ title: 'Fecha', name: 'dateObj' },
-	{ title: 'Hora', name: 'dateObj', hasIcon: false },
-	{ title: 'Cliente', name: 'customer' },
-	{ title: 'Mascota', name: 'pet' },
-	{ title: 'Veterinario', name: 'veterinarian' },
-	{ title: 'Detalle', name: 'detail' },
+	{ title: 'Fecha', name: 'date' },
+	{ title: 'Hora', name: 'date', hasIcon: false },
+	{ title: 'Estado', name: 'status' },
+	{ title: 'Cliente', name: 'patient_id.user_id.firstName' },
+	{ title: 'Mascota', name: 'patient_id.pet_id.name' },
+	{ title: 'Veterinario', name: 'vet' },
+	{ title: 'Detalle', name: 'details' },
+	{ title: 'Acción', name: 'action', hasIcon: false, center: true },
 ];
 
-export const MainTableTurns = () => {
-	const [turnsList, setTurnsList] = useState([]);
+export const MainTableTurns = ({ detailMode = false, patientID }) => {
+	const [turnsList, setTurnsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
+	const [selectedTurn, setSelectedTurn] = useState('');
+	const [modalEditShow, setModalEditShow] = useState(false);
+	const [modalDeleteShow, setModalDeleteShow] = useState(false);
+	const { privateBackendAPI } = useAxiosPrivate();
+	const [modalNewTurn, setModalNewTurn] = useState(false);
+	const location = useLocation();
+	const { auth } = useAuth();
+
 	useEffect(() => {
-		setTurnsList(turnsListObject);
-	}, []);
+		if (location?.state?.patient) {
+			setModalNewTurn(true);
+		}
+	}, [location]);
+
+	useEffect(() => {
+		if (detailMode) {
+			privateBackendAPI
+				.get(`/api/turns?patientID=${patientID}`)
+				.then((res) => {
+					console.log(res.data.data);
+					setTurnsList(res.data.data);
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+			return;
+		}
+		privateBackendAPI
+			.get('/api/turns')
+			.then((res) => {
+				console.log(res.data.data);
+				setTurnsList(res.data.data);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	}, [auth, modalEditShow, modalDeleteShow, modalNewTurn, patientID]);
+
 	if (!turnsList) {
-		return 'Cargando datos...';
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center align-items-center'>
+				<Spinner animation='border' />
+				<h3>Cargando listado de turnos</h3>
+			</div>
+		);
 	}
-	const formatDate = (date) => {
-		return format(date, 'P', { locale: es });
-	};
-	const formatTime = (date) => {
-		return format(date, 'p', { locale: es });
-	};
+
+	if (turnsList.length === 0) {
+		return (
+			<div className='d-flex justify-content-center align-items-center gap-3 flex-column'>
+				<h4 className='display-6 fs-4 fw-semibold'>
+					{detailMode
+						? 'El paciente seleccionado no tiene turnos asignados...'
+						: 'La lista de turnos esta vacía...'}
+				</h4>
+				<div>
+					<Button onClick={() => setModalNewTurn(true)} variant='primary'>
+						Crear nuevo turno
+					</Button>
+					<NewTurnModal
+						patientIDFromTurns={patientID}
+						show={modalNewTurn}
+						setModalNewTurn={setModalNewTurn}
+						onHide={() => setModalNewTurn(false)}
+					/>
+				</div>
+			</div>
+		);
+	}
+
 	return (
-		<Table hover responsive>
-			<thead>
-				<tr className='text-uppercase table-light align-middle'>
-					<th className='text-muted small'>#</th>
-					{columnList.map((header) => (
-						<CustomTh						
-							setSortedColumn={setSortedColumn}
-							sortedColumn={sortedColumn}
-							key={header.title}
-							setTurnsList={setTurnsList}
-							title={header.title}
-							name={header.name}
-							hasIcon={header.hasIcon}
-						/>
-					))}
-				</tr>
-			</thead>
-			<tbody className='align-middle fw-semibold'>
-				{turnsList.map((turn) => (
-					<tr key={turn.id}>
-						<td>{turn.id}</td>
-						<td>{formatDate(turn.dateObj)}</td>
-						<td>{formatTime(turn.dateObj)}</td>
-						<td>{turn.customer}</td>
-						<td>
-							<div className='d-flex flex-column align-items-start'>
-								<span className=''>{turn.pet}</span>
-								<div className=''>
-									<Badge pill bg='primary'>
-										{turn.animalType}
-									</Badge>
-								</div>
-							</div>
-						</td>
-						<td>{turn.veterinarian}</td>
-						<td>{turn.detail}</td>
+		<div>
+			<GenericEditPage
+				title='Edición de turnos'
+				endPoint='/api/turns/'
+				selectID={selectedTurn}
+				show={modalEditShow}
+				setModalEditShow={setModalEditShow}
+				onHide={() => setModalEditShow(false)}>
+				<TurnEditPage />
+			</GenericEditPage>
+			<DeleteTurnPage
+				selectedTurn={selectedTurn}
+				show={modalDeleteShow}
+				setModalDeleteShow={setModalDeleteShow}
+				onHide={() => setModalDeleteShow(false)}
+			/>
+			<Button
+				className='mb-4'
+				onClick={() => setModalNewTurn(true)}
+				variant='primary'>
+				Crear nuevo turno
+			</Button>
+			<NewTurnModal
+				patientIDFromTurns={patientID}
+				show={modalNewTurn}
+				setModalNewTurn={setModalNewTurn}
+				onHide={() => setModalNewTurn(false)}
+			/>
+			<Table hover responsive>
+				<thead>
+					<tr className='text-uppercase table-light align-middle'>
+						<th className='text-muted small'>#</th>
+						{columnList.map((header) => (
+							<CustomTh
+								idName='index'
+								setSortedColumn={setSortedColumn}
+								sortedColumn={sortedColumn}
+								key={header.title}
+								setTurnsList={setTurnsList}
+								title={header.title}
+								name={header.name}
+								hasIcon={header.hasIcon}
+							/>
+						))}
 					</tr>
-				))}
-			</tbody>
-		</Table>
+				</thead>
+				<tbody className='align-middle fw-semibold'>
+					{turnsList.map((turn) => (
+						<tr key={turn._id}>
+							<td>{turn.index}</td>
+							<td>{formatDateCustom(turn.date)}</td>
+							<td>{formatTimeCustom(turn.date)}</td>
+							<td>
+								<TurnStatusBadge status={turn.status} />
+							</td>
+							<td>{`${turn['patient_id.user_id.firstName']} ${turn['patient_id.user_id.lastName']}`}</td>
+							<td>
+								<div className='d-flex flex-column align-items-start'>
+									<span className=''>{turn['patient_id.pet_id.name']}</span>
+									<div className=''>
+										<Badge pill bg='primary'>
+											{turn['patient_id.pet_id.specie']}
+										</Badge>
+									</div>
+								</div>
+							</td>
+							<td>{turn.vet}</td>
+							<td>{turn.details}</td>
+							<td>
+								<div className='d-flex gap-2 justify-content-center'>
+									<Button
+										onClick={() => {
+											setSelectedTurn(turn._id);
+											setModalEditShow(true);
+										}}
+										size='sm'
+										variant='outline-success'
+										style={{ width: 30 }}>
+										<FontAwesomeIcon icon={faEdit} />
+									</Button>
+									<Button
+										onClick={() => {
+											setSelectedTurn(turn);
+											setModalDeleteShow(true);
+										}}
+										size='sm'
+										variant='outline-danger'
+										style={{ width: 30 }}>
+										<FontAwesomeIcon icon={faRemove} />
+									</Button>
+								</div>
+							</td>
+						</tr>
+					))}
+				</tbody>
+			</Table>
+		</div>
 	);
 };

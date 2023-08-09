@@ -1,23 +1,14 @@
-import { useState } from 'react';
-import { Button, Col, Form, InputGroup, ListGroup, Row } from 'react-bootstrap';
+import { Col, Form, Row } from 'react-bootstrap';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
-import { backendAPI } from '../../api/backendAPI';
+import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
+import { useEffect } from 'react';
 
 export const UsersInputsForm = ({
 	formik,
 	setIsUserInfoLoaded,
 	isUserInfoLoaded,
+	editMode = false,
 }) => {
-	const [isDropDownOpen, setIsDropDownOpen] = useState(false);
-	const [suggestionList, setSuggestionList] = useState();
-
-	const handleFocusEmail = (e) => {
-		const value = e.target.value;
-		if (value.length >= 3) {
-			setIsDropDownOpen(true);
-		}
-	};
-
 	const handleClickSuggestion = (suggestion) => {
 		console.log(suggestion);
 		setIsUserInfoLoaded(true);
@@ -31,80 +22,53 @@ export const UsersInputsForm = ({
 		formik.values.phone = suggestion.phone;
 		formik.setFieldTouched('phone', true);
 	};
-	const handleBlur = () => {
-		setTimeout(() => setIsDropDownOpen(false), 150);
-	};
-
-	const cleanEmailClick = () => {
-		setIsUserInfoLoaded(false);
-		formik.values.email = '';
-		formik.setFieldTouched('email', false);
-	};
-	const handleChangeEmail = (e) => {
-		const value = e.target.value;
-		if (e.target.value.length >= 3) {
-			setIsDropDownOpen(true);
-			backendAPI.get('/api/users', { params: { email: value } }).then((res) => {
-				if (!res.data.data) {
-					setSuggestionList();
-					setIsUserInfoLoaded(false);
-					return;
-				}
-				setSuggestionList(res.data.data);
-			});
-		} else {
-			setIsDropDownOpen(false);
-			setIsUserInfoLoaded(false);
+	useEffect(() => {
+		if (!isUserInfoLoaded) {
+			formik.values.phone = '';
+			formik.values.firstName = '';
+			formik.values.lastName = '';
 		}
-	};
+	}, [isUserInfoLoaded]);
 	return (
 		<>
 			<Form.Group className='mb-3' controlId='email'>
-				<Form.Label>Email *</Form.Label>
-				<InputGroup
-					className='mb-3 d-flex flex-column'
-					onChange={handleChangeEmail}
-					onFocus={handleFocusEmail}
-					onBlur={handleBlur}
-					autoComplete='off'>
-					<div className='d-flex'>
+				{!editMode ? (
+					<>
+						<Form.Label>Email *</Form.Label>
+						<PatientInputWithSuggestions
+							formik={formik}
+							setIsUserInfoLoaded={setIsUserInfoLoaded}
+							handleClickSuggestion={handleClickSuggestion}
+							name={'email'}
+							fieldsToRender={[
+								{ name: 'email', title: 'Email' },
+								{ name: 'firstName', title: 'Nombre' },
+								{ name: 'lastName', title: 'Apellido' },
+							]}
+							endPoint='/api/users'
+							queryName='email'
+							hasTextCapitalization={false}
+							placeholder={'Busque un email'}
+						/>
+					</>
+				) : (
+					<Form.Group
+						as={Col}
+						sm={12}
+						lg={6}
+						className='mb-3'
+						controlId='email'>
+						<Form.Label>Email *</Form.Label>
 						<InputWithFeedback
 							hasTextCapitalization={false}
-							noFeedback={true}
 							type='text'
-							placeholder='Busque un email'
+							placeholder='Ramiro'
 							formik={formik}
 							name={'email'}
-							props={{ maxLength: 40, autoComplete: 'new-password' }}
+							props={{ maxLength: 40, disabled: isUserInfoLoaded }}
 						/>
-
-						<Button
-							type='button'
-							variant='outline-secondary'
-							onClick={cleanEmailClick}>
-							Borrar
-						</Button>
-					</div>
-					<ListGroup
-						className={`shadow-lg w-100 ${
-							isDropDownOpen ? 'position-absolute' : 'd-none'
-						}`}
-						style={{ top: 37 }}>
-						{!suggestionList ? (
-							<ListGroup.Item>No existe el email buscado</ListGroup.Item>
-						) : (
-							suggestionList.map((suggestion) => (
-								<ListGroup.Item
-									type='button'
-									key={suggestion._id}
-									action
-									onClick={() => handleClickSuggestion(suggestion)}>
-									{suggestion.email}
-								</ListGroup.Item>
-							))
-						)}
-					</ListGroup>
-				</InputGroup>
+					</Form.Group>
+				)}
 			</Form.Group>
 
 			<Row>

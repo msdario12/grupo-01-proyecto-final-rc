@@ -1,8 +1,9 @@
-import React from 'react';
 import { ContactForm } from '../components/Contact-Form';
 import { ContactInfo } from '../components/Contact-Info';
+import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 
-export const ContactPage = () => {
+export const ContactPage = ({ title }) => {
+	useDocumentTitle(title);
 	return (
 		<>
 			<h1>Contact Page</h1>

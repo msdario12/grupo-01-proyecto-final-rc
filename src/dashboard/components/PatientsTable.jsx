@@ -1,13 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Badge, Button, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
-import { backendAPI } from '../../api/backendAPI';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
-import { EditPatientPage } from '../pages/EditPatientPage';
 import { DeletePatientPage } from './DeletePatientPage';
 import { NewPatientPage } from '../pages/NewPatientPage';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { useAuth } from '../../hooks/useAuth';
+import { GenericEditPage } from '../pages/GenericEditPage';
+import { UserEditForm } from './UserEditForm';
+import { PetEditForm } from './PetEditForm';
+import { useNavigate } from 'react-router';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -20,22 +24,34 @@ const columnList = [
 ];
 
 export const PatientsTable = () => {
+	const navigate = useNavigate();
 	const [patientsList, setPatientsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
 	const [selectedPatientID, setSelectedPatientID] = useState('');
 	const [modalEditShow, setModalEditShow] = useState(false);
 	const [modalDeleteShow, setModalDeleteShow] = useState(false);
 	const [modalNewPatientShow, setModalNewPatientShow] = useState(false);
+	const { privateBackendAPI } = useAxiosPrivate();
+	const { auth } = useAuth();
 	useEffect(() => {
-		backendAPI.get('/api/patients').then((res) => {
-			console.log(res.data.data);
-			setPatientsList(res.data.data);
-		});
-	}, [modalEditShow, modalDeleteShow, modalNewPatientShow]);
+		privateBackendAPI
+			.get('/api/patients')
+			.then((res) => {
+				console.log(res.data.data);
+				setPatientsList(res.data.data);
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	}, [modalEditShow, modalDeleteShow, modalNewPatientShow, auth]);
+	const handleClickRow = (patientID) => {
+		navigate(`../patient/${patientID}`);
+	};
 	if (!patientsList) {
 		return (
-			<div className='d-flex justify-content-center'>
+			<div className='d-flex justify-content-center gap-3 align-items-center align-items-center'>
 				<Spinner animation='border' />
+				<h3>Cargando datos de pacientes</h3>
 			</div>
 		);
 	}
@@ -67,11 +83,17 @@ export const PatientsTable = () => {
 				title={'Listado de pacientes'}
 				subtitle={'Edita o elimina pacientes.'}
 			/>
-			<EditPatientPage
-				selectedPatientID={selectedPatientID}
+
+			<GenericEditPage
+				title='Edición de pacientes'
+				endPoint='/api/patients/'
+				selectID={selectedPatientID}
 				show={modalEditShow}
-				onHide={() => setModalEditShow(false)}
-			/>
+				setModalEditShow={setModalEditShow}
+				onHide={() => setModalEditShow(false)}>
+				<UserEditForm />
+				<PetEditForm />
+			</GenericEditPage>
 			<DeletePatientPage
 				selectedPatientID={selectedPatientID}
 				show={modalDeleteShow}
@@ -109,7 +131,11 @@ export const PatientsTable = () => {
 				</thead>
 				<tbody className='align-middle fw-semibold'>
 					{patientsList.map((patient) => (
-						<tr key={patient._id} className='text-capitalize'>
+						<tr
+							style={{ cursor: 'pointer' }}
+							key={patient._id}
+							className='text-capitalize'
+							onClick={() => handleClickRow(patient._id)}>
 							<td>{patient.index}</td>
 							<td>{patient.firstName}</td>
 							<td>{patient.lastName}</td>
