@@ -22,7 +22,7 @@ export const SidebarContent = ({
 						'home'
 					)}`}>
 					<FontAwesomeIcon icon={faHouse} />
-					<span className='d-none d-md-block'>Inicio</span>
+					<span className='d-md-block'>Inicio</span>
 				</Link>
 			</li>
 			<li className='nav-item' onClick={() => handleClickMenu('patients')}>
@@ -33,7 +33,7 @@ export const SidebarContent = ({
 						'patients'
 					)}`}>
 					<FontAwesomeIcon icon={faDog} />
-					<span className='d-none d-md-block'>Pacientes</span>
+					<span className='d-md-block'>Pacientes</span>
 				</Link>
 			</li>
 			<li className='nav-item' onClick={() => handleClickMenu('turns')}>
@@ -44,7 +44,7 @@ export const SidebarContent = ({
 						'turns'
 					)}`}>
 					<FontAwesomeIcon icon={faCalendarDay} />
-					<span className='d-none d-md-block'>Turnos</span>
+					<span className='d-md-block'>Turnos</span>
 				</Link>
 			</li>
 			<li className='nav-item' onClick={() => handleClickMenu('add-patient')}>
@@ -55,7 +55,7 @@ export const SidebarContent = ({
 						'add-patient'
 					)}`}>
 					<FontAwesomeIcon icon={faAdd} />
-					<span className='d-none d-md-block'>Crear paciente</span>
+					<span className='d-md-block'>Crear paciente</span>
 				</Link>
 			</li>
 			<li className='nav-item' onClick={() => handleClickMenu('add-turn')}>
@@ -66,7 +66,7 @@ export const SidebarContent = ({
 						'add-turn'
 					)}`}>
 					<FontAwesomeIcon icon={faAdd} />
-					<span className='d-none d-md-block'>Crear Turno</span>
+					<span className='d-md-block'>Crear Turno</span>
 				</Link>
 			</li>
 		</ul>

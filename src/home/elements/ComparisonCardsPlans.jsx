@@ -20,7 +20,7 @@ export const ComparisonCardsPlans = ({
 					className='d-flex flex-column justify-content-between'>
 					<Card.Title className='display-6 fw-bold'>{title}</Card.Title>
 					<Card.Text>
-						<p className='fs-6 lh-1'>{description}</p>
+						<span className='fs-6 lh-1'>{description}</span>
 					</Card.Text>
 				</div>
 				<hr></hr>

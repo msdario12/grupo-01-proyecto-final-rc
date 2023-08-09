@@ -27,10 +27,14 @@ export const PatientDetailPage = ({ title }) => {
 	return (
 		<div className='d-flex gap-4 flex-column'>
 			<HeaderTitleDashboard
-				title={'Detalles del paciente ' + patientData.pet_id.name}
+				title={
+					'Detalles del paciente: ' +
+					patientData.pet_id.name.at(0).toUpperCase() +
+					patientData.pet_id.name.slice(1)
+				}
 				subtitle={patientData.pet_id.specie}
 			/>
-			<h2 className='display-6'>Datos del dueño</h2>
+			<h2 className='display-6 fs-3 fw-bold'>Datos del dueño</h2>
 			<div>
 				<div className='d-flex align-items-baseline gap-4'>
 					<h2 className='display-6 fs-4'>Nombre:</h2>
@@ -57,7 +61,7 @@ export const PatientDetailPage = ({ title }) => {
 					</span>
 				</div>
 			</div>
-			<h2 className='display-6'>Turnos del paciente</h2>
+			<h2 className='display-6 fs-3 fw-bold'>Turnos del paciente</h2>
 			<MainTableTurns detailMode={true} patientID={params.id} />
 		</div>
 	);

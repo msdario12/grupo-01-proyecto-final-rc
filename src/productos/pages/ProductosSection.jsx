@@ -37,32 +37,32 @@ const productContent = [
 
 export const ProductsSection = () => {
 	return (
-		<>
-			<h2 className='text-center display-5 fw-bold mb-3'>Productos</h2>
-
-			<div className='row justify-content-center gap-md-3 gap-sm-3 m-0'>
-				{productContent.map((product) => (
-					<Card
-						key={product.title}
-						className='col-12 col-lg-6 p-0 mb-3 mx-2 h-100'
-						style={{ width: '12rem' }}>
-						<Card.Img variant='top' src={product.src} />
-						<Card.Header>
-							<Card.Body>
-								<Card.Title>{product.title}</Card.Title>
-							</Card.Body>
-						</Card.Header>
-						<Card.Footer className='d-flex flex-column'>
-							<div>
-								{Array(product.rating).fill(<FontAwesomeIcon icon={faStar} />)}
-							</div>
-							<div>
-								<span className='fs-5'>{product.price}</span>
-							</div>
-						</Card.Footer>
-					</Card>
-				))}
-			</div>
-		</>
+		<div className='row justify-content-center gap-md-3 gap-sm-3 m-0'>
+			{productContent.map((product) => (
+				<Card
+					key={product.src}
+					className='col-12 col-lg-6 p-0 mb-3 mx-2 h-100'
+					style={{ width: '12rem' }}>
+					<Card.Img variant='top' src={product.src} />
+					<Card.Header>
+						<Card.Body>
+							<Card.Title>{product.title}</Card.Title>
+						</Card.Body>
+					</Card.Header>
+					<Card.Footer className='d-flex flex-column'>
+						<div>
+							{Array(product.rating)
+								.fill('ab')
+								.map((el, index) => (
+									<FontAwesomeIcon key={el + index} icon={faStar} />
+								))}
+						</div>
+						<div>
+							<span className='fs-5'>{product.price}</span>
+						</div>
+					</Card.Footer>
+				</Card>
+			))}
+		</div>
 	);
 };

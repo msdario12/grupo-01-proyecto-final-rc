@@ -30,8 +30,8 @@ const ourTeamContent = [
 export const OurTeam = () => {
 	return (
 		<div className='row gap-3 d-flex justify-content-center'>
-			{ourTeamContent.map((vet) => (
-				<Card key={vet.name} style={{ width: 300 }}>
+			{ourTeamContent.map((vet, index) => (
+				<Card key={vet.name + vet.position} style={{ width: 300 }}>
 					<Card.Body className='d-flex flex-column gap-3 align-items-center justify-content-between'>
 						<img
 							style={{ height: 175 }}

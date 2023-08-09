@@ -1,7 +1,6 @@
 import {
 	faAngleLeft,
 	faAngleRight,
-	faSign,
 	faSignIn,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -88,12 +87,11 @@ export const MainNavBar = ({
 								</Nav.Link>
 							)
 						)}
-
-						<Nav.Link href='#linkd' state={{ prevUrl: location }}>
+						<Nav.Link
+							as={NavLink}
+							to={'/detail-plans/medium'}
+							state={{ prevUrl: location }}>
 							Planes
-						</Nav.Link>
-						<Nav.Link href='#link44' state={{ prevUrl: location }}>
-							Productos
 						</Nav.Link>
 						<Nav.Link
 							as={NavLink}
@@ -126,7 +124,10 @@ export const MainNavBar = ({
 								<NavDropdown
 									drop='down'
 									align={'end'}
-									title={auth.firstName}
+									title={
+										auth?.firstName?.at(0).toUpperCase() +
+										auth?.firstName?.slice(1)
+									}
 									menuVariant='dark'>
 									<NavDropdown.Item href='#action/3.1'>
 										Mi cuenta
