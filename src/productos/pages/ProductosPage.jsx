@@ -1,6 +1,7 @@
-import React from 'react'
-import Card from 'react-bootstrap/Card';
 
+import Card from 'react-bootstrap/Card';
+import {faStar} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 export const ProductosPage = () => {
     return (
@@ -18,8 +19,8 @@ export const ProductosPage = () => {
 
                         </Card.Body>
                     </Card.Header>
-                    <Card.Footer>
-                        $2.500,50
+                    <Card.Footer >
+                    <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />   <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />     $2.500,50
                     </Card.Footer>
                 </Card>
 
@@ -32,7 +33,7 @@ export const ProductosPage = () => {
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
-                        $3.200
+                    <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />   <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />      $3.200,80
                     </Card.Footer>
                 </Card>
 
@@ -46,7 +47,7 @@ export const ProductosPage = () => {
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
-                        $1.500,60
+                    <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />   <FontAwesomeIcon icon={faStar } /> <br />  $1.500,60
                     </Card.Footer>
                 </Card>
 
@@ -61,7 +62,7 @@ export const ProductosPage = () => {
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
-                        $3.500
+                    <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />   <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />  <br /> $3.500
                     </Card.Footer>
                 </Card>
 
@@ -75,7 +76,7 @@ export const ProductosPage = () => {
                         </Card.Body>
                     </Card.Header>
                     <Card.Footer>
-                        $1.200,400
+                    <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />   <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />  <FontAwesomeIcon icon={faStar } />    $1.200,400
                     </Card.Footer>
                 </Card>
 
