@@ -1,3 +1,4 @@
+import { ProductsSection } from '../../productos/pages/ProductosSection';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { ComparisonPlans } from '../components/ComparisonPlans';
 import { HeroSection } from '../components/HeroSection';
@@ -12,6 +13,7 @@ export const HomePage = ({ title }) => {
 			<HeroSection />
 			<Servicios/>
 			<ComparisonPlans />
+			<ProductsSection />
 			<TestimonialSection />
 			
 		</main>
