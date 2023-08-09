@@ -1,5 +1,3 @@
-import format from 'date-fns/format';
-import { es } from 'date-fns/locale';
 import { useEffect, useState } from 'react';
 import { Badge, Button, Spinner, Table } from 'react-bootstrap';
 import { CustomTh } from './CustomTh';
@@ -12,6 +10,8 @@ import { GenericEditPage } from '../pages/GenericEditPage';
 import { TurnEditPage } from '../pages/TurnEditPage';
 import { DeleteTurnPage } from '../pages/DeleteTurnPage';
 import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
+import { NewTurnModal } from '../pages/NewTurnModal';
+import { useLocation } from 'react-router-dom';
 
 const columnList = [
 	{ title: 'Fecha', name: 'date' },
@@ -31,7 +31,15 @@ export const MainTableTurns = () => {
 	const [modalEditShow, setModalEditShow] = useState(false);
 	const [modalDeleteShow, setModalDeleteShow] = useState(false);
 	const { privateBackendAPI } = useAxiosPrivate();
+	const [modalNewTurn, setModalNewTurn] = useState(false);
+	const location = useLocation();
 	const { auth } = useAuth();
+
+	useEffect(() => {
+		if (location?.state?.patient) {
+			setModalNewTurn(true);
+		}
+	}, [location]);
 
 	useEffect(() => {
 		privateBackendAPI
@@ -43,13 +51,33 @@ export const MainTableTurns = () => {
 			.catch((e) => {
 				console.log(e);
 			});
-	}, [auth, modalEditShow, modalDeleteShow]);
+	}, [auth, modalEditShow, modalDeleteShow, modalNewTurn]);
 
 	if (!turnsList) {
 		return (
 			<div className='d-flex justify-content-center gap-3 align-items-center align-items-center'>
 				<Spinner animation='border' />
 				<h3>Cargando listado de turnos</h3>
+			</div>
+		);
+	}
+
+	if (turnsList.length === 0) {
+		return (
+			<div className='d-flex justify-content-center align-items-center gap-3 flex-column'>
+				<h4 className='display-6 fs-4 fw-semibold'>
+					La lista de turnos esta vacía...
+				</h4>
+				<div>
+					<Button onClick={() => setModalNewTurn(true)} variant='primary'>
+						Crear nuevo turno
+					</Button>
+					<NewTurnModal
+						show={modalNewTurn}
+						setModalNewTurn={setModalNewTurn}
+						onHide={() => setModalNewTurn(false)}
+					/>
+				</div>
 			</div>
 		);
 	}
@@ -70,6 +98,17 @@ export const MainTableTurns = () => {
 				show={modalDeleteShow}
 				setModalDeleteShow={setModalDeleteShow}
 				onHide={() => setModalDeleteShow(false)}
+			/>
+			<Button
+				className='mb-4'
+				onClick={() => setModalNewTurn(true)}
+				variant='primary'>
+				Crear nuevo turno
+			</Button>
+			<NewTurnModal
+				show={modalNewTurn}
+				setModalNewTurn={setModalNewTurn}
+				onHide={() => setModalNewTurn(false)}
 			/>
 			<Table hover responsive>
 				<thead>

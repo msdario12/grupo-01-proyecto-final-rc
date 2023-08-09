@@ -61,7 +61,7 @@ export const PetEditForm = () => {
 	});
 
 	useEffect(() => {
-		if (data.pet_id) {
+		if (data) {
 			privateBackendAPI.get(`/api/pets/${data.pet_id}`).then((res) => {
 				setPetData(res.data.data);
 
@@ -69,7 +69,7 @@ export const PetEditForm = () => {
 				formik.setTouched(res.data.data, true);
 			});
 		}
-	}, [data.pet_id, formik.handleSubmit]);
+	}, [data, formik.handleSubmit]);
 
 	useEffect(() => {
 		if (formik.values === petData) {

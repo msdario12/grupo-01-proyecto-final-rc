@@ -122,7 +122,7 @@ export const PatientInputWithSuggestions = ({
 				) : (
 					<div
 						className='overflow-scroll'
-						style={{ height: 275, zIndex: 10000 }}>
+						style={{ maxHeight: 275, zIndex: 10000 }}>
 						{suggestionList.map((suggestion) => (
 							<ListGroup.Item
 								key={suggestion._id}

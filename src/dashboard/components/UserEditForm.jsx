@@ -74,7 +74,7 @@ export const UserEditForm = () => {
 				formik.setTouched(res.data.data, false);
 			});
 		}
-	}, [data.user_id, formik.handleSubmit]);
+	}, [data, formik.handleSubmit]);
 
 	useEffect(() => {
 		if (formik.values === dataToEdit) {

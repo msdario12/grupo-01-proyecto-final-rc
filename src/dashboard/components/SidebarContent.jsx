@@ -58,6 +58,17 @@ export const SidebarContent = ({
 					<span className='d-none d-md-block'>Crear paciente</span>
 				</Link>
 			</li>
+			<li className='nav-item' onClick={() => handleClickMenu('add-turn')}>
+				<Link
+					to={'add-turn'}
+					className={`nav-link d-flex gap-2 justify-content-center justify-content-md-start align-items-center ${setActiveItem(
+						selectItem,
+						'add-turn'
+					)}`}>
+					<FontAwesomeIcon icon={faAdd} />
+					<span className='d-none d-md-block'>Crear Turno</span>
+				</Link>
+			</li>
 		</ul>
 	);
 };

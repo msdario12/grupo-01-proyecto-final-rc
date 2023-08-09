@@ -52,6 +52,9 @@ export const TurnsForm = ({ modalMode = false }) => {
 					setIsUserInfoLoaded(false);
 					setIsLoading(false);
 					setSelectedPatient();
+					if (location?.state?.patient) {
+						location.state = {};
+					}
 					formik.resetForm();
 				})
 				.catch((e) => {
@@ -128,7 +131,7 @@ export const TurnsForm = ({ modalMode = false }) => {
 	};
 
 	return (
-		<div>
+		<div className='d-flex flex-column gap-4'>
 			{!modalMode ? (
 				<HeaderTitleDashboard
 					title={'Crear turnos'}
@@ -162,7 +165,8 @@ export const TurnsForm = ({ modalMode = false }) => {
 					<div className='mb-3 d-flex flex-column'>
 						<p>
 							No se encuentra un paciente con el criterio ingresado, por favor
-							crea uno nuevo
+							crea uno nuevo en la siguiente página. Serás redirigido
+							automáticamente al finalizar la creación del nuevo paciente.
 						</p>
 						<Button
 							as={Link}

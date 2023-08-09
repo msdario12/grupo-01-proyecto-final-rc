@@ -98,7 +98,7 @@ export const TurnEditPage = () => {
 
 	useEffect(() => {
 		setDataToEdit(data);
-		if (data.date) {
+		if (data) {
 			formik.setFieldValue('vet', data.vet);
 			formik.setFieldValue('details', data.details);
 			formik.setFieldValue('turnDate', new Date(data?.date));
@@ -114,10 +114,10 @@ export const TurnEditPage = () => {
 	useEffect(() => {
 		const { details, turnDate, vet, status } = formik.values;
 		if (
-			details === data.details &&
-			turnDate.toISOString() === data.date &&
-			vet === data.vet &&
-			status === data.status
+			details === data?.details &&
+			turnDate.toISOString() === data?.date &&
+			vet === data?.vet &&
+			status === data?.status
 		) {
 			console.log('son iguales');
 			setInputsHasChanges(false);
