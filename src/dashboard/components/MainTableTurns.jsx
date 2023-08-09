@@ -25,7 +25,7 @@ const columnList = [
 ];
 
 export const MainTableTurns = () => {
-	const [turnsList, setTurnsList] = useState([]);
+	const [turnsList, setTurnsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
 	const [selectedTurn, setSelectedTurn] = useState('');
 	const [modalEditShow, setModalEditShow] = useState(false);
