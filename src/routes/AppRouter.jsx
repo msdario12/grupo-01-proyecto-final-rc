@@ -16,6 +16,7 @@ import { GenericModal } from '../ui/components/GenericModal';
 import { OurDevelopers } from '../our-developers/page/OurDevelopers';
 import { UnauthorizedPage401 } from '../ui/pages/UnauthorizedPage401';
 import { NewTurnPage } from '../dashboard/pages/NewTurnPage';
+import { PatientDetailPage } from '../dashboard/pages/PatientDetailPage';
 
 export const AppRouter = () => {
 	return (
@@ -74,6 +75,10 @@ export const AppRouter = () => {
 							<Route
 								path='add-turn'
 								element={<NewTurnPage title={'Añadir paciente'} />}
+							/>
+							<Route
+								path='patient/:id'
+								element={<PatientDetailPage title={'Detalles de paciente'} />}
 							/>
 						</Route>
 					</Route>

@@ -24,8 +24,8 @@ const columnList = [
 	{ title: 'Acción', name: 'action', hasIcon: false, center: true },
 ];
 
-export const MainTableTurns = () => {
-	const [turnsList, setTurnsList] = useState([]);
+export const MainTableTurns = ({ detailMode = false, patientID }) => {
+	const [turnsList, setTurnsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
 	const [selectedTurn, setSelectedTurn] = useState('');
 	const [modalEditShow, setModalEditShow] = useState(false);
@@ -42,6 +42,18 @@ export const MainTableTurns = () => {
 	}, [location]);
 
 	useEffect(() => {
+		if (detailMode) {
+			privateBackendAPI
+				.get(`/api/turns?patientID=${patientID}`)
+				.then((res) => {
+					console.log(res.data.data);
+					setTurnsList(res.data.data);
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+			return;
+		}
 		privateBackendAPI
 			.get('/api/turns')
 			.then((res) => {
@@ -51,7 +63,7 @@ export const MainTableTurns = () => {
 			.catch((e) => {
 				console.log(e);
 			});
-	}, [auth, modalEditShow, modalDeleteShow, modalNewTurn]);
+	}, [auth, modalEditShow, modalDeleteShow, modalNewTurn, patientID]);
 
 	if (!turnsList) {
 		return (
@@ -66,13 +78,16 @@ export const MainTableTurns = () => {
 		return (
 			<div className='d-flex justify-content-center align-items-center gap-3 flex-column'>
 				<h4 className='display-6 fs-4 fw-semibold'>
-					La lista de turnos esta vacía...
+					{detailMode
+						? 'El paciente seleccionado no tiene turnos asignados...'
+						: 'La lista de turnos esta vacía...'}
 				</h4>
 				<div>
 					<Button onClick={() => setModalNewTurn(true)} variant='primary'>
 						Crear nuevo turno
 					</Button>
 					<NewTurnModal
+						patientIDFromTurns={patientID}
 						show={modalNewTurn}
 						setModalNewTurn={setModalNewTurn}
 						onHide={() => setModalNewTurn(false)}
@@ -106,6 +121,7 @@ export const MainTableTurns = () => {
 				Crear nuevo turno
 			</Button>
 			<NewTurnModal
+				patientIDFromTurns={patientID}
 				show={modalNewTurn}
 				setModalNewTurn={setModalNewTurn}
 				onHide={() => setModalNewTurn(false)}

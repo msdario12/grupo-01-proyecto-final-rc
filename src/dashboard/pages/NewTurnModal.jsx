@@ -9,7 +9,10 @@ export const NewTurnModal = (props) => {
 			centered
 			aria-labelledby='contained-modal-title-vcenter'>
 			<Modal.Body>
-				<TurnsForm modalMode={false} />
+				<TurnsForm
+					modalMode={false}
+					patientIDFromTurns={props.patientIDFromTurns}
+				/>
 			</Modal.Body>
 		</Modal>
 	);

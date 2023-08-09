@@ -11,6 +11,7 @@ import { useAuth } from '../../hooks/useAuth';
 import { GenericEditPage } from '../pages/GenericEditPage';
 import { UserEditForm } from './UserEditForm';
 import { PetEditForm } from './PetEditForm';
+import { useNavigate } from 'react-router';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -23,6 +24,7 @@ const columnList = [
 ];
 
 export const PatientsTable = () => {
+	const navigate = useNavigate();
 	const [patientsList, setPatientsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
 	const [selectedPatientID, setSelectedPatientID] = useState('');
@@ -42,6 +44,9 @@ export const PatientsTable = () => {
 				console.log(e);
 			});
 	}, [modalEditShow, modalDeleteShow, modalNewPatientShow, auth]);
+	const handleClickRow = (patientID) => {
+		navigate(`../patient/${patientID}`);
+	};
 	if (!patientsList) {
 		return (
 			<div className='d-flex justify-content-center gap-3 align-items-center align-items-center'>
@@ -126,7 +131,11 @@ export const PatientsTable = () => {
 				</thead>
 				<tbody className='align-middle fw-semibold'>
 					{patientsList.map((patient) => (
-						<tr key={patient._id} className='text-capitalize'>
+						<tr
+							style={{ cursor: 'pointer' }}
+							key={patient._id}
+							className='text-capitalize'
+							onClick={() => handleClickRow(patient._id)}>
 							<td>{patient.index}</td>
 							<td>{patient.firstName}</td>
 							<td>{patient.lastName}</td>
