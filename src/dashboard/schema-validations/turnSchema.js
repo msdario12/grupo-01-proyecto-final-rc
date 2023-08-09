@@ -12,7 +12,7 @@ export const filterPassedTime = (time) => {
 	const openMorning = setHours(new Date(time), 8);
 	const closeMorning = setHours(new Date(time), 12);
 	const openAfternoon = setHours(new Date(time), 16);
-	const closeAfternoon = setHours(new Date(time), 20);
+	const closeAfternoon = setHours(new Date(time), 22);
 	const selectedDate = new Date(time);
 
 	const morningCheck =
