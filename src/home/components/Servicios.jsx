@@ -47,15 +47,15 @@ export const Servicios = () => {
 				{servicesContent.map((service) => (
 					<Carousel.Item key={service.alt} className='c-item'>
 						<div className='container-carousel'>
-              <img
-                className='d-block w-100 c-img object-fit-cover'
-                src={service.src}
-                alt={service.alt}
-              />
-            </div>
+							<img
+								className='d-block w-100 object-fit-cover'
+								src={service.src}
+								alt={service.alt}
+							/>
+						</div>
 						<Carousel.Caption>
-							<div>
-								<h5>{service.title}</h5>
+							<div className='text-start'>
+								<h5 className='fw-bold'>{service.title}</h5>
 								<p>{service.content}</p>
 							</div>
 						</Carousel.Caption>
