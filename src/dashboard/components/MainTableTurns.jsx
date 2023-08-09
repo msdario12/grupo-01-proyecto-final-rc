@@ -46,7 +46,6 @@ export const MainTableTurns = ({ detailMode = false, patientID }) => {
 			privateBackendAPI
 				.get(`/api/turns?patientID=${patientID}`)
 				.then((res) => {
-					console.log(res.data.data);
 					setTurnsList(res.data.data);
 				})
 				.catch((e) => {
@@ -57,7 +56,6 @@ export const MainTableTurns = ({ detailMode = false, patientID }) => {
 		privateBackendAPI
 			.get('/api/turns')
 			.then((res) => {
-				console.log(res.data.data);
 				setTurnsList(res.data.data);
 			})
 			.catch((e) => {

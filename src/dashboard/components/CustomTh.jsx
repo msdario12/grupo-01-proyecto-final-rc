@@ -46,7 +46,6 @@ export const CustomTh = ({
 	};
 
 	const comparingFunction = (a, b, name) => {
-		console.log(typeof a[name], sortMode);
 		if (sortMode === 'original') {
 			return a[idName] - b[idName];
 		}
@@ -64,7 +63,6 @@ export const CustomTh = ({
 	};
 	const handleClickSortColumn = (name) => {
 		setSortedColumn(name);
-		console.log(sortMode);
 		switchSortMode();
 		setTurnsList((prev) =>
 			[...prev].sort((a, b) => comparingFunction(a, b, name))

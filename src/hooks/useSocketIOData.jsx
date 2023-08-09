@@ -6,7 +6,6 @@ export const useSocketIOData = () => {
 	const [events, setEvents] = useState([]);
 
 	useEffect(() => {
-		console.log('Entrando al effect');
 		function onConnect() {
 			setIsConnected(true);
 			console.log('conexion');

@@ -12,11 +12,9 @@ export const useWeatherData = () => {
 			const now = new Date().getTime();
 			const localFetch = localStorage.getItem('lastFetchWeather');
 			if (!localFetch) {
-				console.log('no hay data');
 				localStorage.setItem('lastFetchWeather', now);
 			}
 			if (now - localFetch < timeToWaitInSeconds * 1000) {
-				console.log('no fetch');
 				const cachedData = localStorage.getItem('weatherData');
 				if (cachedData) {
 					setWeatherData(JSON.parse(cachedData));

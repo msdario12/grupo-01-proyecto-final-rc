@@ -28,7 +28,6 @@ export const MainNavBar = ({
 	};
 
 	useEffect(() => {
-		console.log(auth);
 		if (auth.accessToken) {
 			setIsUserLogged(true);
 		} else {

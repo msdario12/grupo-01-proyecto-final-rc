@@ -35,7 +35,6 @@ export const UserEditForm = () => {
 		onSubmit: (values) => {
 			// Logica para enviar informacion al backend
 			const castValues = userEditSchema.cast(values);
-			console.log(castValues);
 			setIsLoading(true);
 			privateBackendAPI
 				.put(`/api/users/${data.user_id}`, castValues)

@@ -96,12 +96,10 @@ export const TurnsForm = ({
 	});
 
 	useEffect(() => {
-		console.log(patientIDFromTurns);
 		if (patientIDFromTurns) {
 			privateBackendAPI
 				.get(`/api/patients/${patientIDFromTurns}?populate=true`)
 				.then((res) => {
-					console.log(res);
 					const { _id } = res.data.data;
 					const { name, race, specie } = res.data.data.pet_id;
 					const { firstName, lastName, phone, email } = res.data.data.user_id;
@@ -124,7 +122,6 @@ export const TurnsForm = ({
 	}, [patientIDFromTurns]);
 	useEffect(() => {
 		if (location?.state?.patient) {
-			console.log(location?.state?.patient);
 			const patientID = location?.state?.patient._id;
 			privateBackendAPI
 				.get(`/api/patients/${patientID}?populate=true`)

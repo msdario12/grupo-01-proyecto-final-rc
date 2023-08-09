@@ -48,7 +48,6 @@ export const LoginScreen = () => {
 			const { value: email } = e.target.email;
 			const { value: password } = e.target.password;
 
-			console.log(email, password);
 			setIsLoading(true);
 
 			backendAPI

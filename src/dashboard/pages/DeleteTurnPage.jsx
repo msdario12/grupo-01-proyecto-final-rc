@@ -16,7 +16,6 @@ export const DeleteTurnPage = (props) => {
 
 	useEffect(() => {
 		if (props.selectedTurn) {
-			console.log(props.selectedTurn);
 			setTurnData(props.selectedTurn);
 		}
 	}, [props.selectedTurn]);

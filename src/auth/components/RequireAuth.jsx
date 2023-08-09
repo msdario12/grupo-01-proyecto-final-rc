@@ -35,7 +35,6 @@ export const RequireAuth = () => {
 				}
 			)
 			.then((res) => {
-				console.log(res.data);
 				if (res.data.success) {
 					const { firstName, role, email } = res.data;
 					setAuth({ firstName, role, email, accessToken });

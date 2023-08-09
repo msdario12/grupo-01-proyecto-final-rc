@@ -16,7 +16,6 @@ export const DeletePatientPage = (props) => {
 		privateBackendAPI
 			.get(`/api/patients/${props.selectedPatientID}?populate=true`)
 			.then((res) => {
-				console.log(res.data);
 				setPatientData(res.data.data);
 			});
 	}, [props]);
