@@ -134,19 +134,28 @@ export const PatientsTable = () => {
 						<tr
 							style={{ cursor: 'pointer' }}
 							key={patient._id}
-							className='text-capitalize'
-							onClick={() => handleClickRow(patient._id)}>
+							className='text-capitalize'>
 							<td>{patient.index}</td>
-							<td>{patient.firstName}</td>
-							<td>{patient.lastName}</td>
-							<td className='text-lowercase'>{patient.email}</td>
-							<td>
+							<td onClick={() => handleClickRow(patient._id)}>
+								{patient.firstName}
+							</td>
+							<td onClick={() => handleClickRow(patient._id)}>
+								{patient.lastName}
+							</td>
+							<td
+								className='text-lowercase'
+								onClick={() => handleClickRow(patient._id)}>
+								{patient.email}
+							</td>
+							<td onClick={() => handleClickRow(patient._id)}>
 								<div className='d-flex flex-column align-items-start'>
 									<span className=''>{patient.name}</span>
 								</div>
 							</td>
-							<td>{patient.race}</td>
-							<td>
+							<td onClick={() => handleClickRow(patient._id)}>
+								{patient.race}
+							</td>
+							<td onClick={() => handleClickRow(patient._id)}>
 								<Badge pill bg='primary'>
 									{patient.specie}
 								</Badge>
@@ -154,7 +163,6 @@ export const PatientsTable = () => {
 							<td>
 								<div className='d-flex gap-2 justify-content-center'>
 									<Button
-										className='z-3'
 										onClick={() => {
 											setSelectedPatientID(patient._id);
 											setModalEditShow(true);
@@ -166,7 +174,6 @@ export const PatientsTable = () => {
 									</Button>
 
 									<Button
-										className='z-3'
 										onClick={() => {
 											setSelectedPatientID(patient._id);
 											setModalDeleteShow(true);
