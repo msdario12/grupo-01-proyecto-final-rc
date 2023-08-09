@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './LoginScreen.css';
 import { useContext, useState } from 'react';
-import { Button, Card, Form } from 'react-bootstrap';
+import { Button, Card, Form, Spinner } from 'react-bootstrap';
 import { backendAPI } from '../api/backendAPI';
 import { AuthContext } from '../context/AuthProvider';
 import { CustomAlertResponse } from '../dashboard/components/CustomAlertResponse';
@@ -152,10 +152,25 @@ export const LoginScreen = () => {
 							<CustomAlertResponse response={response} showAlert={showAlert} />
 
 							<Button
-								type='submit'
 								className='px-4 py-2 w-100'
-								disabled={emailError || passwordError}>
-								Ingresar
+								disabled={emailError || passwordError || isLoading || showAlert}
+								variant={'primary'}
+								size='md'
+								type='submit'>
+								{isLoading ? (
+									<div>
+										<Spinner
+											as='span'
+											animation='border'
+											size='sm'
+											role='status'
+											aria-hidden='true'
+										/>
+										<span className='ms-2'>Cargando</span>
+									</div>
+								) : (
+									'Ingresar'
+								)}
 							</Button>
 						</Card.Body>
 					</Card>
