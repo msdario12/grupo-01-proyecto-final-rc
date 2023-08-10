@@ -22,7 +22,6 @@ export const useWeatherData = () => {
 				return;
 			}
 			localStorage.setItem('lastFetchWeather', now);
-			console.log('nuevo fetch');
 
 			backendAPI
 				.get('/api/weather', {
@@ -35,7 +34,6 @@ export const useWeatherData = () => {
 					localStorage.setItem('weatherData', JSON.stringify(res.data.data));
 				})
 				.catch((e) => {
-					console.log(e);
 					localStorage.removeItem('lastFetchWeather');
 					localStorage.removeItem('weatherData');
 				});

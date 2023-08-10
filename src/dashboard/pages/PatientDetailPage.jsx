@@ -18,7 +18,6 @@ export const PatientDetailPage = ({ title }) => {
 			.get(`/api/patients/${params.id}?populate=true`)
 			.then((res) => {
 				setPatientData(res.data.data);
-				console.log(res);
 			});
 	}, [params, privateBackendAPI, auth]);
 	if (!patientData) {

@@ -14,7 +14,6 @@ export const GenericEditPage = (props) => {
 			privateBackendAPI
 				.get(`${props.endPoint + props.selectID}`)
 				.then((res) => {
-					console.log(res.data);
 					setData(res.data.data);
 				})
 				.catch((e) => {

@@ -27,7 +27,6 @@ export const DeletePatientPage = (props) => {
 		privateBackendAPI
 			.delete(`/api/patients/${props.selectedPatientID}`)
 			.then((res) => {
-				console.log(res.data);
 				addToast({
 					message: 'Paciente eliminado correctamente',
 					variant: 'success',

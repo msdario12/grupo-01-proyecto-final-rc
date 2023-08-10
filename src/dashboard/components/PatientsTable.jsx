@@ -37,12 +37,9 @@ export const PatientsTable = () => {
 		privateBackendAPI
 			.get('/api/patients')
 			.then((res) => {
-				console.log(res.data.data);
 				setPatientsList(res.data.data);
 			})
-			.catch((e) => {
-				console.log(e);
-			});
+			.catch((e) => {});
 	}, [modalEditShow, modalDeleteShow, modalNewPatientShow, auth]);
 	const handleClickRow = (patientID) => {
 		navigate(`../patient/${patientID}`);

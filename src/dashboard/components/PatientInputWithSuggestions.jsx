@@ -57,7 +57,7 @@ export const PatientInputWithSuggestions = ({
 							return;
 						}
 						setIsUserInfoLoaded(true);
-						console.log(res.data.data);
+
 						setSuggestionList(res.data.data);
 						setIsLoading(false);
 					})

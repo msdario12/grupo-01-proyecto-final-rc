@@ -50,7 +50,7 @@ export const TurnsForm = ({
 						variant: 'success',
 						message: 'Turno creado correctamente',
 					});
-					console.log(res);
+
 					formik.resetForm();
 					setIsUserInfoLoaded(false);
 					setIsLoading(false);
@@ -61,7 +61,6 @@ export const TurnsForm = ({
 					formik.resetForm();
 				})
 				.catch((e) => {
-					console.log(e);
 					if (e.response.data.errors) {
 						const { errors } = e.response.data;
 						const errorList = (
@@ -126,7 +125,6 @@ export const TurnsForm = ({
 			privateBackendAPI
 				.get(`/api/patients/${patientID}?populate=true`)
 				.then((res) => {
-					console.log(res);
 					const { _id } = res.data.data;
 					const { name, race, specie } = res.data.data.pet_id;
 					const { firstName, lastName, phone, email } = res.data.data.user_id;
@@ -150,7 +148,7 @@ export const TurnsForm = ({
 
 	const handleClickSuggestion = (suggestion) => {
 		setSelectedPatient(suggestion);
-		console.log(suggestion);
+
 		setIsUserInfoLoaded(true);
 
 		formik.values.multiSearch = suggestion.email;

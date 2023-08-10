@@ -46,7 +46,6 @@ export const UserEditForm = () => {
 
 					setIsLoading(false);
 					setInputsHasChanges(false);
-					console.log(res);
 				})
 				.catch((e) => {
 					console.error(e);
@@ -67,7 +66,6 @@ export const UserEditForm = () => {
 	useEffect(() => {
 		if (data) {
 			privateBackendAPI.get(`/api/users/${data.user_id}`).then((res) => {
-				console.log(res.data);
 				setDataToEdit(res.data.data);
 				formik.setValues(res.data.data, false);
 				formik.setTouched(res.data.data, false);
@@ -77,7 +75,6 @@ export const UserEditForm = () => {
 
 	useEffect(() => {
 		if (formik.values === dataToEdit) {
-			console.log('son iguales');
 			setInputsHasChanges(false);
 		} else {
 			setInputsHasChanges(true);

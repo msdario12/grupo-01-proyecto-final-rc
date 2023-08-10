@@ -61,7 +61,7 @@ export const LoginScreen = () => {
 				)
 				.then((res) => {
 					setPassword('');
-					console.log(res);
+
 					setShowAlert(true);
 					setResponse(res.data);
 					setIsLoading(false);

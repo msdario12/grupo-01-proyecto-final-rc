@@ -10,7 +10,6 @@ export const UsersInputsForm = ({
 	editMode = false,
 }) => {
 	const handleClickSuggestion = (suggestion) => {
-		console.log(suggestion);
 		setIsUserInfoLoaded(true);
 		formik.values.email = suggestion.email;
 		formik.values.firstName = suggestion.firstName;
@@ -109,7 +108,6 @@ export const UsersInputsForm = ({
 				<Form.Label>Número de teléfono *</Form.Label>
 				<InputWithFeedback
 					type='tel'
-					onChange={(e) => console.log(e)}
 					placeholder='38135222115'
 					formik={formik}
 					name={'phone'}

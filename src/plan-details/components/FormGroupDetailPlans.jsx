@@ -90,7 +90,6 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 		},
 		validationSchema: consultFormSchema,
 		onSubmit: (values) => {
-			console.log(values);
 			setIsLoading(true);
 			emailjs
 				.sendForm(
@@ -103,7 +102,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 					(result) => {
 						setShowAlert(true);
 						setIsLoading(false);
-						console.log(result.text);
+
 						setResponse({
 							success: true,
 							message:
@@ -113,7 +112,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 					(error) => {
 						setShowAlert(true);
 						setIsLoading(false);
-						console.log(error.text);
+
 						setResponse({
 							success: false,
 							message: 'Hubo un error al enviar el mail.',

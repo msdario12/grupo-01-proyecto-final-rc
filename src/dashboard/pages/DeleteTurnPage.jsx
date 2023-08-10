@@ -27,7 +27,6 @@ export const DeleteTurnPage = (props) => {
 		privateBackendAPI
 			.delete(`/api/turns/${props.selectedTurn._id}`)
 			.then((res) => {
-				console.log(res.data);
 				addToast({
 					message: 'Paciente eliminado correctamente',
 					variant: 'success',

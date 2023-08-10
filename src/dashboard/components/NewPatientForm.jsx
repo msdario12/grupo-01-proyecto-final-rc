@@ -60,7 +60,7 @@ export const NewPatientForm = ({
 						variant: 'success',
 						message: 'Paciente creado correctamente',
 					});
-					console.log(res);
+
 					formik.resetForm();
 					setIsUserInfoLoaded(false);
 					setIsLoading(false);
@@ -69,7 +69,6 @@ export const NewPatientForm = ({
 					}
 				})
 				.catch((e) => {
-					console.log(e);
 					addToast({
 						variant: 'error',
 						message:

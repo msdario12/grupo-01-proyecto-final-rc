@@ -44,7 +44,7 @@ export const TurnEditPage = () => {
 			const castValues = newTurnSchema.cast(values);
 			castValues.patient_id = data.patient_id;
 			castValues.date = castValues.turnDate.toISOString();
-			console.log(castValues);
+
 			setIsLoading(true);
 			privateBackendAPI
 				.put(`/api/turns/${data._id}`, castValues)
@@ -56,7 +56,6 @@ export const TurnEditPage = () => {
 
 					setIsLoading(false);
 					setInputsHasChanges(false);
-					console.log(res);
 				})
 				.catch((e) => {
 					console.error(e);
@@ -119,7 +118,6 @@ export const TurnEditPage = () => {
 			vet === data?.vet &&
 			status === data?.status
 		) {
-			console.log('son iguales');
 			setInputsHasChanges(false);
 		} else {
 			setInputsHasChanges(true);

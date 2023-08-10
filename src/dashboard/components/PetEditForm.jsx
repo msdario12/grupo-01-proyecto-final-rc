@@ -44,7 +44,6 @@ export const PetEditForm = () => {
 					});
 					setInputsHasChanges(false);
 					setIsLoading(false);
-					console.log(res);
 				})
 				.catch((e) => {
 					console.error(e);
@@ -73,7 +72,6 @@ export const PetEditForm = () => {
 
 	useEffect(() => {
 		if (formik.values === petData) {
-			console.log('son iguales');
 			setInputsHasChanges(false);
 		} else {
 			setInputsHasChanges(true);
