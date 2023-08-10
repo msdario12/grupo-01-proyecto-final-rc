@@ -68,10 +68,7 @@ export const PetEditForm = () => {
 				formik.setTouched(res.data.data, true);
 			});
 		}
-		return () => {
-			setPetData();
-		};
-	}, [data, formik.handleSubmit]);
+	}, [data]);
 
 	useEffect(() => {
 		if (formik.values === petData) {
@@ -79,9 +76,6 @@ export const PetEditForm = () => {
 		} else {
 			setInputsHasChanges(true);
 		}
-		return () => {
-			formik.resetForm();
-		};
 	}, [petData, formik.values, formik.handleSubmit]);
 
 	if (!petData) {
