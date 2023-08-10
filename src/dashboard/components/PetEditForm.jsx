@@ -46,6 +46,7 @@ export const PetEditForm = () => {
 					setIsLoading(false);
 				})
 				.catch((e) => {
+					// eslint-disable-next-line no-console
 					console.error(e);
 					setIsLoading(false);
 					addToast({

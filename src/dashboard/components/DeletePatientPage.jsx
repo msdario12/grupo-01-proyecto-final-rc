@@ -1,4 +1,4 @@
-import { Button, Modal, Spinner } from 'react-bootstrap';
+import { Button, Col, Modal, Row, Spinner } from 'react-bootstrap';
 import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
@@ -16,6 +16,7 @@ export const DeletePatientPage = (props) => {
 		privateBackendAPI
 			.get(`/api/patients/${props.selectedPatientID}?populate=true`)
 			.then((res) => {
+				console.log(res.data);
 				setPatientData(res.data.data);
 			});
 		return () => {
@@ -34,10 +35,12 @@ export const DeletePatientPage = (props) => {
 					message: 'Paciente eliminado correctamente',
 					variant: 'success',
 				});
+
 				setIsLoading(false);
 				props.setModalDeleteShow(false);
 			})
 			.catch((e) => {
+				// eslint-disable-next-line no-console
 				console.error(e);
 				setIsLoading(false);
 				addToast({
@@ -57,28 +60,37 @@ export const DeletePatientPage = (props) => {
 			</Modal.Header>
 			<Modal.Body>
 				{patientData?.user_id ? (
-					<>
-						<div>
-							<span className='fw-bold'>Dueño: </span>
-							<span className='text-capitalize'>{`${patientData.user_id.firstName} ${patientData.user_id.lastName}`}</span>
-						</div>
-						<div>
-							<span className='fw-bold'>Email: </span>
-							<span className='text-text-lowercase'>{`${patientData.user_id.email}`}</span>
-						</div>
-						<div>
-							<span className='fw-bold'>Nombre de la mascota: </span>
-							<span className='text-capitalize'>{`${patientData.pet_id.name}`}</span>
-						</div>
-						<div>
-							<span className='fw-bold'>Especie: </span>
-							<span className='text-capitalize'>{`${patientData.pet_id.specie}`}</span>
-						</div>
-						<div>
-							<span className='fw-bold'>Raza: </span>
-							<span className='text-capitalize'>{`${patientData.pet_id.race}`}</span>
-						</div>
-					</>
+					<Row>
+						<Col className='border-end'>
+							<div>
+								<span className='fw-bold'>Dueño: </span>
+								<span className='text-capitalize'>{`${patientData.user_id.firstName} ${patientData.user_id.lastName}`}</span>
+							</div>
+							<div>
+								<span className='fw-bold'>Email: </span>
+								<span className='text-text-lowercase'>{`${patientData.user_id.email}`}</span>
+							</div>
+							<div>
+								<span className='fw-bold'>Nombre de la mascota: </span>
+								<span className='text-capitalize'>{`${patientData.pet_id.name}`}</span>
+							</div>
+							<div>
+								<span className='fw-bold'>Especie: </span>
+								<span className='text-capitalize'>{`${patientData.pet_id.specie}`}</span>
+							</div>
+							<div>
+								<span className='fw-bold'>Raza: </span>
+								<span className='text-capitalize'>{`${patientData.pet_id.race}`}</span>
+							</div>
+						</Col>
+						<Col>
+							{patientData.turns.length === 0 ? (
+								<div className='d-flex align-items-center justify-content-center h-100'>El paciente no tiene turnos</div>
+							) : (
+								'Turnos'
+							)}
+						</Col>
+					</Row>
 				) : (
 					<div className='d-flex justify-content-center gap-3 align-items-center'>
 						<Spinner animation='border' size='md' />
