@@ -18,7 +18,10 @@ export const DeletePatientPage = (props) => {
 			.then((res) => {
 				setPatientData(res.data.data);
 			});
-	}, [props]);
+		return () => {
+			setPatientData();
+		};
+	}, [props.show]);
 	const handleCancelModal = () => {
 		props.setModalDeleteShow(false);
 	};
@@ -43,9 +46,7 @@ export const DeletePatientPage = (props) => {
 				});
 			});
 	};
-	if (!patientData || !patientData.user_id) {
-		return;
-	}
+
 	return (
 		<Modal {...props} size='lg' aria-labelledby='contained-modal-title-vcenter'>
 			<Modal.Header closeButton>
@@ -55,26 +56,35 @@ export const DeletePatientPage = (props) => {
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				<div>
-					<span className='fw-bold'>Dueño: </span>
-					<span className='text-capitalize'>{`${patientData.user_id.firstName} ${patientData.user_id.lastName}`}</span>
-				</div>
-				<div>
-					<span className='fw-bold'>Email: </span>
-					<span className='text-text-lowercase'>{`${patientData.user_id.email}`}</span>
-				</div>
-				<div>
-					<span className='fw-bold'>Nombre de la mascota: </span>
-					<span className='text-capitalize'>{`${patientData.pet_id.name}`}</span>
-				</div>
-				<div>
-					<span className='fw-bold'>Especie: </span>
-					<span className='text-capitalize'>{`${patientData.pet_id.specie}`}</span>
-				</div>
-				<div>
-					<span className='fw-bold'>Raza: </span>
-					<span className='text-capitalize'>{`${patientData.pet_id.race}`}</span>
-				</div>
+				{patientData ? (
+					<>
+						<div>
+							<span className='fw-bold'>Dueño: </span>
+							<span className='text-capitalize'>{`${patientData.user_id.firstName} ${patientData.user_id.lastName}`}</span>
+						</div>
+						<div>
+							<span className='fw-bold'>Email: </span>
+							<span className='text-text-lowercase'>{`${patientData.user_id.email}`}</span>
+						</div>
+						<div>
+							<span className='fw-bold'>Nombre de la mascota: </span>
+							<span className='text-capitalize'>{`${patientData.pet_id.name}`}</span>
+						</div>
+						<div>
+							<span className='fw-bold'>Especie: </span>
+							<span className='text-capitalize'>{`${patientData.pet_id.specie}`}</span>
+						</div>
+						<div>
+							<span className='fw-bold'>Raza: </span>
+							<span className='text-capitalize'>{`${patientData.pet_id.race}`}</span>
+						</div>
+					</>
+				) : (
+					<div className='d-flex justify-content-center gap-3 align-items-center'>
+						<Spinner animation='border' size='md' />
+						<span>Cargando paciente</span>
+					</div>
+				)}
 			</Modal.Body>
 			<Modal.Footer>
 				<Button
