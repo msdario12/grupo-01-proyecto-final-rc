@@ -37,7 +37,7 @@ export const PetEditForm = () => {
 			setIsLoading(true);
 			privateBackendAPI
 				.put(`/api/pets/${data.pet_id}`, castValues)
-				.then((res) => {
+				.then(() => {
 					addToast({
 						message: 'Mascota editada correctamente',
 						variant: 'success',
@@ -68,6 +68,9 @@ export const PetEditForm = () => {
 				formik.setTouched(res.data.data, true);
 			});
 		}
+		return () => {
+			setPetData();
+		};
 	}, [data, formik.handleSubmit]);
 
 	useEffect(() => {
@@ -76,6 +79,9 @@ export const PetEditForm = () => {
 		} else {
 			setInputsHasChanges(true);
 		}
+		return () => {
+			formik.resetForm();
+		};
 	}, [petData, formik.values, formik.handleSubmit]);
 
 	if (!petData) {

@@ -56,7 +56,7 @@ export const DeletePatientPage = (props) => {
 				</Modal.Title>
 			</Modal.Header>
 			<Modal.Body>
-				{patientData ? (
+				{patientData?.user_id ? (
 					<>
 						<div>
 							<span className='fw-bold'>Dueño: </span>
