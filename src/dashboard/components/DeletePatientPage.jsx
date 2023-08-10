@@ -5,12 +5,15 @@ import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
 import { ToastContext } from '../../context/ToastContext';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
+import { useAuth } from '../../hooks/useAuth';
 
 export const DeletePatientPage = (props) => {
 	const [patientData, setPatientData] = useState();
 	const { addToast } = useContext(ToastContext);
 	const [isLoading, setIsLoading] = useState(false);
 	const { privateBackendAPI } = useAxiosPrivate();
+	const { auth } = useAuth();
 
 	useEffect(() => {
 		privateBackendAPI
@@ -22,7 +25,7 @@ export const DeletePatientPage = (props) => {
 		return () => {
 			setPatientData();
 		};
-	}, [props.show]);
+	}, [props.show, auth]);
 	const handleCancelModal = () => {
 		props.setModalDeleteShow(false);
 	};
@@ -85,9 +88,22 @@ export const DeletePatientPage = (props) => {
 						</Col>
 						<Col>
 							{patientData.turns.length === 0 ? (
-								<div className='d-flex align-items-center justify-content-center h-100'>El paciente no tiene turnos</div>
+								<div className='d-flex align-items-center justify-content-center h-100'>
+									El paciente no tiene turnos
+								</div>
 							) : (
-								'Turnos'
+								<div className='d-flex flex-column h-100'>
+									<span className='fw-bold'>Listado de turnos</span>
+									<ul>
+										{patientData.turns.map((turn) => (
+											<li key={turn._id}>
+												<span>{formatDateCustom(turn.date)} - </span>
+												<span>{formatTimeCustom(turn.date)} - </span>
+												<span className='text-capitalize'>{turn.vet}</span>
+											</li>
+										))}
+									</ul>
+								</div>
 							)}
 						</Col>
 					</Row>

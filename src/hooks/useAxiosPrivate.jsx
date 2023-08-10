@@ -31,6 +31,7 @@ export const useAxiosPrivate = () => {
 
 		return () => {
 			privateBackendAPI.interceptors.request.eject(requestIntercept);
+			privateBackendAPI.interceptors.response.eject(responseIntercept);
 		};
 	}, [auth]);
 
