@@ -19,7 +19,6 @@ export const DeletePatientPage = (props) => {
 		privateBackendAPI
 			.get(`/api/patients/${props.selectedPatientID}?populate=true`)
 			.then((res) => {
-				console.log(res.data);
 				setPatientData(res.data.data);
 			});
 		return () => {
@@ -33,7 +32,7 @@ export const DeletePatientPage = (props) => {
 		setIsLoading(true);
 		privateBackendAPI
 			.delete(`/api/patients/${props.selectedPatientID}`)
-			.then((res) => {
+			.then(() => {
 				addToast({
 					message: 'Paciente eliminado correctamente',
 					variant: 'success',

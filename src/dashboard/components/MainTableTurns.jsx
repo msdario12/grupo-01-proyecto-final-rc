@@ -48,7 +48,10 @@ export const MainTableTurns = ({ detailMode = false, patientID }) => {
 				.then((res) => {
 					setTurnsList(res.data.data);
 				})
-				.catch((e) => {});
+				.catch((e) => {
+					// eslint-disable-next-line no-console
+					console.log(e);
+				});
 			return;
 		}
 		privateBackendAPI
@@ -56,7 +59,10 @@ export const MainTableTurns = ({ detailMode = false, patientID }) => {
 			.then((res) => {
 				setTurnsList(res.data.data);
 			})
-			.catch((e) => {});
+			.catch((e) => {
+				// eslint-disable-next-line no-console
+				console.log(e);
+			});
 	}, [auth, modalEditShow, modalDeleteShow, modalNewTurn, patientID]);
 
 	if (!turnsList) {
