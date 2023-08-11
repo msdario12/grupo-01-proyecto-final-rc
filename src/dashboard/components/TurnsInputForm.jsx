@@ -8,9 +8,7 @@ import ReactDatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
 import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
 
-export const TurnsInputForm = ({
-	formik,
-}) => {
+export const TurnsInputForm = ({ formik }) => {
 	return (
 		<div>
 			<Form.Group className='mb-3' controlId='vet'>
@@ -47,6 +45,7 @@ export const TurnsInputForm = ({
 					minDate={new Date()}
 					selected={formik.values.turnDate}
 					onChange={(value) => formik.setFieldValue('turnDate', value)}
+					onSelect={(value) => formik.setFieldValue('turnDate', value)}
 					onBlur={formik.handleBlur}
 					value={formik.values.turnDate}
 					filterDate={isWeekday}
