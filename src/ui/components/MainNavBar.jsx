@@ -124,8 +124,10 @@ export const MainNavBar = ({
 									drop='down'
 									align={'end'}
 									title={
-										auth?.firstName?.at(0).toUpperCase() +
-										auth?.firstName?.slice(1)
+										auth.firstName
+											? auth.firstName.at(0).toUpperCase() +
+											  auth.firstName.slice(1)
+											: ''
 									}
 									menuVariant='dark'>
 									<NavDropdown.Item href='#action/3.1'>
