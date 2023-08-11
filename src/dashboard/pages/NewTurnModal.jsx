@@ -4,7 +4,8 @@ import { TurnsForm } from '../components/TurnsForm';
 export const NewTurnModal = (props) => {
 	return (
 		<Modal
-			{...props}
+			onHide={props.onHide}
+			show={props.show}
 			size='lg'
 			centered
 			aria-labelledby='contained-modal-title-vcenter'>

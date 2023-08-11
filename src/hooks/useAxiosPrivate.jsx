@@ -20,26 +20,25 @@ export const useAxiosPrivate = () => {
 			(error) => Promise.reject(error)
 		);
 
-		const responseIntercept = privateBackendAPI.interceptors.response.use(
-			(response) => {
-				return response;
-			},
-			(error) => {
-				if (error?.response?.status === 401) {
-					// Redireccionar al no tener autenticación
-					navigate('/login');
-				}
-				addToast({
-					message: 'Error en la operación - ' + error,
-					variant: 'error',
-				});
-				
-			}
-		);
+		// const responseIntercept = privateBackendAPI.interceptors.response.use(
+		// 	(response) => response,
+		// 	(error) => {
+		// 		if (error?.response?.status === 401) {
+		// 			// Redireccionar al no tener autenticación
+		// 			navigate('/login');
+		// 		}
+		// 		addToast({
+		// 			message: 'Error en la operación - ' + error,
+		// 			variant: 'error',
+		// 		});
+		// 		Promise.reject(error)
+
+		// 	}
+		// );
 
 		return () => {
 			privateBackendAPI.interceptors.request.eject(requestIntercept);
-			privateBackendAPI.interceptors.response.eject(responseIntercept);
+			// privateBackendAPI.interceptors.response.eject(responseIntercept);
 		};
 	}, [auth]);
 

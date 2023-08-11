@@ -1,9 +1,13 @@
 import { Modal } from 'react-bootstrap';
-import { GenericEditPageProvider } from '../../context/GenericEditPageContext';
+import { GenericEditPageProvider } from '../../context/GenericEditPageProvider';
 
 export const GenericEditPage = (props) => {
 	return (
-		<Modal onHide={props.onHide} show={props.show} size='lg' aria-labelledby='contained-modal-title-vcenter'>
+		<Modal
+			onHide={props.onHide}
+			show={props.show}
+			size='lg'
+			aria-labelledby='contained-modal-title-vcenter'>
 			<Modal.Header closeButton>
 				<Modal.Title id='contained-modal-title-vcenter'>
 					{props.title}
