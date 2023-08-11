@@ -32,7 +32,8 @@ export const DeletePatientPage = (props) => {
 		setIsLoading(true);
 		privateBackendAPI
 			.delete(`/api/patients/${props.selectedPatientID}`)
-			.then(() => {
+			.then((res) => {
+				console.log(res);
 				addToast({
 					message: 'Paciente eliminado correctamente',
 					variant: 'success',
@@ -42,8 +43,6 @@ export const DeletePatientPage = (props) => {
 				props.setModalDeleteShow(false);
 			})
 			.catch((e) => {
-				// eslint-disable-next-line no-console
-				console.error(e);
 				setIsLoading(false);
 				addToast({
 					message: 'Error al eliminar el paciente - ' + e,
@@ -53,7 +52,11 @@ export const DeletePatientPage = (props) => {
 	};
 
 	return (
-		<Modal {...props} size='lg' aria-labelledby='contained-modal-title-vcenter'>
+		<Modal
+			onHide={props.onHide}
+			show={props.show}
+			size='lg'
+			aria-labelledby='contained-modal-title-vcenter'>
 			<Modal.Header closeButton>
 				<Modal.Title id='contained-modal-title-vcenter'>
 					<FontAwesomeIcon icon={faWarning} color='red' />

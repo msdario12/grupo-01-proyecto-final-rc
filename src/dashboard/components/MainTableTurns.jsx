@@ -24,7 +24,7 @@ const columnList = [
 	{ title: 'Acción', name: 'action', hasIcon: false, center: true },
 ];
 
-export const MainTableTurns = ({ detailMode = false, patientID }) => {
+export const MainTableTurns = ({ detailMode = false, patientID = '' }) => {
 	const [turnsList, setTurnsList] = useState();
 	const [sortedColumn, setSortedColumn] = useState('');
 	const [selectedTurn, setSelectedTurn] = useState('');
@@ -99,21 +99,27 @@ export const MainTableTurns = ({ detailMode = false, patientID }) => {
 
 	return (
 		<div>
-			<GenericEditPage
-				title='Edición de turnos'
-				endPoint='/api/turns/'
-				selectID={selectedTurn}
-				show={modalEditShow}
-				setModalEditShow={setModalEditShow}
-				onHide={() => setModalEditShow(false)}>
-				<TurnEditPage />
-			</GenericEditPage>
-			<DeleteTurnPage
-				selectedTurn={selectedTurn}
-				show={modalDeleteShow}
-				setModalDeleteShow={setModalDeleteShow}
-				onHide={() => setModalDeleteShow(false)}
-			/>
+			{selectedTurn ? (
+				<div>
+					<GenericEditPage
+						title='Edición de turnos'
+						endPoint='/api/turns/'
+						selectID={selectedTurn}
+						show={modalEditShow}
+						setModalEditShow={setModalEditShow}
+						onHide={() => setModalEditShow(false)}>
+						<TurnEditPage />
+					</GenericEditPage>
+					<DeleteTurnPage
+						selectedTurn={selectedTurn}
+						show={modalDeleteShow}
+						setModalDeleteShow={setModalDeleteShow}
+						onHide={() => setModalDeleteShow(false)}
+					/>
+				</div>
+			) : (
+				''
+			)}
 			<Button
 				className='mb-4'
 				onClick={() => setModalNewTurn(true)}

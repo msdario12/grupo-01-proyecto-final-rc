@@ -7,7 +7,7 @@ import { petSchema } from '../schema-validations/petSchema';
 import { PetInputsForm } from './PetInputsForm';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { CustomAlertResponse } from './CustomAlertResponse';
-import { GenericEditPageContext } from '../pages/GenericEditPage';
+import { GenericEditPageContext } from '../../context/GenericEditPageContext';
 
 const userEditSchema = Yup.object({ ...petSchema });
 
