@@ -7,7 +7,7 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../context/ToastContext';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { CustomAlertResponse } from './CustomAlertResponse';
-import { GenericEditPageContext } from '../pages/GenericEditPage';
+import { GenericEditPageContext } from '../../context/GenericEditPageContext';
 
 const userEditSchema = Yup.object({ ...userSchema });
 
@@ -38,7 +38,7 @@ export const UserEditForm = () => {
 			setIsLoading(true);
 			privateBackendAPI
 				.put(`/api/users/${data.user_id}`, castValues)
-				.then((res) => {
+				.then(() => {
 					addToast({
 						message: 'Usuario editado correctamente',
 						variant: 'success',
@@ -48,6 +48,7 @@ export const UserEditForm = () => {
 					setInputsHasChanges(false);
 				})
 				.catch((e) => {
+					// eslint-disable-next-line no-console
 					console.error(e);
 					setIsLoading(false);
 					addToast({
@@ -71,7 +72,7 @@ export const UserEditForm = () => {
 				formik.setTouched(res.data.data, false);
 			});
 		}
-	}, [data, formik.handleSubmit]);
+	}, [data]);
 
 	useEffect(() => {
 		if (formik.values === dataToEdit) {

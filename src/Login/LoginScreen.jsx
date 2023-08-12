@@ -19,11 +19,26 @@ export const LoginScreen = () => {
 	const { setAuth } = useContext(AuthContext);
 	const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-	const isValidEmail = emailRegex.test(email);
-
-	const handleChange = () => {
-		setEmailError(false);
-		setPasswordError(false);
+	const handleChange = (e) => {
+		if (e.target.name === 'email') {
+			const { value: inputEmail } = e.target;
+			if (inputEmail.length === 0) {
+				const msg = 'Introduce un email';
+				// alert('Todos los campos son obligatorios');
+				setEmailError(msg);
+			} else {
+				setEmailError();
+			}
+		}
+		if (e.target.name === 'password') {
+			const { value: inputPassword } = e.target;
+			if (inputPassword.length === 0) {
+				const msg = 'Introduce una contraseña';
+				setPasswordError(msg);
+			} else {
+				setPasswordError();
+			}
+		}
 		setShowAlert(false);
 	};
 
@@ -31,66 +46,71 @@ export const LoginScreen = () => {
 		e.preventDefault();
 
 		//validaciones
-		if (password === '') {
+		if (password.length === 0) {
+			setPasswordTouched(true);
 			const msg = 'Introduce una contraseña';
 			setPasswordError(msg);
-		} else if (email === '') {
+			return;
+		}
+		if (email.length === 0) {
+			setEmailTouched(true);
 			const msg = 'Introduce un email';
 			// alert('Todos los campos son obligatorios');
 			setEmailError(msg);
-		} else if (!isValidEmail) {
-			setEmailError('No es un email valido');
-		} else {
-			setPasswordError(false);
-			setEmailError(false);
-			setEmailTouched(false);
-			setPasswordTouched(false);
-			const { value: email } = e.target.email;
-			const { value: password } = e.target.password;
-
-			setIsLoading(true);
-
-			backendAPI
-				.post(
-					'/api/auth/login',
-					{ email, password },
-					{
-						headers: { 'Content-Type': 'application/json' },
-						withCredentials: true,
-					}
-				)
-				.then((res) => {
-					setPassword('');
-
-					setShowAlert(true);
-					setResponse(res.data);
-					setIsLoading(false);
-					if (!res.data.accessToken) {
-						setResponse(res.data);
-						return;
-					}
-					const accessToken = res?.data?.accessToken;
-					const firstName = res?.data?.firstName;
-					setAuth({ email, firstName, accessToken });
-					// autenticación correcta
-					localStorage.setItem('token', accessToken);
-					setTimeout(() => navigate('/dashboard'), 2500);
-				})
-				.catch((e) => {
-					setShowAlert(true);
-					if (!e) {
-						setResponse({
-							success: false,
-							message: 'Sin respuesta del servidor',
-						});
-					} else {
-						setResponse({
-							success: false,
-							message: 'Error en la autenticación',
-						});
-					}
-				});
 		}
+		const isValidEmail = emailRegex.test(email);
+
+		if (!isValidEmail) {
+			setEmailError('No es un email valido');
+		}
+
+		// setPasswordError(false);
+		// setEmailError(false);
+		setEmailTouched(false);
+		setPasswordTouched(false);
+
+		setIsLoading(true);
+
+		backendAPI
+			.post(
+				'/api/auth/login',
+				{ email, password },
+				{
+					headers: { 'Content-Type': 'application/json' },
+					withCredentials: true,
+				}
+			)
+			.then((res) => {
+				setPassword('');
+
+				setShowAlert(true);
+				setResponse(res.data);
+				setIsLoading(false);
+				if (!res.data.accessToken) {
+					setResponse(res.data);
+					return;
+				}
+				const accessToken = res?.data?.accessToken;
+				const firstName = res?.data?.firstName;
+				setAuth({ email, firstName, accessToken });
+				// autenticación correcta
+				localStorage.setItem('token', accessToken);
+				setTimeout(() => navigate('/dashboard'), 2500);
+			})
+			.catch((e) => {
+				setShowAlert(true);
+				if (!e) {
+					setResponse({
+						success: false,
+						message: 'Sin respuesta del servidor',
+					});
+				} else {
+					setResponse({
+						success: false,
+						message: 'Error en la autenticación',
+					});
+				}
+			});
 	};
 
 	return (
@@ -113,12 +133,11 @@ export const LoginScreen = () => {
 									name='email'
 									type='text'
 									isInvalid={emailError && emailTouched}
-									isValid={!emailError && emailTouched && isLoading}
+									isValid={!emailError && emailTouched}
 									placeholder='example@gmail.com'
 									onChange={(e) => {
 										setEmail(e.target.value);
-										setEmailTouched(false);
-										handleChange();
+										handleChange(e);
 									}}
 									onBlur={() => setEmailTouched(true)}
 									value={email}
@@ -134,12 +153,11 @@ export const LoginScreen = () => {
 									type='password'
 									placeholder='contraseña'
 									isInvalid={passwordError && passwordTouched}
-									isValid={!passwordError && passwordTouched && isLoading}
+									isValid={!passwordError && passwordTouched}
 									onBlur={() => setPasswordTouched(true)}
 									onChange={(e) => {
 										setPassword(e.target.value);
-										setPasswordTouched(false);
-										handleChange();
+										handleChange(e);
 									}}
 									value={password}
 								/>

@@ -7,7 +7,7 @@ import { petSchema } from '../schema-validations/petSchema';
 import { PetInputsForm } from './PetInputsForm';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { CustomAlertResponse } from './CustomAlertResponse';
-import { GenericEditPageContext } from '../pages/GenericEditPage';
+import { GenericEditPageContext } from '../../context/GenericEditPageContext';
 
 const userEditSchema = Yup.object({ ...petSchema });
 
@@ -37,7 +37,7 @@ export const PetEditForm = () => {
 			setIsLoading(true);
 			privateBackendAPI
 				.put(`/api/pets/${data.pet_id}`, castValues)
-				.then((res) => {
+				.then(() => {
 					addToast({
 						message: 'Mascota editada correctamente',
 						variant: 'success',
@@ -46,6 +46,7 @@ export const PetEditForm = () => {
 					setIsLoading(false);
 				})
 				.catch((e) => {
+					// eslint-disable-next-line no-console
 					console.error(e);
 					setIsLoading(false);
 					addToast({
@@ -68,7 +69,7 @@ export const PetEditForm = () => {
 				formik.setTouched(res.data.data, true);
 			});
 		}
-	}, [data, formik.handleSubmit]);
+	}, [data]);
 
 	useEffect(() => {
 		if (formik.values === petData) {

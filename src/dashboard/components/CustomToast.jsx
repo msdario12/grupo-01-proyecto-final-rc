@@ -33,7 +33,7 @@ export const InternalToast = ({ toast }) => {
 			autohide={true}>
 			<Toast.Header>
 				<span className='me-2'>
-					<FontAwesomeIcon icon={variants[toast.variant].icon} size='md' />
+					<FontAwesomeIcon icon={variants[toast.variant].icon} size='lg' />
 				</span>
 				<strong className='me-auto'>{variants[toast.variant].title}</strong>
 			</Toast.Header>

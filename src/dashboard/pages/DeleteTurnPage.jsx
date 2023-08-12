@@ -27,8 +27,9 @@ export const DeleteTurnPage = (props) => {
 		privateBackendAPI
 			.delete(`/api/turns/${props.selectedTurn._id}`)
 			.then((res) => {
+				console.log(res);
 				addToast({
-					message: 'Paciente eliminado correctamente',
+					message: 'Turno eliminado correctamente',
 					variant: 'success',
 				});
 				setIsLoading(false);
@@ -47,7 +48,11 @@ export const DeleteTurnPage = (props) => {
 		return '';
 	}
 	return (
-		<Modal {...props} size='lg' aria-labelledby='contained-modal-title-vcenter'>
+		<Modal
+			onHide={props.onHide}
+			show={props.show}
+			size='lg'
+			aria-labelledby='contained-modal-title-vcenter'>
 			<Modal.Header closeButton>
 				<Modal.Title id='contained-modal-title-vcenter'>
 					<FontAwesomeIcon icon={faWarning} color='red' />
