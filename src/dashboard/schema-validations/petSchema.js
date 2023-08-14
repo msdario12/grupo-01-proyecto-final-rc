@@ -5,7 +5,7 @@ export const petSchema = {
 	name: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
+		.matches(/^[\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	specie: Yup.string()
 		.required('Campo obligatorio')
@@ -17,5 +17,5 @@ export const petSchema = {
 		.required('Campo obligatorio')
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto'),
+		.matches(/^[\w\-\s]+$/, 'Sólo letras del alfabeto'),
 };
