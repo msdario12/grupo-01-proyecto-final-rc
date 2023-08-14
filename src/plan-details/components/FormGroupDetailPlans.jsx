@@ -27,12 +27,12 @@ const consultFormSchema = Yup.object({
 	userName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	lastName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	email: Yup.string()
 		.email('Introduzca una dirección de email valida')
@@ -57,14 +57,14 @@ const consultFormSchema = Yup.object({
 	petRace: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto'),
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto'),
 	planSelect: Yup.string()
 		.optional()
 		.oneOf(vetPlans.map((plan) => plan.name)),
 	consult: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(255, 'Máximo de 255 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 });
 
@@ -89,7 +89,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 			consult: '',
 		},
 		validationSchema: consultFormSchema,
-		onSubmit: (values) => {
+		onSubmit: () => {
 			setIsLoading(true);
 			emailjs
 				.sendForm(
@@ -99,7 +99,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 					'IA7y8FZdE1Zr4Ky_M'
 				)
 				.then(
-					(result) => {
+					() => {
 						setShowAlert(true);
 						setIsLoading(false);
 
@@ -109,7 +109,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 								'Se envió correctamente un email a la dirección ingresada.',
 						});
 					},
-					(error) => {
+					() => {
 						setShowAlert(true);
 						setIsLoading(false);
 
