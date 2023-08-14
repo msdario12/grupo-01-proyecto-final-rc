@@ -1,92 +1,129 @@
-import { Card } from 'react-bootstrap';
+import { Spinner } from 'react-bootstrap';
+import { WelcomeInfoCard } from './WelcomeInfoCard/WelcomeInfoCard';
+import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { useContext, useEffect, useState } from 'react';
+import { ToastContext } from '../../context/ToastContext';
+import { formatTimeCustom } from '../../helpers/format-dates';
+import { formatDistance } from 'date-fns';
+import es from 'date-fns/locale/es';
 
 export const WelcomeInfo = () => {
+	const { privateBackendAPI } = useAxiosPrivate();
+	const [welcomeData, setWelcomeData] = useState();
+	const { addToast } = useContext(ToastContext);
+
+	useEffect(() => {
+		privateBackendAPI
+			.get('/api/statistics')
+			.then((res) => {
+				setWelcomeData(res.data.data);
+			})
+			.catch(() => {
+				addToast({
+					message: 'Error al obtener los datos',
+					variant: 'error',
+				});
+			});
+	}, []);
+
+	if (!welcomeData) {
+		return (
+			<div className='d-flex justify-content-center gap-3 align-items-center h-100'>
+				<Spinner animation='border' size='md' />
+				<span>Cargando datos</span>
+			</div>
+		);
+	}
+
+	const {
+		totalTurns,
+		completedTurns,
+		pendingTurns,
+		patientsSeenInWeek,
+		totalRegisteredPatients,
+		nextTurns,
+		mostCommonSpecie,
+	} = welcomeData;
+
 	return (
 		<div>
-			
 			<div className='row gy-3 gx-3'>
 				<div className='col-md-4 '>
-					<Card className='h-100 border-0 bg-light rounded-0 shadow-sm '>
-						<Card.Body className='d-flex flex-column justify-content-between'>
-							<div>
-								<p className='text-muted fs-6 mb-1 fw-bold'>
-									Turnos de hoy - 26/07/23
-								</p>
-								<hr className='my-1'></hr>
-							</div>
-							<div className='d-flex gap-2 align-items-center'>
-								<h2 className=''>232</h2>
-								<span className='text-muted'>Turnos programados</span>
-							</div>
+					<WelcomeInfoCard>
+						<WelcomeInfoCard.Title title='Estado de turnos' />
 
-							<hr className='my-1'></hr>
-							<div className='row gy-3'>
-								<div className='col-xl-6 d-flex gap-1 align-items-baseline'>
-									<h5>42</h5>
-									<span className='text-muted '>Turnos completados</span>
-								</div>
-								<div className='col-xl-6 d-flex gap-1 align-items-baseline'>
-									<h5>156</h5>
-									<span className='text-muted'>Turnos pendientes</span>
-								</div>
+						<div className='d-flex gap-2 align-items-center'>
+							<h2 className=''>{totalTurns}</h2>
+							<span className='text-muted ms-2'>Turnos programados</span>
+						</div>
+
+						<hr className='my-1'></hr>
+						<div className='row gy-3'>
+							<div className='col-xl-6 d-flex gap-1 align-items-baseline'>
+								<h3>{completedTurns}</h3>
+								<span className='text-muted ms-2'>Turnos completados</span>
 							</div>
-						</Card.Body>
-					</Card>
+							<div className='col-xl-6 d-flex gap-1 align-items-baseline'>
+								<h3>{pendingTurns}</h3>
+								<span className='text-muted ms-2'>Turnos pendientes</span>
+							</div>
+						</div>
+					</WelcomeInfoCard>
 				</div>
 				<div className='col-md-4 '>
-					<Card className='h-100 border-0 bg-light rounded-0 shadow-sm'>
-						<Card.Body className='d-flex flex-column justify-content-between'>
-							<div>
-								<p className='text-muted fs-6 mb-1 fw-bold'>Próximos turnos</p>
-								<hr className='my-1'></hr>
-							</div>
-							<div className='row my-auto gy-3'>
-								<div className='col-6 col-md-12 col-xl-6 d-flex gap-2 align-items-center'>
-									<h2 className=''>14:30</h2>
+					<WelcomeInfoCard>
+						<WelcomeInfoCard.Title title='Próximos turnos' />
+						<div className='row gy-3 my-auto'>
+							{nextTurns.map((turn) => (
+								<div
+									key={turn._id}
+									className='col-6 col-md-12 col-xl-6 d-flex gap-2 align-items-center justify-content-around'>
+									<div className=''>
+										<h2 className=''>{formatTimeCustom(turn.date)}</h2>
+										<p className='small'>
+											(
+											{'en ' +
+												formatDistance(new Date(), new Date(turn.date), {
+													locale: es,
+												})}
+											)
+										</p>
+									</div>
 									<div className='d-flex flex-column justify-content-center align-items-end'>
-										<span className='text-muted'>Juan Perez</span>
-										<span className='text-muted'>"Luna" (Gato)</span>
+										<span className='text-muted text-capitalize fw-bold fs-5'>
+											{turn.patient_id.pet_id.name}
+										</span>
+										<span className='text-muted text-capitalize'>
+											{turn.patient_id.pet_id.specie}
+										</span>
 									</div>
 								</div>
-								<div className='col-6 col-md-12 col-xl-6 d-flex gap-2 align-items-center'>
-									<h2 className=''>15:30</h2>
-									<div className='d-flex flex-column justify-content-center align-items-end'>
-										<span className='text-muted'>Pedro Sanchez</span>
-										<span className='text-muted'>"Estrella" (Gato)</span>
-									</div>
-								</div>
-							</div>
-						</Card.Body>
-					</Card>
+							))}
+						</div>
+					</WelcomeInfoCard>
 				</div>
 				<div className='col-md-4 '>
-					<Card className='h-100 border-0 bg-light rounded-0 shadow-sm'>
-						<Card.Body className='d-flex flex-column justify-content-between'>
-							<div>
-								<p className=' text-muted fs-6 mb-1 fw-bold'>
-									Estadísticas de Atención y Resumen de Mascotas
-								</p>
-								<hr className='my-1'></hr>
-							</div>
-							<div className='d-flex gap-2 align-items-center'>
-								<span className='text-muted'>
-									Mascotas atendidas esta semana:{' '}
-								</span>
-								<h5 className=''>232</h5>
-							</div>
-							<div className='d-flex gap-2 align-items-center'>
-								<span className='text-muted'>Servicio más común: </span>
-								<h5 className=''>Vacunación</h5>
-							</div>
+					<WelcomeInfoCard>
+						<WelcomeInfoCard.Title title='Estadísticas de Atención y Resumen de Mascotas' />
 
-							<div className='d-flex gap-2 align-items-center'>
-								<span className='text-muted'>
-									Total de mascotas registradas:{' '}
-								</span>
-								<h5 className=''>425</h5>
-							</div>
-						</Card.Body>
-					</Card>
+						<div className='d-flex gap-2 align-items-baseline justify-content-between'>
+							<span className='text-muted'>
+								Mascotas atendidas esta semana:{' '}
+							</span>
+							<h5 className=''>{patientsSeenInWeek}</h5>
+						</div>
+						<div className='d-flex gap-2 align-items-baseline justify-content-between'>
+							<span className='text-muted'>Tipo de mascota más común: </span>
+							<h5 className='text-capitalize'>{mostCommonSpecie[0]._id}</h5>
+						</div>
+
+						<div className='d-flex gap-2 align-items-baseline justify-content-between'>
+							<span className='text-muted'>
+								Total de mascotas registradas:{' '}
+							</span>
+							<h5 className=''>{totalRegisteredPatients}</h5>
+						</div>
+					</WelcomeInfoCard>
 				</div>
 			</div>
 		</div>
