@@ -3,7 +3,7 @@ import { WelcomeInfoCard } from './WelcomeInfoCard/WelcomeInfoCard';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useContext, useEffect, useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
-import { formatTimeCustom } from '../../helpers/format-dates';
+import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
 import { formatDistance } from 'date-fns';
 import es from 'date-fns/locale/es';
 
@@ -24,7 +24,7 @@ export const WelcomeInfo = () => {
 					variant: 'error',
 				});
 			});
-	}, []);
+	}, [addToast]);
 
 	if (!welcomeData) {
 		return (
@@ -78,8 +78,9 @@ export const WelcomeInfo = () => {
 								<div
 									key={turn._id}
 									className='col-6 col-md-12 col-xl-6 d-flex gap-2 align-items-center justify-content-around'>
-									<div className=''>
-										<h2 className=''>{formatTimeCustom(turn.date)}</h2>
+									<div className='d-flex justify-content-center flex-column align-items-center gap-0'>
+										<h2 className='mb-1'>{formatTimeCustom(turn.date)}</h2>
+										<p className='mb-1 small'>{formatDateCustom(turn.date)}</p>
 										<p className='small'>
 											(
 											{'en ' +
