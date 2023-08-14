@@ -43,7 +43,7 @@ export const turnEditSchema = {
 		.required('Campo obligatorio')
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(150, 'Máximo de 150 caracteres')
-		.matches(/^[a-zA-Z\s]*$/, 'Sólo letras del alfabeto'),
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto'),
 	vet: Yup.string()
 		.required('Campo obligatorio')
 		.oneOf(

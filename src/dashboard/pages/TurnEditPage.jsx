@@ -184,7 +184,7 @@ export const TurnEditPage = () => {
 								<span className='ms-2'>Cargando</span>
 							</div>
 						) : (
-							'Editar usuario'
+							'Editar turno'
 						)}
 					</Button>
 				</div>
