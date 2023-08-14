@@ -45,7 +45,7 @@ export const TurnsForm = ({
 			setIsLoading(true);
 			privateBackendAPI
 				.post('/api/turns', castValues)
-				.then((res) => {
+				.then(() => {
 					addToast({
 						variant: 'success',
 						message: 'Turno creado correctamente',

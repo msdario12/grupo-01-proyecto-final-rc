@@ -4,7 +4,7 @@ import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { useContext, useEffect, useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
 import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
-import { formatDistance } from 'date-fns';
+import { formatDistanceToNow } from 'date-fns';
 import es from 'date-fns/locale/es';
 
 export const WelcomeInfo = () => {
@@ -18,11 +18,9 @@ export const WelcomeInfo = () => {
 			.then((res) => {
 				setWelcomeData(res.data.data);
 			})
-			.catch(() => {
-				addToast({
-					message: 'Error al obtener los datos',
-					variant: 'error',
-				});
+			.catch((e) => {
+				// eslint-disable-next-line no-console
+				console.error(e);
 			});
 	}, [addToast]);
 
@@ -83,10 +81,10 @@ export const WelcomeInfo = () => {
 										<p className='mb-1 small'>{formatDateCustom(turn.date)}</p>
 										<p className='small'>
 											(
-											{'en ' +
-												formatDistance(new Date(), new Date(turn.date), {
-													locale: es,
-												})}
+											{formatDistanceToNow(new Date(turn.date), {
+												locale: es,
+												addSuffix: true,
+											})}
 											)
 										</p>
 									</div>
