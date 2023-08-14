@@ -1,16 +1,15 @@
 import * as Yup from 'yup';
 
-
 export const userSchema = {
 	firstName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
+		.matches(/^[\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	lastName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(35, 'Máximo de 35 caracteres')
-		.matches(/^[a-zA-Z0-9]*$/, 'Sólo letras del alfabeto')
+		.matches(/^[\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	email: Yup.string()
 		.email('Introduzca un email valido')
