@@ -1,5 +1,5 @@
 import { Modal } from 'react-bootstrap';
-import { TurnsForm } from '../turns/components/TurnsForm';
+import { TurnsForm } from '../components/TurnsForm';
 
 export const NewTurnModal = (props) => {
 	return (

@@ -1,9 +1,9 @@
-import { useAuth } from '../../hooks/useAuth';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
-import { WelcomeInfo } from '../main/components/WelcomeInfo';
-import { MainTableTurns } from '../turns/components/MainTableTurns';
+import { useAuth } from '../../../hooks/useAuth';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
+import { WelcomeInfo } from '../components/WelcomeInfo';
+import { MainTableTurns } from '../../turns/components/MainTableTurns';
 
-export const MainDashboard = ({ title }) => {
+export const MainDashboardPage = ({ title }) => {
 	useDocumentTitle(title);
 	const { auth } = useAuth();
 

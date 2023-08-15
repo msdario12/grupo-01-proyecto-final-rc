@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
-import { ToastContext } from '../../context/ToastContext';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
-import { TurnStatusBadge } from '../elements/TurnStatusBadge';
+import { ToastContext } from '../../../context/ToastContext';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import {
+	formatDateCustom,
+	formatTimeCustom,
+} from '../../../helpers/format-dates';
+import { TurnStatusBadge } from '../../elements/TurnStatusBadge';
 
 export const DeleteTurnPage = (props) => {
 	const [turnData, setTurnData] = useState();
@@ -26,8 +29,7 @@ export const DeleteTurnPage = (props) => {
 		setIsLoading(true);
 		privateBackendAPI
 			.delete(`/api/turns/${props.selectedTurn._id}`)
-			.then((res) => {
-				console.log(res);
+			.then(() => {
 				addToast({
 					message: 'Turno eliminado correctamente',
 					variant: 'success',
@@ -36,7 +38,6 @@ export const DeleteTurnPage = (props) => {
 				props.setModalDeleteShow(false);
 			})
 			.catch((e) => {
-				console.error(e);
 				setIsLoading(false);
 				addToast({
 					message: 'Error al eliminar el paciente - ' + e,
