@@ -3,7 +3,6 @@ import { vetPlans } from '../../../vetPlansDB';
 import { ListItems } from '../elements/ListItems';
 import { ComparisonCardsPlans } from '../elements/ComparisonCardsPlans';
 
-
 export const DetailListItems = () => {
 	return <div>DetailListItems</div>;
 };
