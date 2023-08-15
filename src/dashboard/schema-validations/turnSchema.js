@@ -35,10 +35,7 @@ export const turnEditSchema = {
 		)
 		.test('Es fuera de horario', 'Debe ser desde 8 a 12 ó 16 a 20hs', (value) =>
 			filterPassedTime(value)
-		)
-		.test('Fecha anterior', 'No puede ser una fecha pasada', (value) => {
-			return value > new Date();
-		}),
+		),
 	details: Yup.string()
 		.required('Campo obligatorio')
 		.min(3, 'Mínimo de 3 caracteres')
@@ -54,5 +51,12 @@ export const turnEditSchema = {
 
 export const turnSchema = {
 	multiSearch: Yup.string().required('Campo obligatorio'),
+	turnDate: Yup.date().test(
+		'Fecha anterior',
+		'No puede ser una fecha pasada',
+		(value) => {
+			return value > new Date();
+		}
+	),
 	...turnEditSchema,
 };
