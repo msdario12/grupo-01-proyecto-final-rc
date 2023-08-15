@@ -195,7 +195,7 @@ export const TurnsForm = ({
 						</p>
 						<Button
 							as={Link}
-							to={'/dashboard/add-turn'}
+							to={'/dashboard/add-patient'}
 							state={{ prevUrl: location, backToTurns: true }}>
 							Crear paciente
 						</Button>
