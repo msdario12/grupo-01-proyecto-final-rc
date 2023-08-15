@@ -9,9 +9,9 @@ import { HeaderTitleDashboard } from '../../elements/HeaderTitleDashboard';
 import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 import { useLocation, useNavigate } from 'react-router';
-import { CustomAlertResponse } from '../../components/CustomAlertResponse';
 import { PetInputsForm } from './PetInputsForm';
 import { UsersInputsForm } from './UsersInputsForm';
+import { CustomAlertResponse } from '../../ui/components/CustomAlertResponse';
 
 const patientSchema = Yup.object({
 	...userSchema,

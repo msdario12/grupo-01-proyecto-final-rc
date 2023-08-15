@@ -5,9 +5,9 @@ import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../../context/ToastContext';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
-import { CustomAlertResponse } from '../../components/CustomAlertResponse';
 import { GenericEditPageContext } from '../../../context/GenericEditPageContext';
 import { UsersInputsForm } from './UsersInputsForm';
+import { CustomAlertResponse } from '../../ui/components/CustomAlertResponse';
 
 const userEditSchema = Yup.object({ ...userSchema });
 

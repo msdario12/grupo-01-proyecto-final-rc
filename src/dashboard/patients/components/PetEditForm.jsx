@@ -5,9 +5,9 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../../context/ToastContext';
 import { petSchema } from '../../schema-validations/petSchema';
 import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
-import { CustomAlertResponse } from '../../components/CustomAlertResponse';
 import { GenericEditPageContext } from '../../../context/GenericEditPageContext';
 import { PetInputsForm } from './PetInputsForm';
+import { CustomAlertResponse } from '../../ui/components/CustomAlertResponse';
 
 const userEditSchema = Yup.object({ ...petSchema });
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Badge, Button, Spinner, Table } from 'react-bootstrap';
-import { CustomTh } from '../../components/CustomTh';
+import { CustomTh } from '../../ui/components/CustomTh';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { NewPatientPage } from '../../pages/NewPatientPage';
