@@ -171,7 +171,7 @@ export const MainTableTurns = ({ detailMode = false, patientID = '' }) => {
 								</div>
 							</td>
 							<td>{turn.vet}</td>
-							<td>{turn.details}</td>
+							<td className='text-lowercase'>{turn.details}</td>
 							<td>
 								<div className='d-flex gap-2 justify-content-center'>
 									<Button
