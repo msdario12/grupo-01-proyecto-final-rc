@@ -48,7 +48,7 @@ export const TurnEditPage = () => {
 			setIsLoading(true);
 			privateBackendAPI
 				.put(`/api/turns/${data._id}`, castValues)
-				.then((res) => {
+				.then(() => {
 					addToast({
 						message: 'Usuario editado correctamente',
 						variant: 'success',
@@ -58,7 +58,6 @@ export const TurnEditPage = () => {
 					setInputsHasChanges(false);
 				})
 				.catch((e) => {
-					console.error(e);
 					if (e.response.data.errors) {
 						const { errors } = e.response.data;
 						const errorList = (
@@ -184,7 +183,7 @@ export const TurnEditPage = () => {
 								<span className='ms-2'>Cargando</span>
 							</div>
 						) : (
-							'Editar usuario'
+							'Editar turno'
 						)}
 					</Button>
 				</div>
