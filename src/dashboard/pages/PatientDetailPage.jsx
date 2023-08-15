@@ -3,8 +3,8 @@ import { useDocumentTitle } from '../../hooks/useDocumentTitle';
 import { useEffect, useState } from 'react';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
-import { MainTableTurns } from '../components/MainTableTurns';
 import { useAuth } from '../../hooks/useAuth';
+import { MainTableTurns } from '../turns/components/MainTableTurns';
 
 export const PatientDetailPage = ({ title }) => {
 	useDocumentTitle(title);

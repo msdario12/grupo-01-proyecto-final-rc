@@ -2,12 +2,12 @@ import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
-import { ToastContext } from '../../context/ToastContext';
-import { petSchema } from '../schema-validations/petSchema';
+import { ToastContext } from '../../../context/ToastContext';
+import { petSchema } from '../../schema-validations/petSchema';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { CustomAlertResponse } from '../../components/CustomAlertResponse';
+import { GenericEditPageContext } from '../../../context/GenericEditPageContext';
 import { PetInputsForm } from './PetInputsForm';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { CustomAlertResponse } from './CustomAlertResponse';
-import { GenericEditPageContext } from '../../context/GenericEditPageContext';
 
 const userEditSchema = Yup.object({ ...petSchema });
 

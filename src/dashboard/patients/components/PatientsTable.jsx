@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Badge, Button, Spinner, Table } from 'react-bootstrap';
-import { CustomTh } from './CustomTh';
+import { CustomTh } from '../../components/CustomTh';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
-import { DeletePatientPage } from './DeletePatientPage';
-import { NewPatientPage } from '../pages/NewPatientPage';
-import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { useAuth } from '../../hooks/useAuth';
-import { GenericEditPage } from '../pages/GenericEditPage';
+import { NewPatientPage } from '../../pages/NewPatientPage';
+import { HeaderTitleDashboard } from '../../elements/HeaderTitleDashboard';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { useAuth } from '../../../hooks/useAuth';
+import { GenericEditPage } from '../../pages/GenericEditPage';
+import { useNavigate } from 'react-router';
+import { DeletePatientPage } from '../pages/DeletePatientPage';
 import { UserEditForm } from './UserEditForm';
 import { PetEditForm } from './PetEditForm';
-import { useNavigate } from 'react-router';
 
 const columnList = [
 	{ title: 'Nombre', name: 'firstName' },
@@ -39,7 +39,7 @@ export const PatientsTable = () => {
 			.then((res) => {
 				setPatientsList(res.data.data);
 			})
-			.catch((e) => {});
+			.catch(() => {});
 	}, [modalEditShow, modalDeleteShow, modalNewPatientShow, auth]);
 	const handleClickRow = (patientID) => {
 		navigate(`../patient/${patientID}`);

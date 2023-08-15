@@ -1,9 +1,9 @@
 import { Spinner } from 'react-bootstrap';
-import { WelcomeInfoCard } from './WelcomeInfoCard/WelcomeInfoCard';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { WelcomeInfoCard } from '../../components/WelcomeInfoCard/WelcomeInfoCard';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 import { useContext, useEffect, useState } from 'react';
-import { ToastContext } from '../../context/ToastContext';
-import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
+import { ToastContext } from '../../../context/ToastContext';
+import { formatDateCustom, formatTimeCustom } from '../../../helpers/format-dates';
 import { formatDistanceToNow } from 'date-fns';
 import es from 'date-fns/locale/es';
 

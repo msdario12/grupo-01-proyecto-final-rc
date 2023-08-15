@@ -5,10 +5,10 @@ import { Button, Form, Spinner } from 'react-bootstrap';
 import { ToastContext } from '../../context/ToastContext';
 import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
 import { CustomAlertResponse } from '../components/CustomAlertResponse';
-import { TurnsInputForm } from '../components/TurnsInputForm';
 import { turnEditSchema } from '../schema-validations/turnSchema';
 import { statusList } from '../../helpers/turn-status-code';
 import { GenericEditPageContext } from '../../context/GenericEditPageContext';
+import { TurnsInputForm } from '../turns/components/TurnsInputForm';
 
 const newTurnSchema = Yup.object({
 	...turnEditSchema,

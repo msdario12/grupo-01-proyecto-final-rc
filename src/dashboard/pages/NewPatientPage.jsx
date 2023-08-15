@@ -1,5 +1,5 @@
 import { Modal } from 'react-bootstrap';
-import { NewPatientForm } from '../components/NewPatientForm';
+import { NewPatientForm } from '../patients/components/NewPatientForm';
 
 export const NewPatientPage = (props) => {
 	return (

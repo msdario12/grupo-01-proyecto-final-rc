@@ -10,13 +10,13 @@ import { LoginScreen } from '../Login/LoginScreen';
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
-import { NewPatientForm } from '../dashboard/components/NewPatientForm';
 import { RequireAuth } from '../auth/components/RequireAuth';
 import { GenericModal } from '../ui/components/GenericModal';
 import { OurDevelopers } from '../our-developers/page/OurDevelopers';
 import { UnauthorizedPage401 } from '../ui/pages/UnauthorizedPage401';
 import { NewTurnPage } from '../dashboard/pages/NewTurnPage';
 import { PatientDetailPage } from '../dashboard/pages/PatientDetailPage';
+import { NewPatientForm } from '../dashboard/patients/components/NewPatientForm';
 
 export const AppRouter = () => {
 	return (

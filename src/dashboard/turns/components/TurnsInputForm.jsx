@@ -3,10 +3,10 @@ import {
 	filterPassedTime,
 	isWeekday,
 	vetList,
-} from '../schema-validations/turnSchema';
+} from '../../schema-validations/turnSchema';
 import ReactDatePicker from 'react-datepicker';
 import { es } from 'date-fns/locale';
-import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
+import { InputWithFeedback } from '../../../plan-details/elements/InputWithFeedback';
 
 export const TurnsInputForm = ({ formik }) => {
 	return (

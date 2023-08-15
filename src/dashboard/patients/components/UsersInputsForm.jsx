@@ -1,7 +1,7 @@
 import { Col, Form, Row } from 'react-bootstrap';
-import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
-import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
+import { InputWithFeedback } from '../../../plan-details/elements/InputWithFeedback';
 import { useEffect } from 'react';
+import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 
 export const UsersInputsForm = ({
 	formik,

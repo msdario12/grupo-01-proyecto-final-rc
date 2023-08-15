@@ -1,12 +1,10 @@
-import React from 'react';
-import { TurnsForm } from '../components/TurnsForm';
-import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { TurnsForm } from '../turns/components/TurnsForm';
 
 export const NewTurnPage = ({ title }) => {
 	useDocumentTitle(title);
 	return (
-		<div>		
+		<div>
 			<TurnsForm />
 		</div>
 	);

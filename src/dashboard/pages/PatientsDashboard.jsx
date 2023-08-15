@@ -1,5 +1,5 @@
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
-import { PatientsTable } from '../components/PatientsTable';
+import { PatientsTable } from '../patients/components/PatientsTable';
 
 export const PatientsDashboard = ({ title }) => {
 	useDocumentTitle(title);

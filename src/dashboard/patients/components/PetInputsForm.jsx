@@ -1,6 +1,6 @@
 import { Col, Form, Row } from 'react-bootstrap';
-import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
-import { animalsSpecies } from '../../plan-details/components/FormGroupDetailPlans';
+import { InputWithFeedback } from '../../../plan-details/elements/InputWithFeedback';
+import { animalsSpecies } from '../../../plan-details/components/FormGroupDetailPlans';
 
 export const PetInputsForm = ({ formik }) => {
 	return (

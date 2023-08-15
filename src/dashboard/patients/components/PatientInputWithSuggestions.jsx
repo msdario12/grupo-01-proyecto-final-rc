@@ -1,8 +1,8 @@
 import { Button, InputGroup, ListGroup, Spinner } from 'react-bootstrap';
-import { InputWithFeedback } from '../../plan-details/elements/InputWithFeedback';
+import { InputWithFeedback } from '../../../plan-details/elements/InputWithFeedback';
 import { useContext, useState } from 'react';
-import { ToastContext } from '../../context/ToastContext';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { ToastContext } from '../../../context/ToastContext';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 
 export const PatientInputWithSuggestions = ({
 	formik,

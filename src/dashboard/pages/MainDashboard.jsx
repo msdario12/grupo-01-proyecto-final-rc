@@ -1,7 +1,7 @@
 import { useAuth } from '../../hooks/useAuth';
 import { useDocumentTitle } from '../../hooks/useDocumentTitle';
-import { MainTableTurns } from '../components/MainTableTurns';
-import { WelcomeInfo } from '../components/WelcomeInfo';
+import { WelcomeInfo } from '../main/components/WelcomeInfo';
+import { MainTableTurns } from '../turns/components/MainTableTurns';
 
 export const MainDashboard = ({ title }) => {
 	useDocumentTitle(title);

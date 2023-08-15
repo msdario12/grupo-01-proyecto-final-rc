@@ -1,13 +1,13 @@
 import * as Yup from 'yup';
-import { UsersInputsForm } from './UsersInputsForm';
 import { useFormik } from 'formik';
-import { userSchema } from '../schema-validations/userSchema';
+import { userSchema } from '../../schema-validations/userSchema';
 import { useContext, useEffect, useState } from 'react';
 import { Button, Form, Spinner } from 'react-bootstrap';
-import { ToastContext } from '../../context/ToastContext';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { CustomAlertResponse } from './CustomAlertResponse';
-import { GenericEditPageContext } from '../../context/GenericEditPageContext';
+import { ToastContext } from '../../../context/ToastContext';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { CustomAlertResponse } from '../../components/CustomAlertResponse';
+import { GenericEditPageContext } from '../../../context/GenericEditPageContext';
+import { UsersInputsForm } from './UsersInputsForm';
 
 const userEditSchema = Yup.object({ ...userSchema });
 

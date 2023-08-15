@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faWarning } from '@fortawesome/free-solid-svg-icons';
 import { useContext } from 'react';
-import { ToastContext } from '../../context/ToastContext';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
-import { useAuth } from '../../hooks/useAuth';
+import { ToastContext } from '../../../context/ToastContext';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import {
+	formatDateCustom,
+	formatTimeCustom,
+} from '../../../helpers/format-dates';
+import { useAuth } from '../../../hooks/useAuth';
 
 export const DeletePatientPage = (props) => {
 	const [patientData, setPatientData] = useState();
