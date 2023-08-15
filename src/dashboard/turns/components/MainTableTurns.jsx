@@ -1,17 +1,20 @@
 import { useEffect, useState } from 'react';
 import { Badge, Button, Spinner, Table } from 'react-bootstrap';
-import { CustomTh } from './CustomTh';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { useAuth } from '../../hooks/useAuth';
-import { TurnStatusBadge } from '../elements/TurnStatusBadge';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
+import { useAuth } from '../../../hooks/useAuth';
+import { TurnStatusBadge } from '../../elements/TurnStatusBadge';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faRemove } from '@fortawesome/free-solid-svg-icons';
-import { GenericEditPage } from '../pages/GenericEditPage';
+import { GenericEditPage } from '../../elements/GenericEditPage';
 import { TurnEditPage } from '../pages/TurnEditPage';
 import { DeleteTurnPage } from '../pages/DeleteTurnPage';
-import { formatDateCustom, formatTimeCustom } from '../../helpers/format-dates';
+import {
+	formatDateCustom,
+	formatTimeCustom,
+} from '../../../helpers/format-dates';
 import { NewTurnModal } from '../pages/NewTurnModal';
 import { useLocation } from 'react-router-dom';
+import { CustomTh } from '../../ui/components/CustomTh';
 
 const columnList = [
 	{ title: 'Fecha', name: 'date' },

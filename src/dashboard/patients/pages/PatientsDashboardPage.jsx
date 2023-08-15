@@ -1,7 +1,7 @@
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
 import { PatientsTable } from '../components/PatientsTable';
 
-export const PatientsDashboard = ({ title }) => {
+export const PatientsDashboardPage = ({ title }) => {
 	useDocumentTitle(title);
 	return (
 		<>

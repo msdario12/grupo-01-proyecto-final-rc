@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { InputWithFeedback } from '../elements/InputWithFeedback';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { CustomAlertResponse } from '../../dashboard/components/CustomAlertResponse';
+import { CustomAlertResponse } from '../../dashboard/ui/components/CustomAlertResponse';
 
 // Opciones del select de especie de animales
 export const animalsSpecies = [

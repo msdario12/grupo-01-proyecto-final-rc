@@ -4,7 +4,7 @@ import { useContext, useState } from 'react';
 import { Button, Card, Form, Spinner } from 'react-bootstrap';
 import { backendAPI } from '../api/backendAPI';
 import { AuthContext } from '../context/AuthProvider';
-import { CustomAlertResponse } from '../dashboard/components/CustomAlertResponse';
+import { CustomAlertResponse } from '../dashboard/ui/components/CustomAlertResponse';
 export const LoginScreen = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');

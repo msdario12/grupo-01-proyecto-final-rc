@@ -1,18 +1,17 @@
-import { Alert, Button, Card, Col, Form, Row, Spinner } from 'react-bootstrap';
+import { Button, Card, Col, Form, Row, Spinner } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useContext, useEffect, useState } from 'react';
 import * as Yup from 'yup';
-import { UsersInputsForm } from './UsersInputsForm';
-import { PetInputsForm } from './PetInputsForm';
-import { userSchema } from '../schema-validations/userSchema';
-import { petSchema } from '../schema-validations/petSchema';
-import { ToastContext } from '../../context/ToastContext';
-import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
-import { backendAPI } from '../../api/backendAPI';
+import { userSchema } from '../../schema-validations/userSchema';
+import { petSchema } from '../../schema-validations/petSchema';
+import { ToastContext } from '../../../context/ToastContext';
+import { HeaderTitleDashboard } from '../../elements/HeaderTitleDashboard';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 import { useLocation, useNavigate } from 'react-router';
-import { CustomAlertResponse } from './CustomAlertResponse';
+import { PetInputsForm } from './PetInputsForm';
+import { UsersInputsForm } from './UsersInputsForm';
+import { CustomAlertResponse } from '../../ui/components/CustomAlertResponse';
 
 const patientSchema = Yup.object({
 	...userSchema,
@@ -25,7 +24,6 @@ export const NewPatientForm = ({
 }) => {
 	const [isUserInfoLoaded, setIsUserInfoLoaded] = useState(false);
 	const [redirectToTurns, setRedirectToTurns] = useState(false);
-	const [dataToEdit, setDataToEdit] = useState();
 	const { addToast } = useContext(ToastContext);
 	const { privateBackendAPI } = useAxiosPrivate();
 	const navigate = useNavigate();

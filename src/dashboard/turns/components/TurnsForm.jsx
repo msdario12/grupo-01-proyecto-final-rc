@@ -1,17 +1,17 @@
 import { Button, Form, Spinner } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { PatientInputWithSuggestions } from './PatientInputWithSuggestions';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useAxiosPrivate } from '../../hooks/useAxiosPrivate';
+import { useAxiosPrivate } from '../../../hooks/useAxiosPrivate';
 import 'react-datepicker/dist/react-datepicker.css';
 import * as Yup from 'yup';
-import { turnSchema } from '../schema-validations/turnSchema';
-import { ToastContext } from '../../context/ToastContext';
-import { CustomAlertResponse } from './CustomAlertResponse';
-import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
+import { turnSchema } from '../../schema-validations/turnSchema';
+import { ToastContext } from '../../../context/ToastContext';
+import { HeaderTitleDashboard } from '../../elements/HeaderTitleDashboard';
+import { PatientInputWithSuggestions } from '../../patients/components/PatientInputWithSuggestions';
+import { PatientInfoCard } from '../../patients/components/PatientInfoCard';
 import { TurnsInputForm } from './TurnsInputForm';
-import { PatientInfoCard } from './PatientInfoCard';
+import { CustomAlertResponse } from '../../ui/components/CustomAlertResponse';
 
 export const vetList = ['Juarez', 'Alvarez', 'Rodriguez'];
 

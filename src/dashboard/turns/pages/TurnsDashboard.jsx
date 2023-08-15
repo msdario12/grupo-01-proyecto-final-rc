@@ -1,6 +1,6 @@
-import { useDocumentTitle } from '../../hooks/useDocumentTitle';
+import { useDocumentTitle } from '../../../hooks/useDocumentTitle';
+import { HeaderTitleDashboard } from '../../elements/HeaderTitleDashboard';
 import { MainTableTurns } from '../components/MainTableTurns';
-import { HeaderTitleDashboard } from '../elements/HeaderTitleDashboard';
 
 export const TurnsDashboard = ({ title }) => {
 	useDocumentTitle(title);
