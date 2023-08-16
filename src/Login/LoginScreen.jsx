@@ -5,7 +5,9 @@ import { Button, Card, Form, Spinner } from 'react-bootstrap';
 import { backendAPI } from '../api/backendAPI';
 import { AuthContext } from '../context/AuthProvider';
 import { CustomAlertResponse } from '../dashboard/ui/components/CustomAlertResponse';
-export const LoginScreen = () => {
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
+export const LoginScreen = ({ title }) => {
+	useDocumentTitle(title);
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [emailError, setEmailError] = useState(true);

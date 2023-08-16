@@ -108,7 +108,7 @@ export const MainNavBar = ({
 							as={NavLink}
 							to={'/about-us'}
 							state={{ prevUrl: location }}>
-							Nuestra Empresa
+						Nuestra Empresa
 						</Nav.Link>
 					</Nav>
 				</Navbar.Collapse>
@@ -147,7 +147,7 @@ export const MainNavBar = ({
 								{
 									<div className='d-flex gap-3 align-items-center'>
 										<FontAwesomeIcon icon={faSignIn} />
-										<span>Acceder</span>
+										<span>Acceso de admin</span>
 									</div>
 								}
 							</Nav.Link>

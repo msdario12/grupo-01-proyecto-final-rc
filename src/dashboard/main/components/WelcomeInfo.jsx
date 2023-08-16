@@ -9,12 +9,13 @@ import {
 } from '../../../helpers/format-dates';
 import { formatDistanceToNow } from 'date-fns';
 import es from 'date-fns/locale/es';
+import { useAuth } from '../../../hooks/useAuth';
 
 export const WelcomeInfo = () => {
 	const { privateBackendAPI } = useAxiosPrivate();
 	const [welcomeData, setWelcomeData] = useState();
 	const { addToast } = useContext(ToastContext);
-
+	const { auth } = useAuth();
 	useEffect(() => {
 		privateBackendAPI
 			.get('/api/statistics')
@@ -25,7 +26,7 @@ export const WelcomeInfo = () => {
 				// eslint-disable-next-line no-console
 				console.error(e);
 			});
-	}, [addToast]);
+	}, [addToast, auth]);
 
 	if (!welcomeData) {
 		return (
@@ -75,32 +76,38 @@ export const WelcomeInfo = () => {
 					<WelcomeInfoCard>
 						<WelcomeInfoCard.Title title='Próximos turnos' />
 						<div className='row gy-3 my-auto'>
-							{nextTurns.map((turn) => (
-								<div
-									key={turn._id}
-									className='col-6 col-md-12 col-xl-6 d-flex gap-2 align-items-center justify-content-around'>
-									<div className='d-flex justify-content-center flex-column align-items-center gap-0'>
-										<h2 className='mb-1'>{formatTimeCustom(turn.date)}</h2>
-										<p className='mb-1 small'>{formatDateCustom(turn.date)}</p>
-										<p className='small'>
-											(
-											{formatDistanceToNow(new Date(turn.date), {
-												locale: es,
-												addSuffix: true,
-											})}
-											)
-										</p>
+							{nextTurns.length > 0 ? (
+								nextTurns.map((turn) => (
+									<div
+										key={turn._id}
+										className='col-6 col-md-12 col-xl-6 d-flex gap-2 align-items-center justify-content-around'>
+										<div className='d-flex justify-content-center flex-column align-items-center gap-0'>
+											<h2 className='mb-1'>{formatTimeCustom(turn.date)}</h2>
+											<p className='mb-1 small'>
+												{formatDateCustom(turn.date)}
+											</p>
+											<p className='small'>
+												(
+												{formatDistanceToNow(new Date(turn.date), {
+													locale: es,
+													addSuffix: true,
+												})}
+												)
+											</p>
+										</div>
+										<div className='d-flex flex-column justify-content-center align-items-end'>
+											<span className='text-muted text-capitalize fw-bold fs-5'>
+												{turn.patient_id.pet_id.name}
+											</span>
+											<span className='text-muted text-capitalize'>
+												{turn.patient_id.pet_id.specie}
+											</span>
+										</div>
 									</div>
-									<div className='d-flex flex-column justify-content-center align-items-end'>
-										<span className='text-muted text-capitalize fw-bold fs-5'>
-											{turn.patient_id.pet_id.name}
-										</span>
-										<span className='text-muted text-capitalize'>
-											{turn.patient_id.pet_id.specie}
-										</span>
-									</div>
-								</div>
-							))}
+								))
+							) : (
+								<span className='text-center'>No hay turnos</span>
+							)}
 						</div>
 					</WelcomeInfoCard>
 				</div>
@@ -116,7 +123,7 @@ export const WelcomeInfo = () => {
 						</div>
 						<div className='d-flex gap-2 align-items-baseline justify-content-between'>
 							<span className='text-muted'>Tipo de mascota más común: </span>
-							<h5 className='text-capitalize'>{mostCommonSpecie[0]._id}</h5>
+							<h5 className='text-capitalize'>{mostCommonSpecie[0]?._id}</h5>
 						</div>
 
 						<div className='d-flex gap-2 align-items-baseline justify-content-between'>

@@ -120,6 +120,9 @@ export const DeletePatientPage = (props) => {
 				)}
 			</Modal.Body>
 			<Modal.Footer>
+				<p className='text-muted small'>
+					Los turnos del paciente seleccionado también serán eliminados
+				</p>
 				<Button
 					variant='danger'
 					disabled={isLoading}
