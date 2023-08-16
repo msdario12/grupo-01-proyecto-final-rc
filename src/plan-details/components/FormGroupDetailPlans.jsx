@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import { InputWithFeedback } from '../elements/InputWithFeedback';
 import { useRef, useState } from 'react';
 import emailjs from '@emailjs/browser';
-import { CustomAlertResponse } from '../../dashboard/components/CustomAlertResponse';
+import { CustomAlertResponse } from '../../dashboard/ui/components/CustomAlertResponse';
 
 // Opciones del select de especie de animales
 export const animalsSpecies = [
@@ -27,12 +27,12 @@ const consultFormSchema = Yup.object({
 	userName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	lastName: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 	email: Yup.string()
 		.email('Introduzca una dirección de email valida')
@@ -57,14 +57,14 @@ const consultFormSchema = Yup.object({
 	petRace: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(40, 'Máximo de 40 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto'),
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto'),
 	planSelect: Yup.string()
 		.optional()
 		.oneOf(vetPlans.map((plan) => plan.name)),
 	consult: Yup.string()
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(255, 'Máximo de 255 caracteres')
-		.matches(/^[aA-zZ\s]+$/, 'Sólo letras del alfabeto')
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto')
 		.required('Campo obligatorio'),
 });
 
@@ -89,8 +89,7 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 			consult: '',
 		},
 		validationSchema: consultFormSchema,
-		onSubmit: (values) => {
-			console.log(values);
+		onSubmit: () => {
 			setIsLoading(true);
 			emailjs
 				.sendForm(
@@ -100,20 +99,20 @@ export const FormGroupDetailPlans = ({ selectedPlan }) => {
 					'IA7y8FZdE1Zr4Ky_M'
 				)
 				.then(
-					(result) => {
+					() => {
 						setShowAlert(true);
 						setIsLoading(false);
-						console.log(result.text);
+
 						setResponse({
 							success: true,
 							message:
 								'Se envió correctamente un email a la dirección ingresada.',
 						});
 					},
-					(error) => {
+					() => {
 						setShowAlert(true);
 						setIsLoading(false);
-						console.log(error.text);
+
 						setResponse({
 							success: false,
 							message: 'Hubo un error al enviar el mail.',

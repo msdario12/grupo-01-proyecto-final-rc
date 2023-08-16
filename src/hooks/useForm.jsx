@@ -48,7 +48,6 @@ export const useForm = (initialForm, validateForm, formRef) => {
 			)
 			.then(
 				(result) => {
-					console.log(result.text);
 					if (Object.keys(errors).length === 0) {
 						Swal.fire({
 							title: 'Consulta enviada',
@@ -59,7 +58,6 @@ export const useForm = (initialForm, validateForm, formRef) => {
 					}
 				},
 				(error) => {
-					console.log(error.text);
 					Swal.fire({
 						title: 'Error al enviar',
 						text: 'Contacte al administrador',

@@ -8,7 +8,6 @@ export const useSocketIOData = () => {
 	useEffect(() => {
 		function onConnect() {
 			setIsConnected(true);
-			console.log('conexion');
 		}
 
 		function onDisconnect() {
@@ -17,7 +16,6 @@ export const useSocketIOData = () => {
 
 		function onFooEvent(value) {
 			setEvents((previous) => [...previous, value]);
-			console.log('🎟 de cliente', value);
 		}
 
 		socket.on('connect', onConnect);

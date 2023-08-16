@@ -12,7 +12,7 @@ export const filterPassedTime = (time) => {
 	const openMorning = setHours(new Date(time), 8);
 	const closeMorning = setHours(new Date(time), 12);
 	const openAfternoon = setHours(new Date(time), 16);
-	const closeAfternoon = setHours(new Date(time), 20);
+	const closeAfternoon = setHours(new Date(time), 22);
 	const selectedDate = new Date(time);
 
 	const morningCheck =
@@ -36,12 +36,11 @@ export const turnEditSchema = {
 		.test('Es fuera de horario', 'Debe ser desde 8 a 12 ó 16 a 20hs', (value) =>
 			filterPassedTime(value)
 		),
-
 	details: Yup.string()
 		.required('Campo obligatorio')
 		.min(3, 'Mínimo de 3 caracteres')
 		.max(150, 'Máximo de 150 caracteres')
-		.matches(/^[a-zA-Z\s]*$/, 'Sólo letras del alfabeto'),
+		.matches(/^[,.\w\-\s]+$/, 'Sólo letras del alfabeto'),
 	vet: Yup.string()
 		.required('Campo obligatorio')
 		.oneOf(
@@ -52,5 +51,12 @@ export const turnEditSchema = {
 
 export const turnSchema = {
 	multiSearch: Yup.string().required('Campo obligatorio'),
+	turnDate: Yup.date().test(
+		'Fecha anterior',
+		'No puede ser una fecha pasada',
+		(value) => {
+			return value > new Date();
+		}
+	),
 	...turnEditSchema,
 };

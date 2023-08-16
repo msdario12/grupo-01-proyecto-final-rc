@@ -1,22 +1,23 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { HomePage } from '../home/pages/HomePage';
-import { MainDashboard } from '../dashboard/pages/MainDashboard';
 import { Error404Page } from '../error-404/pages/Error404Page';
-import { PatientsDashboard } from '../dashboard/pages/PatientsDashboard';
-import { TurnsDashboard } from '../dashboard/pages/TurnsDashboard';
+import { PatientsDashboardPage } from '../dashboard/patients/pages/PatientsDashboardPage';
+import { TurnsDashboard } from '../dashboard/turns/pages/TurnsDashboard';
 import { AboutUs } from '../home/pages/About-us';
 import { ContactPage } from '../contact/pages/ContactPage';
 import { LoginScreen } from '../Login/LoginScreen';
 import { DetailPlansPage } from '../plan-details/pages/DetailPlansPage';
 import { DashboardLayout } from '../dashboard/ui/DashboardLayout';
 import { NavbarLayout } from '../ui/pages/NavbarLayout';
-import { NewPatientForm } from '../dashboard/components/NewPatientForm';
 import { RequireAuth } from '../auth/components/RequireAuth';
 import { GenericModal } from '../ui/components/GenericModal';
 import { OurDevelopers } from '../our-developers/page/OurDevelopers';
 import { UnauthorizedPage401 } from '../ui/pages/UnauthorizedPage401';
-import { NewTurnPage } from '../dashboard/pages/NewTurnPage';
-import { PatientDetailPage } from '../dashboard/pages/PatientDetailPage';
+import { NewTurnPage } from '../dashboard/turns/pages/NewTurnPage';
+import { PatientDetailPage } from '../dashboard/patients/pages/PatientDetailPage';
+import { NewPatientForm } from '../dashboard/patients/components/NewPatientForm';
+import { MainDashboardPage } from '../dashboard/main/pages/MainDashboardPage';
+import { TurnReservationPage } from '../turn-reservation/pages/TurnReservationPage';
 
 export const AppRouter = () => {
 	return (
@@ -51,18 +52,22 @@ export const AppRouter = () => {
 							path='our-developers'
 							element={<OurDevelopers title={'Nuestro equipo'} />}
 						/>
-						<Route path='login' element={<LoginScreen />} />
+						<Route path='login' element={<LoginScreen title={'Login'} />} />
+						<Route
+							path='turn-reservation'
+							element={<TurnReservationPage title={'Reserva un turno'} />}
+						/>
 					</Route>
 					{/* Estas rutas son solo para administrador - protegidas */}
 					<Route element={<RequireAuth />}>
 						<Route path='/dashboard' element={<DashboardLayout />}>
 							<Route
 								index
-								element={<MainDashboard title={'Panel administrador'} />}
+								element={<MainDashboardPage title={'Panel administrador'} />}
 							/>
 							<Route
 								path='patients'
-								element={<PatientsDashboard title={'Pacientes'} />}
+								element={<PatientsDashboardPage title={'Pacientes'} />}
 							/>
 							<Route
 								path='turns'

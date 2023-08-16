@@ -1,4 +1,6 @@
+import { Button } from 'react-bootstrap';
 import './Hero.css';
+import { Link } from 'react-router-dom';
 
 export const HeroSection = () => {
 	return (
@@ -13,17 +15,21 @@ export const HeroSection = () => {
 				</h5>
 				<div className='d-flex gap-3'>
 					{/* Redirigir hacia una pagina de contacto con el administrador */}
-					<button className='btn btn-primary px-4 py-2'>Reservar Turno</button>
+					<Button
+						as={Link}
+						to={'/turn-reservation'}
+						className='btn btn-primary px-4 py-2'>
+						Reservar Turno
+					</Button>
 					{/* Redirigir a una pagina de contacto, con un mapa con ubicación */}
-					<button className='btn btn-secondary px-4 py-2'>Donde estamos</button>
+					<Button
+						as={Link}
+						to={'/about-us'}
+						className='btn btn-secondary px-4 py-2'>
+						Donde estamos
+					</Button>
 				</div>
 			</div>
-
-			{/* <img
-					className='img-fluid'
-					src='https://images.unsplash.com/photo-1521247560470-d2cbfe2f7b47?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80'
-					alt='Imagen principal de una veterinaria'
-				/> */}
 		</section>
 	);
 };

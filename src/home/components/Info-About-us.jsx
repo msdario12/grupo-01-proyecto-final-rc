@@ -1,10 +1,8 @@
-import React from 'react';
-
 export const InfoAboutUs = () => {
 	return (
 		<>
 			<div className='container-card container-lg mb-5'>
-				<div className='content-card-aboutus row overflow-hidden'>
+				<div className='row overflow-hidden'>
 					<div className='col-12 col-md-6 px-0 mb-3 mb-md-0'>
 						<img
 							className='img-fluid object-fit-cover w-100 h-100'
@@ -13,7 +11,6 @@ export const InfoAboutUs = () => {
 						/>
 					</div>
 					<div className='col-12 col-md-6  fs-5 px-5 d-flex flex-column justify-content-around align-align-items-center'>
-						<h2 className='display-3 fw-semibold'>Sobre nosotros</h2>
 						<p>
 							RollingVet es una empresa familiar con más de 60 años en el rubro
 							veterinario. Comenzó siendo la más famosa peluquería canina para

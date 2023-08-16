@@ -2,10 +2,10 @@ import { Outlet } from 'react-router';
 import { MainNavBar } from '../../ui/components/MainNavBar';
 import { useContext, useEffect, useState } from 'react';
 import { ToastContext } from '../../context/ToastContext';
-import { CustomToast } from '../components/CustomToast';
-import { OffCanvasSideBar } from '../components/OffCanvasSideBar';
-import { SideMenu } from '../components/SideMenu';
-import { FooterDashboard } from '../components/Footer-Dashboard';
+import { CustomToast } from './components/CustomToast';
+import { OffCanvasSideBar } from './components/OffCanvasSideBar';
+import { SideMenu } from './components/SideMenu';
+import { FooterDashboard } from './components/Footer-Dashboard';
 import { SocketIOContext } from '../../context/SocketIOContext';
 
 export const DashboardLayout = () => {
@@ -15,7 +15,7 @@ export const DashboardLayout = () => {
 		message: '',
 		variant: 'success',
 	});
-	const { isConnected, events } = useContext(SocketIOContext);
+	const { events } = useContext(SocketIOContext);
 	const [toastList, setToastList] = useState([]);
 
 	const addToast = (toast) => {
