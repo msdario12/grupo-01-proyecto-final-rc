@@ -108,7 +108,7 @@ export const MainNavBar = ({
 							as={NavLink}
 							to={'/about-us'}
 							state={{ prevUrl: location }}>
-							Nuestra Empresa
+						Nuestra Empresa
 						</Nav.Link>
 					</Nav>
 				</Navbar.Collapse>
