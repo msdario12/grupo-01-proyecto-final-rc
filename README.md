@@ -8,11 +8,26 @@
 
 [Link deploy](https://rolling-vet23.netlify.app/)
 
+[Link tablero Trello](https://trello.com/b/6trD7CYg/grupo-1-proyecto-final-rc)
+
 Se trata de un proyecto compuesto por la parte de front-end, backend y base de datos. En este repositorio solo se encuentra la parte del front-end, el backend esta en el repositorio del link.
 
 - [backend-repositorio](https://github.com/msdario12/backend-grupo-01-proyecto-final-rc)
 
 Se siguieron unos requerimientos dados y se práctico todo lo aprendido en el curso mas investigación por cuenta propia.
+
+## Usuarios con permisos de administrador
+
+```
+user: dario@admin.com
+password: adminadmin
+
+user: matias@admin.com
+password: adminadmin
+
+user: melany@admin.com
+password: adminadmin
+```
 
 ## Descripción
 
