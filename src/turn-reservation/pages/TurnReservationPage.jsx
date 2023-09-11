@@ -81,7 +81,7 @@ export const TurnReservationPage = ({ title }) => {
                                 setResponse({
                                     success: true,
                                     message:
-                                        "Se envió un email a la dirección ingresada para recordarle información acerca de su turno",
+                                        "Se envió un email a la dirección ingresada para informarle acerca de su turno",
                                 });
                             },
                             () => {
@@ -115,10 +115,6 @@ export const TurnReservationPage = ({ title }) => {
 
                         return;
                     }
-                    // addToast({
-                    //     variant: "error",
-                    //     message: "Error al crear el turno -" + e?.response?.data?.message,
-                    // });
                     setResponse(e?.response?.data);
                     setShowAlert(true);
                     setIsLoading(false);
